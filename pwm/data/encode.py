@@ -3,7 +3,8 @@
 Per row: read the first ``4*(T-1)+1`` frames (Wan VAE causal ``4n+1`` rule; a shorter source is padded by
 repeating its last frame), resize + center-crop to ``height×width`` (bilinear, antialiased), scale to ``[-1, 1]``,
 encode with the Wan2.2 VAE (deterministic mean), normalise ``(z - mean) / std``; tokenise the caption to exactly
-``text_len`` templated tokens (``pack.fit_text_ids``). Existing outputs are skipped (resumable); ``clips.jsonl``
+``text_len`` templated tokens (``pack.text_ids_and_valid``: a short caption is padded and ``text_valid`` records
+where the padding starts, a long one is trimmed). Existing outputs are skipped (resumable); ``clips.jsonl``
 is written last as the completeness marker. Runs on CPU.
 
 Manifest row (JSONL): ``{"id": str, "video": path | "videos": [paths], "caption": str, "fps"?: float,
@@ -97,7 +98,7 @@ def encode_row(
     text_len: int,
     default_fps: float,
 ) -> dict:
-    from pwm.data.pack import fit_text_ids  # noqa: PLC0415
+    from pwm.data.pack import text_ids_and_valid  # noqa: PLC0415
 
     skip = int(row.get("skip_frames", 0))
     need = 4 * (latent_t - 1) + 1 + skip
@@ -127,9 +128,11 @@ def encode_row(
     video, n_real = frames_to_video_tensor(frames[skip:], latent_t, height, width)
     latent = encode_normalized(video, vae)
     assert torch.isfinite(latent).all(), f"non-finite latent for {row['id']}"
+    text_ids, text_valid = text_ids_and_valid(tok, row["caption"], text_len)
     return {
         "latent": latent.cpu(),
-        "text_ids": fit_text_ids(tok, row["caption"], text_len),
+        "text_ids": text_ids,
+        "text_valid": text_valid,
         "cond_latent_frames": int(row.get("cond_latent_frames", 0)),
         "caption": row["caption"],
         "src": " || ".join(srcs),

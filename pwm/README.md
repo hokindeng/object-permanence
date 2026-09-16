@@ -351,8 +351,9 @@ flowchart TD
 
 ### 6. Data encoding: mp4 → clip.pt
 
-From `pwm/data/encode.py`, `pwm/data/pack.py::fit_text_ids` and `pwm/inference/decode.py::load_vae`. Every clip
-has one static shape; too few frames, a wrong frame rate or a caption that cannot fill `text_len` are errors.
+From `pwm/data/encode.py`, `pwm/data/pack.py::text_ids_and_valid` and `pwm/inference/decode.py::load_vae`. Every clip
+has one static shape; too few frames or a wrong frame rate are errors. A caption shorter than `text_len` is padded
+and the clip records `text_valid` (the pads are hidden from the vision rows, as at inference); a longer one is trimmed.
 
 ```mermaid
 flowchart LR
@@ -363,7 +364,7 @@ flowchart LR
   RF --> FV
   RS --> FV["frames_to_video_tensor(frames[skip:])<br/>frames < 4(T-1)+1 → ValueError<br/>resize_center_crop → [-1,1]"]
   FV --> VAE["Wan2.2 VAE encode → (z - mean) / std<br/>latent [1,48,T,H/16,W/16] fp32"]
-  M --> TK["fit_text_ids(tok, caption, text_len)<br/>trim to exactly text_len after templating; too short → ValueError"]
+  M --> TK["text_ids_and_valid(tok, caption, text_len)<br/>short → pad + text_valid; long → trim to text_len"]
   VAE --> OUT["clip.pt: latent · text_ids · cond_latent_frames · caption · src · fps · real_px_frames"]
   TK --> OUT
   OUT --> AT["write .pt.tmp → rename (atomic) · clips.jsonl"]
@@ -371,9 +372,9 @@ flowchart LR
 
 ### 7. Sequence layout and two-way attention
 
-From `pwm/model/attention.py` (module docstring, `sdpa_two_way`, `pad_key_bias`) and
+From `pwm/model/attention.py` (module docstring, `sdpa_two_way`, `pad_key_mask`) and
 `pwm/data/pack.py::build_positions`. Text rows attend to text only, causally; vision rows attend to all N keys;
-padding keys added at inference are hidden from the vision rows by `key_bias = -inf`, which the NKI path cannot
+padding keys of a short caption or prompt are hidden from the vision rows by `key_mask` (`where(mask, -inf)`), which the NKI path cannot
 express and therefore rejects.
 
 ```mermaid
@@ -385,7 +386,7 @@ graph LR
   T -->|"causal_text_attention: sees text[0..i] only"| T
   V -->|"full_attention_explicit: sees text + vision"| T
   V --> V
-  P -.->|"key_bias -inf: invisible to vision rows"| V
+  P -.->|"key_mask: invisible to vision rows"| V
   V -.->|"nki_flash: contiguous bounds, cannot mask the middle → ValueError"| NK["nki_two_way"]
 ```
 
@@ -410,7 +411,7 @@ classDiagram
     +Tower und
     +Tower gen
     +str backend  sdpa | nki_flash
-    +forward(h, text_len, cos, sin, key_bias)
+    +forward(h, text_len, cos, sin, key_mask)
   }
   class Tower {
     +RMSNorm norm1

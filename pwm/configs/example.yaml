@@ -36,7 +36,7 @@ data:
   height: 288                           # pixels; latent = /16, patches = /32
   width: 512
   cond_latent_frames: 0                 # v2v clean-prefix latent frames (0 = t2v)
-  text_len: 128                         # fixed templated token length; shorter captions are refused
+  text_len: 128                         # fixed templated token length; shorter captions are padded (hidden from vision), longer trimmed
   fps: 24.0
   temporal_margin: 15000                # mRoPE temporal offset between text and vision
 

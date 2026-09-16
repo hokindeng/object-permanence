@@ -223,7 +223,7 @@ def fit_text_ids(tok, caption: str, text_len: int) -> torch.Tensor:
     """Trim the caption so the full text slice has exactly ``text_len`` tokens (static shape).
 
     Cut the raw caption to ``n`` tokens, re-template, nudge ``n`` until the templated length hits the target.
-    Raises if the caption is too short to reach ``text_len``.
+    Raises if the caption is too short to reach ``text_len`` (``text_ids_and_valid`` pads that case instead).
     """
     raw = tok(caption, add_special_tokens=False)["input_ids"]
     n = min(len(raw), max(text_len, 1))
@@ -237,6 +237,18 @@ def fit_text_ids(tok, caption: str, text_len: int) -> torch.Tensor:
         if n > len(raw):
             break
     raise ValueError(f"cannot fit caption ({len(raw)} raw tokens) to templated length {text_len}")
+
+
+def text_ids_and_valid(tok, caption: str, text_len: int) -> tuple[torch.Tensor, int]:
+    """Training: the caption's text slice at exactly ``text_len``. A caption that templates to ``text_len`` or
+    fewer tokens is right-padded (``pad_text_ids``; the pads are hidden from the vision rows via ``text_valid``,
+    as at inference); a longer one is trimmed (``fit_text_ids``). Returns ``(ids, text_valid)``."""
+    ids = text_ids_for(tok, caption)
+    if ids.shape[0] <= text_len:
+        if tok.pad_token_id is None:
+            raise ValueError("tokenizer has no pad token; cannot pad captions to text_len")
+        return pad_text_ids(ids, text_len, tok.pad_token_id)
+    return fit_text_ids(tok, caption, text_len), text_len
 
 
 def pad_text_ids(ids: torch.Tensor, text_len: int, pad_id: int) -> tuple[torch.Tensor, int]:

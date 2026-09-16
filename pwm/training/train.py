@@ -392,8 +392,9 @@ def training_step(
         head_dim=mc.head_dim,
         rope_theta=mc.rope_theta,
         mrope_section=mc.mrope_section,
+        text_valid=clip.get("text_valid"),  # padded caption: pads keep their positions, hidden from the vision rows
     )
-    out = model(*pk.model_inputs(device))  # [Nv,192]
+    out = model(*pk.model_inputs(device), text_valid=pk.text_valid)  # [Nv,192]
     pred = unpatchify(out.to(torch.float32), pk.grid)
     loss = flow_loss(pred, pk.target.to(pred.device), pk.noisy_frame_mask.to(pred.device))
     return loss, sigma
