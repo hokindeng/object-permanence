@@ -1,0 +1,39 @@
+{
+  "id": "G79",
+  "title": "Venetian Blinds",
+  "name": "venetian_blinds",
+  "members": [
+    125
+  ],
+  "member_scripts": [
+    "pb_task_00000125_pb_venetian_blinds_0126_blender.py"
+  ],
+  "description": "Two objects sit on a table. In front of them hangs a set of horizontal venetian-blind slats, initially edge-on (open) so the objects are visible between them. The slats all rotate to lie flat and fully occlude the objects, hold, then rotate back to edge-on, revealing the same two objects unchanged.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "blind_y",
+          "scope": "build_venetian_blinds"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "bottom_z",
+          "scope": "build_venetian_blinds"
+        }
+      }
+    }
+  }
+}

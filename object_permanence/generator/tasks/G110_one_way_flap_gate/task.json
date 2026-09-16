@@ -1,0 +1,39 @@
+{
+  "id": "G110",
+  "title": "One Way Flap Gate",
+  "name": "one_way_flap_gate",
+  "members": [
+    156
+  ],
+  "member_scripts": [
+    "pb_task_00000156_pb_one_way_flap_gate_0157_blender.py"
+  ],
+  "description": "A hinged one-way flap gate stands across a clean flat lane. A ball rolling in from the open side pushes the flap open and passes through; the flap swings shut behind it. A second ball rolling in from the stop side meets the stop-backed flap, which cannot open that way, and is halted at the gate -- coming to rest against the ball that passed, unable to get through.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "flap_h",
+          "scope": "build_one_way_flap_gate"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "flap_thick",
+          "scope": "build_one_way_flap_gate"
+        }
+      }
+    }
+  }
+}

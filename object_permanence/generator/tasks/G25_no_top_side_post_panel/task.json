@@ -1,0 +1,41 @@
+{
+  "id": "G25",
+  "title": "No Top Side Post Panel",
+  "name": "no_top_side_post_panel",
+  "members": [
+    94,
+    96
+  ],
+  "member_scripts": [
+    "pb_task_00000094_pb_no_top_frame_side_post_panel_hides_ball_cube_0095_blender.py",
+    "pb_task_00000096_pb_no_top_frame_connected_side_rail_panel_hides_ball_cube_0097_blender.py"
+  ],
+  "description": "A side-post-mounted panel hides objects behind it.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "left_post_x",
+          "scope": "build_no_top_side_post_panel"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "right_post_x",
+          "scope": "build_no_top_side_post_panel"
+        }
+      }
+    }
+  }
+}

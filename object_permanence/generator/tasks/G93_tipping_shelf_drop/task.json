@@ -1,0 +1,39 @@
+{
+  "id": "G93",
+  "title": "Tipping Shelf Drop",
+  "name": "tipping_shelf_drop",
+  "members": [
+    139
+  ],
+  "member_scripts": [
+    "pb_task_00000139_pb_tipping_shelf_drop_0140_blender.py"
+  ],
+  "description": "A ball rests on a flat shelf that is held level by a support prop under one end. The prop slides out; with that end unsupported the shelf tips down, and the ball rolls off the low end, falls to the floor, bounces briefly, and rolls to rest. Nothing remains suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SHELF_LEN_X",
+          "scope": "build_tipping_shelf_drop_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SHELF_LEN_Y",
+          "scope": "build_tipping_shelf_drop_scene"
+        }
+      }
+    }
+  }
+}

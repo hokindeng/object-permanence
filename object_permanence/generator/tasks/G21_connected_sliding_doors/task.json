@@ -1,0 +1,30 @@
+{
+  "id": "G21",
+  "title": "Connected Sliding Doors",
+  "name": "connected_sliding_doors",
+  "members": [
+    85,
+    86
+  ],
+  "member_scripts": [
+    "pb_task_00000085_pb_connected_sliding_doors_hide_center_ball_0086_blender.py",
+    "pb_task_00000086_pb_connected_sliding_doors_hide_ball_cube_0087_blender.py"
+  ],
+  "description": "Connected sliding doors close over a center object and reopen.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "y",
+          "scope": "build_connected_sliding_doors"
+        }
+      }
+    }
+  }
+}

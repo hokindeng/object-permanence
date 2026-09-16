@@ -1,0 +1,37 @@
+{
+  "id": "G28",
+  "title": "Open Ended Tunnel",
+  "name": "open_ended_tunnel",
+  "members": [
+    8
+  ],
+  "member_scripts": [
+    "pb_task_00000008_pb_multi_object_identity_occlusion_0009_blender.py"
+  ],
+  "description": "An object travels through an open-ended tunnel, hidden in the middle.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TUNNEL_HEIGHT_Z"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TUNNEL_LENGTH_X"
+        }
+      }
+    }
+  }
+}

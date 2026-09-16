@@ -1,0 +1,39 @@
+{
+  "id": "G58",
+  "title": "Two Ball Trapdoor Size Filter",
+  "name": "two_ball_trapdoor_size_filter",
+  "members": [
+    104
+  ],
+  "member_scripts": [
+    "pb_task_00000104_pb_two_ball_trapdoor_size_filter_0105_blender.py"
+  ],
+  "description": "A small ball and a large ball roll onto a gray platform with a circular hole in the middle. The small ball, narrower than the hole, falls straight through into the space below; the large ball, wider than the hole, cannot pass and comes to rest on the platform. Neither object stays suspended without support.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "HOLE_R",
+          "scope": "build_two_ball_trapdoor_size_filter_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "PLATFORM_TOP_Z",
+          "scope": "build_two_ball_trapdoor_size_filter_scene"
+        }
+      }
+    }
+  }
+}

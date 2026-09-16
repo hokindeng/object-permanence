@@ -1,0 +1,48 @@
+{
+  "id": "G14",
+  "title": "U Tube Three Lanes",
+  "name": "u_tube_three_lanes",
+  "members": [
+    61,
+    62,
+    63,
+    64,
+    65,
+    66
+  ],
+  "member_scripts": [
+    "pb_task_00000061_pb_three_balls_parallel_left_u_tracks_rby_0062_blender.py",
+    "pb_task_00000062_pb_three_balls_parallel_left_u_tracks_ryb_0063_blender.py",
+    "pb_task_00000063_pb_three_balls_parallel_left_u_tracks_bry_0064_blender.py",
+    "pb_task_00000064_pb_three_balls_parallel_left_u_tracks_byr_0065_blender.py",
+    "pb_task_00000065_pb_three_balls_parallel_left_u_tracks_yrb_0066_blender.py",
+    "pb_task_00000066_pb_three_balls_parallel_left_u_tracks_ybr_0067_blender.py"
+  ],
+  "description": "Three coloured balls travel parallel U-tube lanes, preserve identity, then rolling resistance gradually slows them to rest on the open rails.",
+  "preview_event_frame": 120,
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "INITIAL_SPEED"
+        }
+      }
+    }
+  }
+}

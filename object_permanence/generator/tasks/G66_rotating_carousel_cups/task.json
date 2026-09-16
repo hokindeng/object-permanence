@@ -1,0 +1,42 @@
+{
+  "id": "G66",
+  "title": "Rotating Carousel Of Cups",
+  "name": "rotating_carousel_cups",
+  "members": [
+    112
+  ],
+  "member_scripts": [
+    "pb_task_00000112_pb_rotating_carousel_cups_0113_blender.py"
+  ],
+  "description": "Three identical opaque cups stand on a round turntable; a ball is shown under the front cup before it lowers over the ball. The turntable then rotates 180 degrees, carrying all three cups around with it. When it stops, the cup that began at the front is now at the back; that cup lifts to reveal the ball still under it - the ball moved with its cup rotationally, rather than staying at the original front position.",
+  "video_split": {
+    "method": "before_event",
+    "event": "cups covering, carousel turning; lift at 101 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CUP_ORBIT_RADIUS"
+        }
+      }
+    }
+  }
+}

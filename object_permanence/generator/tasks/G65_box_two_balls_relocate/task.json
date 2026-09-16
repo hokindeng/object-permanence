@@ -1,0 +1,42 @@
+{
+  "id": "G65",
+  "title": "Box With Two Balls Relocates",
+  "name": "box_two_balls_relocate",
+  "members": [
+    111
+  ],
+  "member_scripts": [
+    "pb_task_00000111_pb_box_two_balls_relocate_0112_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "box closed after loading; reveal at 98 stays in target",
+    "first_target_frame": 61
+  },
+  "description": "An open-topped box holds two balls, one red and one green. A lid closes over the box, hiding the balls; the box then slides across the table to a new position and comes to rest. The lid lifts to show both balls still inside the box - both still present, having travelled with the container rather than staying at the original spot.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_END_X"
+        }
+      }
+    }
+  }
+}

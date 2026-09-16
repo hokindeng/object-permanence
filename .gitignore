@@ -1,0 +1,37 @@
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+env/
+.ruff_cache/
+
+# editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# generated dataset output (object_permanence)
+out/
+out_*/
+output/
+permanence_blender_outputs/
+**/permanence_blender_outputs/
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.npz
+*.blend
+*.blend1
+*.log
+
+# pwm host mounts
+/weights/
+/neff_cache/

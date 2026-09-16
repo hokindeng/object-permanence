@@ -1,0 +1,39 @@
+{
+  "id": "G47",
+  "title": "Theater Curtain",
+  "name": "theater_curtain",
+  "members": [
+    54
+  ],
+  "member_scripts": [
+    "pb_task_00000054_pb_theater_curtain_hides_stage_objects_0055_blender.py"
+  ],
+  "description": "A theater curtain closes over stage objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "curtain_y",
+          "scope": "build_theater_curtain"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "half_w",
+          "scope": "build_theater_curtain"
+        }
+      }
+    }
+  }
+}

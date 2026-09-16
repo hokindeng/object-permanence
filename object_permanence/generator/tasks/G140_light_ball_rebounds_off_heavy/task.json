@@ -1,0 +1,43 @@
+{
+  "id": "G140",
+  "title": "Light Ball Rebounds Off Heavy",
+  "name": "light_ball_rebounds_off_heavy",
+  "members": [
+    186
+  ],
+  "member_scripts": [
+    "pb_task_00000186_pb_light_ball_rebounds_off_heavy_0187_blender.py"
+  ],
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_contact",
+    "event_frame": 40,
+    "first_target_frame": 40
+  },
+  "description": "A small light ball rolls into a large heavy stationary ball. On impact the light ball rebounds backward, reversing direction and rolling back the way it came before settling, while the heavy ball only creeps forward slightly. Both balls remain; neither passes through the other.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "HEAVY_X"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "INCOMING_SPEED"
+        }
+      }
+    }
+  }
+}

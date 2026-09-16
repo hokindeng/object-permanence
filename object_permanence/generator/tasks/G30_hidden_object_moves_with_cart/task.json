@@ -1,0 +1,37 @@
+{
+  "id": "G30",
+  "title": "Hidden Object Moves With Cart",
+  "name": "hidden_object_moves_with_cart",
+  "members": [
+    10
+  ],
+  "member_scripts": [
+    "pb_task_00000010_pb_hidden_object_moves_with_cart_0011_blender.py"
+  ],
+  "description": "A moving cart carries a hidden object.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CART_FINAL_X"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CART_LEN_X"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "G142",
+  "title": "Knock Ball Off Ledge",
+  "name": "knock_ball_off_ledge",
+  "members": [
+    188
+  ],
+  "member_scripts": [
+    "pb_task_00000188_pb_knock_ball_off_ledge_0189_blender.py"
+  ],
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_contact",
+    "event_frame": 36,
+    "first_target_frame": 36
+  },
+  "description": "A ball rolls along the top of a raised platform toward a second ball resting at the platform's front edge. It strikes the resting ball, which is knocked off the edge, falls to the floor below, bounces once and rolls to a stop. The rolling ball halts at the edge after the strike. Both balls are conserved; nothing appears or vanishes."
+  ,"diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.20, "max": 0.28, "precision": 3},
+      "cue_start_x": {"type": "uniform", "min": -2.6, "max": -2.1, "precision": 3},
+      "edge_x": {"type": "uniform", "min": 0.48, "max": 0.72, "precision": 3},
+      "gravity": {"type": "uniform", "min": 0.011, "max": 0.016, "precision": 4},
+      "launch_speed": {"type": "uniform", "min": 0.065, "max": 0.095, "precision": 4},
+      "platform_height": {"type": "uniform", "min": 0.90, "max": 1.12, "precision": 3},
+      "restitution": {"type": "uniform", "min": 0.35, "max": 0.55, "precision": 3},
+      "rolling_friction": {"type": "uniform", "min": 0.03, "max": 0.055, "precision": 4}
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "G150",
+  "title": "Rollers Part Drop",
+  "name": "rollers_part_drop",
+  "members": [
+    196
+  ],
+  "member_scripts": [
+    "pb_task_00000196_pb_rollers_part_drop_0197_blender.py"
+  ],
+  "description": "A ball rests nestled in the valley between two parallel horizontal rollers. The two rollers move apart sideways; once the gap exceeds the ball, it drops straight down between them to the floor and bounces to rest. It is never suspended in mid-air.",
+  "video_split": {
+    "method": "before_event",
+    "event": "roller gap reaches ball diameter; support lost, free fall begins",
+    "first_target_frame": 39
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "R_BALL",
+          "scope": "build_rollers_part_drop_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "D0",
+          "scope": "build_rollers_part_drop_scene"
+        }
+      }
+    }
+  }
+}

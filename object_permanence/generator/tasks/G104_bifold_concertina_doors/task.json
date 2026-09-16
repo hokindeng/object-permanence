@@ -1,0 +1,39 @@
+{
+  "id": "G104",
+  "title": "Bifold Concertina Doors",
+  "name": "bifold_concertina_doors",
+  "members": [
+    150
+  ],
+  "member_scripts": [
+    "pb_task_00000150_pb_bifold_concertina_doors_0151_blender.py"
+  ],
+  "description": "Two objects sit on a table. A pair of bi-fold doors, hinged in the middle, unfold from the left and right until they meet and fully cover the objects, hold, then fold back open — revealing the same two objects, unchanged.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "door_h",
+          "scope": "build_bifold_concertina_doors"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "door_t",
+          "scope": "build_bifold_concertina_doors"
+        }
+      }
+    }
+  }
+}

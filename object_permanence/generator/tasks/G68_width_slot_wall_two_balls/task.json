@@ -1,0 +1,39 @@
+{
+  "id": "G68",
+  "title": "Width Slot Wall Two Balls",
+  "name": "width_slot_wall_two_balls",
+  "members": [
+    114
+  ],
+  "member_scripts": [
+    "pb_task_00000114_pb_width_slot_wall_two_balls_0115_blender.py"
+  ],
+  "description": "A standing wall blocks a flat track, but it has a narrow vertical slot cut through its middle. A narrow ball rolls up and passes cleanly through the slot to the far side; a wide ball, too big for the slot, is stopped by the wall and comes to rest against it. Neither ball is ever suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SLOT_WIDTH",
+          "scope": "build_width_slot_wall_two_balls_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SLOT_TOP_Z",
+          "scope": "build_width_slot_wall_two_balls_scene"
+        }
+      }
+    }
+  }
+}

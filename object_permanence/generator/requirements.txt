@@ -1,0 +1,8 @@
+# Python dependency: numpy (required even for `object-permanence --version` — trajectory export
+# and metadata assembly import it). It is declared in pyproject.toml, which is the
+# source of truth; `pip install -e .` pulls it in. This file is informational.
+#
+# Host tools required (not pip-installable here):
+#   - Blender >= 4.2 (EEVEE_NEXT) — runs core/render.py
+#   - ffmpeg                       — frames -> mp4
+numpy

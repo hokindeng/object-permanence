@@ -1,0 +1,59 @@
+{
+  "id": "G24",
+  "title": "Pivoting Occluder",
+  "name": "pivoting_occluder",
+  "members": [
+    91,
+    92,
+    93
+  ],
+  "member_scripts": [
+    "pb_task_00000091_pb_hinged_book_page_occludes_three_objects_0092_blender.py",
+    "pb_task_00000092_pb_tall_pivoting_sign_fully_hides_single_ball_0093_blender.py",
+    "pb_task_00000093_pb_tall_pivoting_sign_fully_hides_three_shapes_0094_blender.py"
+  ],
+  "description": "A pivoting sign or hinged page swings shut to hide objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000091_pb_hinged_book_page_occludes_three_objects_0092_blender.py": "panel_h",
+            "pb_task_00000092_pb_tall_pivoting_sign_fully_hides_single_ball_0093_blender.py": "hinge_x",
+            "pb_task_00000093_pb_tall_pivoting_sign_fully_hides_three_shapes_0094_blender.py": "hinge_x"
+          },
+          "scope_by_script": {
+            "pb_task_00000091_pb_hinged_book_page_occludes_three_objects_0092_blender.py": "build_hinged_page",
+            "pb_task_00000092_pb_tall_pivoting_sign_fully_hides_single_ball_0093_blender.py": "build_tall_pivot_sign",
+            "pb_task_00000093_pb_tall_pivoting_sign_fully_hides_three_shapes_0094_blender.py": "build_tall_pivot_sign"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000091_pb_hinged_book_page_occludes_three_objects_0092_blender.py": "panel_w",
+            "pb_task_00000092_pb_tall_pivoting_sign_fully_hides_single_ball_0093_blender.py": "hinge_z",
+            "pb_task_00000093_pb_tall_pivoting_sign_fully_hides_three_shapes_0094_blender.py": "hinge_z"
+          },
+          "scope_by_script": {
+            "pb_task_00000091_pb_hinged_book_page_occludes_three_objects_0092_blender.py": "build_hinged_page",
+            "pb_task_00000092_pb_tall_pivoting_sign_fully_hides_single_ball_0093_blender.py": "build_tall_pivot_sign",
+            "pb_task_00000093_pb_tall_pivoting_sign_fully_hides_three_shapes_0094_blender.py": "build_tall_pivot_sign"
+          }
+        }
+      }
+    }
+  }
+}

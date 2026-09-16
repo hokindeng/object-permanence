@@ -1,0 +1,38 @@
+{
+  "id": "G103",
+  "title": "Corner Turn Occlusion",
+  "name": "corner_turn_occlusion",
+  "members": [
+    149
+  ],
+  "member_scripts": [
+    "pb_task_00000149_pb_corner_turn_occlusion_0150_blender.py"
+  ],
+  "description": "A ball rolls along an L-shaped track. At the bend it passes behind a solid corner pillar and is hidden, then re-emerges travelling along the perpendicular leg, the same ball continuing its journey.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "pillar_h",
+          "scope": "build_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G39",
+  "title": "Lidded Box Ball Enters",
+  "name": "lidded_box_ball_enters",
+  "members": [
+    31
+  ],
+  "member_scripts": [
+    "pb_task_00000031_pb_lidded_box_ball_enters_then_hidden_0032_blender.py"
+  ],
+  "description": "A ball enters a lidded box and is hidden.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_lidded_box_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "box_w",
+          "scope": "build_lidded_box_scene"
+        }
+      }
+    }
+  }
+}

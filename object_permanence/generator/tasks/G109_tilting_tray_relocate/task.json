@@ -1,0 +1,42 @@
+{
+  "id": "G109",
+  "title": "Tilting Tray Relocate",
+  "name": "tilting_tray_relocate",
+  "members": [
+    155
+  ],
+  "member_scripts": [
+    "pb_task_00000155_pb_tilting_tray_relocate_0156_blender.py"
+  ],
+  "description": "An object rests in an OPEN tray, plainly visible at the near end. A lid closes over it; the tray then tilts so the hidden object slides under the cover to the far end and the tray levels out; finally the lid lifts at that far end to reveal the same object has moved there, unchanged.",
+  "video_split": {
+    "method": "before_event",
+    "event": "tray lid closed after loading; open at 101 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "WALL_H"
+        }
+      }
+    }
+  }
+}

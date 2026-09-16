@@ -1,0 +1,37 @@
+{
+  "id": "G33",
+  "title": "Partial Window Parallel Cars",
+  "name": "partial_window_parallel_cars",
+  "members": [
+    15
+  ],
+  "member_scripts": [
+    "pb_task_00000015_pb_partial_window_parallel_cars_0016_blender.py"
+  ],
+  "description": "Parallel wheeled cars pass behind a partial window.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BLUE_TRACK_Y"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CAR_LENGTH"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "G92",
+  "title": "Bumper Carom",
+  "name": "bumper_carom",
+  "members": [
+    138
+  ],
+  "member_scripts": [
+    "pb_task_00000138_pb_bumper_carom_0139_blender.py"
+  ],
+  "preview_event_frame": 58,
+  "video_split": {
+    "method": "before_event",
+    "event": "ball_bumper_contact",
+    "first_target_frame": 58
+  },
+  "description": "A ball rolls across a flat surface toward a fixed round bumper post (a cylinder). It strikes the side of the bumper off-center and caroms off along a new direction set by the bumper's curved surface, losing a little speed, then rolls on and settles. It is never suspended and does not pass through the bumper.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_bumper_carom"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "wedge_h",
+          "scope": "build_bumper_carom"
+        }
+      }
+    }
+  }
+}

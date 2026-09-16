@@ -1,0 +1,33 @@
+{
+  "id": "G17",
+  "title": "Moving Tray",
+  "name": "moving_tray",
+  "members": [
+    74,
+    75
+  ],
+  "member_scripts": [
+    "pb_task_00000074_pb_moving_tray_behind_screen_preserves_objects_0075_blender.py",
+    "pb_task_00000075_pb_two_lane_trays_pass_behind_screen_0076_blender.py"
+  ],
+  "description": "A moving tray carries objects behind a fixed screen (one or two lanes).",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "tray_width_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "tray_width",
+          "scope_by_script": {
+            "pb_task_00000074_pb_moving_tray_behind_screen_preserves_objects_0075_blender.py": "build_moving_tray_ball_cube_inside",
+            "pb_task_00000075_pb_two_lane_trays_pass_behind_screen_0076_blender.py": "build_two_lane_trays_objects_inside"
+          }
+        }
+      }
+    }
+  }
+}

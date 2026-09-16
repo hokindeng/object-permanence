@@ -1,0 +1,39 @@
+{
+  "id": "G101",
+  "title": "Picket Fence Flicker",
+  "name": "picket_fence_flicker",
+  "members": [
+    147
+  ],
+  "member_scripts": [
+    "pb_task_00000147_pb_picket_fence_flicker_0148_blender.py"
+  ],
+  "description": "A ball rolls at a steady speed along a straight rail behind a row of evenly spaced vertical posts. As it passes behind each post it is briefly hidden, then reappears in the gap between posts — the same ball, moving at the same speed — and rolls on past the last post.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "rail_radius",
+          "scope": "build_picket_fence_flicker_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "rail_y",
+          "scope": "build_picket_fence_flicker_scene"
+        }
+      }
+    }
+  }
+}

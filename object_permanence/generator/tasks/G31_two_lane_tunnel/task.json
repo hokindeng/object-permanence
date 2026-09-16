@@ -1,0 +1,37 @@
+{
+  "id": "G31",
+  "title": "Two Lane Tunnel",
+  "name": "two_lane_tunnel",
+  "members": [
+    11
+  ],
+  "member_scripts": [
+    "pb_task_00000011_pb_multi_object_identity_tunnel_0012_blender.py"
+  ],
+  "description": "Objects travel two-lane tunnels; identity is preserved.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TUNNEL_WALL_T"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TUNNEL_X_MAX"
+        }
+      }
+    }
+  }
+}

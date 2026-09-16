@@ -1,0 +1,30 @@
+{
+  "id": "G94",
+  "title": "Trapdoor Drop",
+  "name": "trapdoor_drop",
+  "members": [
+    140
+  ],
+  "member_scripts": [
+    "pb_task_00000140_pb_trapdoor_drop_0141_blender.py"
+  ],
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.20, "max": 0.40, "precision": 3},
+      "ball_x": {"type": "uniform", "min": 0.00, "max": 0.20, "precision": 3},
+      "camera_preset": {"type": "choice", "values": ["left_low", "right_high"]},
+      "gravity": {"type": "uniform", "min": 0.010, "max": 0.024, "precision": 4},
+      "hole_width": {"type": "uniform", "min": 0.90, "max": 1.50, "precision": 3},
+      "open_end_frame": {"type": "integer", "min": 30, "max": 46},
+      "platform_height": {"type": "uniform", "min": 1.25, "max": 1.95, "precision": 3},
+      "restitution": {"type": "uniform", "min": 0.25, "max": 0.75, "precision": 3}
+    }
+  },
+  "video_split": {
+    "method": "before_event",
+    "event": "trapdoor_release",
+    "first_target_frame": 25
+  },
+  "description": "A ball rests on a trapdoor set into a raised platform. The trapdoor swings open downward on its hinge, removing the support; the ball falls straight down through the hole in the platform, lands on the floor below, bounces briefly, and settles. Nothing remains suspended and nothing appears or vanishes."
+}

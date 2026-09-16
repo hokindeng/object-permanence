@@ -1,0 +1,28 @@
+{
+  "id": "G44",
+  "title": "Two Balls Collide And Bounce",
+  "name": "two_balls_collide_and_bounce",
+  "members": [
+    39
+  ],
+  "member_scripts": [
+    "pb_task_00000039_pb_two_balls_collide_and_bounce_0040_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "ball_contact",
+    "first_target_frame": 60
+  },
+  "description": "Two balls collide and bounce apart.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4
+      }
+    }
+  }
+}

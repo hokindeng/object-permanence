@@ -1,0 +1,81 @@
+# The one config file. Every key `config.py` knows is listed here with the production value:
+# 36-layer Cosmos3-Nano, 288x512 px, latent_t 30, tp4 x fsdp16 (64 cores = one trn2.48xlarge).
+# A YAML is a partial override of the dataclass defaults, so a copy may drop any key it does not change;
+# an unknown key raises. Shapes are static: text_len, latent_t, height and width define the compiled graph.
+#
+# Geometry: 288x512 px -> latent 18x32 -> 2x2 patches -> 9x16 = 144 tokens/frame; latent_t 30 -> 4,320 vision
+# tokens + 128 text = 4,448 packed tokens (one NEFF shape).
+#
+# Variants (copy this file and change the noted keys; `wrop.yaml` is the PWM-WROP recipe of the paper):
+#   inference on one trn2.3xlarge (4 cores)   parallel.fsdp: 1        (36 layers bf16 = 29 GB -> 7.3 GB/core)
+#   2-layer parity geometry / CPU plumbing     model.layers: 2, device: cpu, model.dtype: float32, parallel: 1x1
+
+checkpoint_dir: /weights/Cosmos3-Nano   # diffusers layout: transformer/, vae/, text_tokenizer/
+weights_dir: ""                         # transformer weights to load instead (e.g. a Hokin/PWM-WROP download); "" = the base
+device: neuron                          # neuron | cpu
+
+model:                                  # constants come from the checkpoint's transformer/config.json
+  layers: 36
+  dim: 4096
+  heads: 32
+  kv_heads: 8
+  head_dim: 128
+  ffn_dim: 12288
+  vocab_size: 151936
+  rms_eps: 1.0e-6
+  rope_theta: 5.0e+6
+  mrope_section: [24, 20, 20]
+  attention_backend: sdpa               # sdpa | nki_flash (flash beyond ~8k tokens; its backward caps at 8,192)
+  dtype: bfloat16                       # model/activation dtype; the time embedder stays fp32
+  rope_dtype: model                     # model (cos/sin cast to activation dtype, as upstream) | float32
+  gradient_checkpointing: true
+
+data:
+  clips_dir: /out/data/clips_288x512_t30   # encoded clips (<id>.pt) written by `pwm.cli encode`
+  latent_t: 30
+  height: 288                           # pixels; latent = /16, patches = /32
+  width: 512
+  cond_latent_frames: 0                 # v2v clean-prefix latent frames (0 = t2v)
+  text_len: 128                         # fixed templated token length; shorter captions are refused
+  fps: 24.0
+  temporal_margin: 15000                # mRoPE temporal offset between text and vision
+
+diffusion:
+  sigma_kind: waver                     # waver | logitnormal | uniform
+  train_shift: 5.0                      # upstream: 256p -> 3, 480p -> 5, 720p -> 10
+
+parallel:
+  tp: 4
+  fsdp: 16                              # tp * fsdp ranks; the CLI re-execs itself under torchrun
+  compile: true                         # per-block torch.compile(backend="neuron", dynamic=false)
+  reshard_after_forward: false          # keep the gathered bf16 block weights resident between forward and backward (no backward all-gather)
+  reshard_after_forward_blocks: 24      # ... on the first 24 of 36 blocks: 64-rank A/B 2026-09-09 5.69 -> 5.20 s/step (-8.6%), losses equal to 5 digits;
+                                        # peak 13.1 GiB/rank. ALL 36 resident OOMs at the first clip (alloc 14.6 but NRT reserved 20.5 GiB).
+  fsdp_mixed_precision: true            # fp32 shards, bf16 all-gather, fp32 reduce
+  tp_sync_replicated_grads: true        # average TP-replicated grads each step; off, the TP copies drift on Neuron
+  fsdp_forward_prefetch: 2              # FSDP2 explicit prefetch (blocks ahead / behind); 0 = FSDP2 default
+  fsdp_backward_prefetch: 2             # with foreach AdamW: 6.84 -> 5.71 s/step at tp4 x fsdp16 (README, Performance notes)
+
+training:
+  optimizer_mode: foreach               # chunk_sync | foreach (multi-tensor AdamW, one sync per step)
+  optimizer_sync_every: 32              # chunk_sync: params per device sync (foreach ignores the pacing)
+  lr: 1.0e-5
+  betas: [0.9, 0.95]
+  weight_decay: 0.0
+  eps: 1.0e-8
+  warmup_steps: 10
+  max_steps: 1000
+  grad_accum: 1
+  max_grad_norm: 1.0
+  skip_step_grad_norm: 1000.0           # all ranks skip the step above this pre-clip norm
+  save_every: 100
+  ckpt_dir: /out/nano_288x512_t30       # per-rank checkpoints; a rerun resumes from the last complete step
+  seed: 1234
+  log_every: 1
+
+inference:
+  steps: 35                             # UniPC steps
+  guidance: 6.0                         # CFG scale
+  shift: 5.0
+  seed: 1234
+  negative_prompt: ""

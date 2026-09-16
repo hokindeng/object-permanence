@@ -1,0 +1,37 @@
+{
+  "id": "G121",
+  "title": "Wiper Screen Occlusion",
+  "name": "wiper_screen_occlusion",
+  "members": [
+    167
+  ],
+  "member_scripts": [
+    "pb_task_00000167_pb_wiper_screen_occlusion_0168_blender.py"
+  ],
+  "description": "A single object stands on a table. A tall vertical screen, hinged at its base on one side, sweeps horizontally across in front of the object like a windshield wiper -- fully covering the object at the middle of its sweep, then continuing on and uncovering it. The screen ends clear of the object, which is unchanged and in the same place.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SCREEN_HEIGHT"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SCREEN_LENGTH"
+        }
+      }
+    }
+  }
+}

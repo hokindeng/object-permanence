@@ -1,0 +1,40 @@
+{
+  "id": "G69",
+  "title": "Two Tier Trapdoor Cascade",
+  "name": "two_tier_trapdoor_cascade",
+  "members": [
+    115
+  ],
+  "member_scripts": [
+    "pb_task_00000115_pb_two_tier_trapdoor_cascade_0116_blender.py"
+  ],
+  "description": "A ball rests on an upper platform that has a hinged trapdoor. The trapdoor opens and the ball falls through onto a lower platform below, makes two small diminishing rebounds, and settles. That lower platform then opens its own trapdoor, and the ball falls again down to the floor, where it makes two smaller rebounds before settling. Each fall accelerates under gravity; the ball is never left suspended after a trapdoor opens.",
+  "preview_event_frame": 94,
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_two_tier_trapdoor_cascade_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "LOWER_TOP_Z",
+          "scope": "build_two_tier_trapdoor_cascade_scene"
+        }
+      }
+    }
+  }
+}

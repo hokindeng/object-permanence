@@ -1,0 +1,39 @@
+{
+  "id": "G67",
+  "title": "Double Deflector Zigzag",
+  "name": "double_deflector_zigzag",
+  "members": [
+    113
+  ],
+  "member_scripts": [
+    "pb_task_00000113_pb_double_deflector_zigzag_0114_blender.py"
+  ],
+  "description": "A ball is released and falls onto a left-leaning angled wall, which deflects it to the right; it then strikes a right-leaning angled wall lower down, which deflects it back to the left, zigzagging downward. Each elastic bounce loses a little speed, and the ball lands on the floor and keeps rolling to the left as the clip ends.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_double_deflector_zigzag"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "x_shift",
+          "scope": "build_double_deflector_zigzag"
+        }
+      }
+    }
+  }
+}

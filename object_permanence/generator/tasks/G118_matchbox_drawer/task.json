@@ -1,0 +1,39 @@
+{
+  "id": "G118",
+  "title": "Matchbox Drawer",
+  "name": "matchbox_drawer",
+  "members": [
+    164
+  ],
+  "member_scripts": [
+    "pb_task_00000164_pb_matchbox_drawer_0165_blender.py"
+  ],
+  "description": "A matchbox sits on a surface: a static outer sleeve, open on its two opposite ends, with an inner tray that fits inside it. At the start the tray is slid OUT and a single colored object rests plainly visible in the open tray. The inner tray then slides straight back INTO the sleeve horizontally, carrying the object with it, until the object is fully hidden inside the closed sleeve; it holds closed briefly, then the tray slides back OUT and the SAME object is revealed again in clear view. The object rides on the tray the whole time and is the same object throughout; the outer sleeve never moves and the object rests on the tray floor without clipping the sleeve.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_matchbox_drawer"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "face_h",
+          "scope": "build_matchbox_drawer"
+        }
+      }
+    }
+  }
+}

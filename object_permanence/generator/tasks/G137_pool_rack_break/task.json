@@ -1,0 +1,38 @@
+{
+  "id": "G137",
+  "title": "Pool Rack Break",
+  "name": "pool_rack_break",
+  "members": [
+    183
+  ],
+  "member_scripts": [
+    "pb_task_00000183_pb_pool_rack_break_0184_blender.py"
+  ],
+  "preview_event_frame": 34,
+  "description": "A ball rolls across a flat surface and strikes a triangular rack of six resting balls. On impact the rack breaks apart - the balls scatter outward along diverging directions and roll to rest - while the striker slows. All balls remain, the total count is conserved, and no ball passes through another.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "RACK_APEX_X"
+        }
+      }
+    }
+  }
+}

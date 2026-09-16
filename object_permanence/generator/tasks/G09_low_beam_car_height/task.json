@@ -1,0 +1,41 @@
+{
+  "id": "G09",
+  "title": "Low Beam Car Height",
+  "name": "low_beam_car_height",
+  "members": [
+    42,
+    43,
+    44
+  ],
+  "member_scripts": [
+    "pb_task_00000042_pb_red_tall_car_blocked_by_low_beam_0043_blender.py",
+    "pb_task_00000043_pb_blue_short_car_passes_low_beam_0044_blender.py",
+    "pb_task_00000044_pb_red_blue_parallel_cars_low_beam_0045_blender.py"
+  ],
+  "description": "A tall vehicle is blocked by a low beam while a short one passes underneath.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BEAM_BOTTOM_Z"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CAR_SPEED"
+        }
+      }
+    }
+  }
+}

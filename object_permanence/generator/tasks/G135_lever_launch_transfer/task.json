@@ -1,0 +1,37 @@
+{
+  "id": "G135",
+  "title": "Lever Launch Transfer",
+  "name": "lever_launch_transfer",
+  "members": [
+    181
+  ],
+  "member_scripts": [
+    "pb_task_00000181_pb_lever_launch_transfer_0182_blender.py"
+  ],
+  "description": "A ball drops onto the raised end of a see-saw lever resting on a fulcrum. The impact drives that end down and swings the other end up, launching a second ball that was resting on it into a short arc through the air. The launched ball rises, then falls back and settles on the floor, while the dropped ball moves down with the lever, rolls off its lowered end, and settles on the floor. Energy transfers through the lever; nothing appears or vanishes.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_A_DROP_Z"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "_BALL_A_EXIT_SPEED"
+        }
+      }
+    }
+  }
+}

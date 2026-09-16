@@ -1,0 +1,29 @@
+{
+  "id": "G136",
+  "title": "Ball Strikes Pendulum",
+  "name": "ball_strikes_pendulum",
+  "members": [
+    182
+  ],
+  "member_scripts": [
+    "pb_task_00000182_pb_ball_strikes_pendulum_0183_blender.py"
+  ],
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.22, "max": 0.30, "precision": 3},
+      "decay": {"type": "uniform", "min": 0.011, "max": 0.017, "precision": 4},
+      "omega": {"type": "uniform", "min": 0.09, "max": 0.11, "precision": 4},
+      "peak_angle": {"type": "uniform", "min": 0.55, "max": 0.78, "precision": 3},
+      "roll_rest_x": {"type": "uniform", "min": -2.0, "max": -1.5, "precision": 3},
+      "roll_start_x": {"type": "uniform", "min": -4.4, "max": -3.8, "precision": 3}
+    }
+  },
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_contact",
+    "event_frame": 26,
+    "first_target_frame": 26
+  },
+  "description": "A ball hangs at rest from a thin string beneath an overhead beam, forming a pendulum bob. A second ball rolls in along the table and strikes the hanging ball at the bottom of its arc. On impact the hanging ball swings up and away along its pendulum arc, decelerating as it rises, reaches an apex, then swings back and oscillates with steadily decaying amplitude, settling back to hanging at rest. The rolling ball slows and stops at contact. Momentum transfers; nothing is left suspended unnaturally."
+}

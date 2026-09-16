@@ -1,0 +1,30 @@
+{
+  "id": "G133",
+  "title": "Ball Topples Block",
+  "name": "ball_topples_block",
+  "members": [
+    179
+  ],
+  "member_scripts": [
+    "pb_task_00000179_pb_ball_topples_block_0180_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "ball_block_contact",
+    "first_target_frame": 40
+  },
+  "description": "A ball rolls across the flat floor and strikes a single standing block. On impact the block tips over away from the ball, rotating about its far bottom edge, and falls flat onto the floor with a small settling bounce. The ball rebounds slightly off the block and eases to a stop near where it struck. Exactly one ball and one block; nothing appears or vanishes."
+  ,"diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.20, "max": 0.28, "precision": 3},
+      "ball_start_x": {"type": "uniform", "min": -3.8, "max": -3.2, "precision": 3},
+      "block_center_x": {"type": "uniform", "min": 0.48, "max": 0.75, "precision": 3},
+      "block_height": {"type": "uniform", "min": 0.88, "max": 1.12, "precision": 3},
+      "block_thickness": {"type": "uniform", "min": 0.22, "max": 0.32, "precision": 3},
+      "rebound_decay": {"type": "uniform", "min": 0.84, "max": 0.92, "precision": 3},
+      "rebound_velocity": {"type": "uniform", "min": -0.04, "max": -0.02, "precision": 4},
+      "topple_land_frame": {"type": "integer", "min": 64, "max": 72}
+    }
+  }
+}

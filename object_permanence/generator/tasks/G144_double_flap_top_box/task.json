@@ -1,0 +1,39 @@
+{
+  "id": "G144",
+  "title": "Double Flap Top Box",
+  "name": "double_flap_top_box",
+  "members": [
+    190
+  ],
+  "member_scripts": [
+    "pb_task_00000190_pb_double_flap_top_box_0191_blender.py"
+  ],
+  "description": "An open gray box sits on a table with a single orange ball visible inside. Its top is formed by two flaps hinged on opposite edges. Starting open, both flaps swing down together and close over the ball, hiding it for a moment. The flaps then swing outward and up again, revealing the same ball still resting inside. The box body and the ball never move.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "flap_thick",
+          "scope": "build_double_flap_top_box"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_double_flap_top_box"
+        }
+      }
+    }
+  }
+}

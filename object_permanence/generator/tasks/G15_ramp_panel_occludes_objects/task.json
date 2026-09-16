@@ -1,0 +1,33 @@
+{
+  "id": "G15",
+  "title": "Ramp Panel Occludes Objects",
+  "name": "ramp_panel_occludes_objects",
+  "members": [
+    67,
+    71
+  ],
+  "member_scripts": [
+    "pb_task_00000067_pb_supported_screen_occludes_three_balls_0068_blender.py",
+    "pb_task_00000071_pb_front_rail_screen_hides_three_shapes_0072_blender.py"
+  ],
+  "description": "Objects roll down a ramp behind a screen or panel and reappear.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "y",
+          "scope_by_script": {
+            "pb_task_00000067_pb_supported_screen_occludes_three_balls_0068_blender.py": "build_supported_screen_three_balls",
+            "pb_task_00000071_pb_front_rail_screen_hides_three_shapes_0072_blender.py": "build_sliding_panel_three_shapes"
+          }
+        }
+      }
+    }
+  }
+}

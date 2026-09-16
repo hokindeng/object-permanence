@@ -1,0 +1,37 @@
+{
+  "id": "G127",
+  "title": "Rising Bollard Stop",
+  "name": "rising_bollard_stop",
+  "members": [
+    173
+  ],
+  "member_scripts": [
+    "pb_task_00000173_pb_rising_bollard_stop_0174_blender.py"
+  ],
+  "description": "A ball rolls along the table toward a spot at constant speed. Before it arrives, a solid cylindrical bollard rises up out of the floor into the ball's path. The ball reaches the bollard and stops against it, blocked, decelerating to rest on contact without passing through the post.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_H0"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "RESTITUTION"
+        }
+      }
+    }
+  }
+}

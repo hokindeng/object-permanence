@@ -1,0 +1,39 @@
+{
+  "id": "G116",
+  "title": "Vault Swing Door",
+  "name": "vault_swing_door",
+  "members": [
+    162
+  ],
+  "member_scripts": [
+    "pb_task_00000162_pb_vault_swing_door_0163_blender.py"
+  ],
+  "description": "A heavy round vault door on a side hinge is closed over the front of a safe. The door swings open about its hinge to reveal an object resting inside the safe, unchanged. The safe body does not move; only the door swings.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "door_thick",
+          "scope": "build_vault_swing_door"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_vault_swing_door"
+        }
+      }
+    }
+  }
+}

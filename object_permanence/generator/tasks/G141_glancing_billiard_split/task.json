@@ -1,0 +1,43 @@
+{
+  "id": "G141",
+  "title": "Glancing Billiard Split",
+  "name": "glancing_billiard_split",
+  "members": [
+    187
+  ],
+  "member_scripts": [
+    "pb_task_00000187_pb_glancing_billiard_split_0188_blender.py"
+  ],
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_contact",
+    "event_frame": 40,
+    "first_target_frame": 40
+  },
+  "description": "A ball rolls across a flat surface and strikes a resting ball off-centre. After the glancing impact the two balls split apart along complementary directions about ninety degrees apart - a billiard break - each rolling away and decelerating to rest. Both balls remain and neither is suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "INCOMING_SPEED"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "G37",
+  "title": "U Track Occluded Ball",
+  "name": "u_track_occluded_ball",
+  "members": [
+    29
+  ],
+  "member_scripts": [
+    "pb_task_00000029_pb_u_track_occluded_ball_continuity_0030_blender.py"
+  ],
+  "description": "A ball travels a U-track behind an occluder.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "U_TRACK_BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TRACK_TOP_Z"
+        }
+      }
+    }
+  }
+}

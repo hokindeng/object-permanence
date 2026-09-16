@@ -1,0 +1,37 @@
+{
+  "id": "G83",
+  "title": "Four Cup Three Swaps",
+  "name": "four_cup_three_swaps",
+  "members": [
+    129
+  ],
+  "member_scripts": [
+    "pb_task_00000129_pb_four_cup_three_swaps_0130_blender.py"
+  ],
+  "description": "Four identical opaque cups stand upside-down in a row on a table; a ball is shown under one cup before it lowers. The cups then slide through three sequential position swaps. When they stop, the cup that covers the ball lifts to reveal the ball stayed inside its cup throughout - it moved with its container, not back to its original world position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CUP_RADIUS"
+        }
+      }
+    }
+  }
+}

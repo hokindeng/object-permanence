@@ -1,0 +1,39 @@
+{
+  "id": "G90",
+  "title": "Funnel Size Sorter",
+  "name": "funnel_size_sorter",
+  "members": [
+    136
+  ],
+  "member_scripts": [
+    "pb_task_00000136_pb_funnel_size_sorter_0137_blender.py"
+  ],
+  "description": "A funnel (a V-shaped chute) has a small round gap at its bottom apex. A small ball dropped into the funnel rolls down to the apex and passes through the gap, falling to the floor below; a large ball, wider than the gap, rolls down but wedges in the funnel and cannot pass. Neither ball is left suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "LARGE_FUNNEL_X",
+          "scope": "build_funnel_size_sorter_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SMALL_FUNNEL_X",
+          "scope": "build_funnel_size_sorter_scene"
+        }
+      }
+    }
+  }
+}

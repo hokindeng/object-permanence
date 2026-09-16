@@ -1,0 +1,31 @@
+{
+  "id": "G100",
+  "title": "Heavy Light Collision",
+  "name": "heavy_light_collision",
+  "members": [
+    146
+  ],
+  "member_scripts": [
+    "pb_task_00000146_pb_heavy_light_collision_0147_blender.py"
+  ],
+  "preview_event_frame": 40,
+  "video_split": {
+    "method": "before_event",
+    "event": "ball_contact",
+    "first_target_frame": 40
+  },
+  "description": "A large heavy ball rolls into a small light stationary ball. On impact the small ball shoots off fast in the direction of travel while the large ball keeps rolling forward, only slightly slowed. Both balls remain; neither passes through the other."
+  ,"diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "heavy_mass": {"type": "uniform", "min": 5.0, "max": 14.0, "precision": 2},
+      "heavy_radius": {"type": "uniform", "min": 0.42, "max": 0.82, "precision": 3},
+      "incoming_speed": {"type": "uniform", "min": 0.05, "max": 0.12, "precision": 4},
+      "light_mass": {"type": "uniform", "min": 0.6, "max": 2.4, "precision": 2},
+      "light_radius": {"type": "uniform", "min": 0.16, "max": 0.42, "precision": 3},
+      "platform_height": {"type": "uniform", "min": 1.5, "max": 3.0, "precision": 3},
+      "restitution": {"type": "uniform", "min": 0.35, "max": 0.95, "precision": 3},
+      "travel_direction": {"type": "choice", "values": ["left_to_right", "right_to_left"]}
+    }
+  }
+}

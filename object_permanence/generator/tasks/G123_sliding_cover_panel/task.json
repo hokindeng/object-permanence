@@ -1,0 +1,37 @@
+{
+  "id": "G123",
+  "title": "Sliding Cover Panel",
+  "name": "sliding_cover_panel",
+  "members": [
+    169
+  ],
+  "member_scripts": [
+    "pb_task_00000169_pb_sliding_cover_panel_0170_blender.py"
+  ],
+  "description": "A single ball rests on the floor. A flat upright cover panel standing on a low track slides sideways in front of the ball, fully hiding it from view; it holds there, then slides back the way it came, revealing the same ball unchanged and in the same place. The ball never moves; nothing appears or vanishes.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "PANEL_H"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "PANEL_T"
+        }
+      }
+    }
+  }
+}

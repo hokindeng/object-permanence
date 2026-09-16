@@ -1,0 +1,42 @@
+{
+  "id": "G125",
+  "title": "Two Carts Reveal Empty",
+  "name": "two_carts_reveal_empty",
+  "members": [
+    171
+  ],
+  "member_scripts": [
+    "pb_task_00000171_pb_two_carts_reveal_empty_0172_blender.py"
+  ],
+  "description": "Two identical covered carts sit at opposite ends of a table. Both covers lift to display their contents: a ball is under the left cart, the right cart is empty. The covers close, and the two carts roll toward each other, cross past one another in the middle, and continue to the opposite ends, the ball riding with its cart. At the end, the cart that was always empty is uncovered to show it is still empty, implying the ball travelled with the other cart.",
+  "video_split": {
+    "method": "before_event",
+    "event": "covers closed after loading; end lift at 109 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CART_D"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G98",
+  "title": "Liftoff Dome Lid",
+  "name": "liftoff_dome_lid",
+  "members": [
+    144
+  ],
+  "member_scripts": [
+    "pb_task_00000144_pb_liftoff_dome_lid_0145_blender.py"
+  ],
+  "description": "A dome-shaped lid (a cloche) sits over an object on a round base. The dome lifts straight up, clearing the object, to reveal it resting on the base. The base does not move; only the dome rises.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "dome_radius",
+          "scope": "build_liftoff_dome_lid"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_liftoff_dome_lid"
+        }
+      }
+    }
+  }
+}

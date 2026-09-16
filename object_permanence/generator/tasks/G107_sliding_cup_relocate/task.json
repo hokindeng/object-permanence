@@ -1,0 +1,27 @@
+{
+  "id": "G107",
+  "title": "Sliding Cup Relocate",
+  "name": "sliding_cup_relocate",
+  "members": [
+    153
+  ],
+  "member_scripts": [
+    "pb_task_00000153_pb_sliding_cup_relocate_0154_blender.py"
+  ],
+  "description": "A ball rests on a table; a single opaque cup is lowered over it, slides sideways along the table to a new position, then lifts to reveal the same ball rode with its container to the new spot.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.13, "max": 0.18, "precision": 3},
+      "cup_radius": {"type": "uniform", "min": 0.39, "max": 0.46, "precision": 3},
+      "start_side": {"type": "choice", "values": ["left", "right"]},
+      "track_y": {"type": "uniform", "min": -0.25, "max": 0.25, "precision": 3},
+      "travel_half_distance": {"type": "uniform", "min": 1.45, "max": 1.95, "precision": 3}
+    }
+  },
+  "video_split": {
+    "method": "before_event",
+    "event": "cup covering, slide underway; lift at 97 stays in target",
+    "first_target_frame": 61
+  }
+}

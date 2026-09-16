@@ -1,0 +1,39 @@
+{
+  "id": "G82",
+  "title": "Accordion Fold Screen",
+  "name": "accordion_fold_screen",
+  "members": [
+    128
+  ],
+  "member_scripts": [
+    "pb_task_00000128_pb_accordion_fold_screen_0129_blender.py"
+  ],
+  "description": "Two objects sit on a table. A folded accordion screen at one side unfolds sideways across in front of them until it fully covers them, holds, then folds back up, revealing the same two objects unchanged.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "cyl_h",
+          "scope": "build_accordion_fold_screen"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "cyl_r",
+          "scope": "build_accordion_fold_screen"
+        }
+      }
+    }
+  }
+}

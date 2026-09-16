@@ -1,0 +1,41 @@
+{
+  "id": "G02",
+  "title": "Ramp Tunnel",
+  "name": "ramp_tunnel",
+  "members": [
+    2,
+    3,
+    4
+  ],
+  "member_scripts": [
+    "pb_task_00000002_pb_occ_ramp_tunnel_0001_blender.py",
+    "pb_task_00000003_pb_occ_ramp_tunnel_side_window_0004_blender.py",
+    "pb_task_00000004_pb_occ_ramp_tunnel_two_balls_0005_blender.py"
+  ],
+  "description": "An object rolls down a ramp, passes through an opaque tunnel, reappears, and continues beyond the downhill table edge until it leaves the frame.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "RAMP_LENGTH"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "RAMP_THICKNESS"
+        }
+      }
+    }
+  }
+}

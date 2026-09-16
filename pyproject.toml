@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "object-permanence"
+dynamic = ["version"]
+description = "Object-permanence video reasoning data factory: Blender-rendered video-to-video samples"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "CC-BY-NC-4.0"}
+authors = [
+    {name = "Hokin Deng"},
+]
+classifiers = [
+    "License :: Free for non-commercial use",
+]
+dependencies = [
+    "numpy>=1.20",
+]
+
+[project.scripts]
+object-permanence = "object_permanence.cli:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "object_permanence.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["object_permanence*"]
+
+[tool.setuptools.package-data]
+"object_permanence.generator" = ["tasks/*/task.json", "tasks/*/*.py"]

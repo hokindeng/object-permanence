@@ -1,0 +1,39 @@
+{
+  "id": "G71",
+  "title": "Double Doors Swing Open",
+  "name": "double_doors_swing_open",
+  "members": [
+    117
+  ],
+  "member_scripts": [
+    "pb_task_00000117_pb_double_doors_swing_open_0118_blender.py"
+  ],
+  "description": "A closed box sits on a table with two front doors meeting in the middle. The two doors swing open outward on their side hinges — the left door to the left, the right door to the right — revealing an object resting inside the box. The box itself does not move; only the doors open.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_double_doors_swing_open"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "door_thick",
+          "scope": "build_double_doors_swing_open"
+        }
+      }
+    }
+  }
+}

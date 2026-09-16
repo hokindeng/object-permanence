@@ -1,0 +1,37 @@
+{
+  "id": "G36",
+  "title": "Rollercoaster U Track Glassbox",
+  "name": "rollercoaster_u_track_glassbox",
+  "members": [
+    25
+  ],
+  "member_scripts": [
+    "pb_task_00000025_pb_transparent_box_wall_blocks_ball_0026_blender.py"
+  ],
+  "description": "An object rolls a continuous U-track into a glass box.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "RAIL_RADIUS"
+        }
+      }
+    }
+  }
+}

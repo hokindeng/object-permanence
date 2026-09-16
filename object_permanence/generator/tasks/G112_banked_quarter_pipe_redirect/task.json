@@ -1,0 +1,39 @@
+{
+  "id": "G112",
+  "title": "Banked Quarter Pipe Redirect",
+  "name": "banked_quarter_pipe_redirect",
+  "members": [
+    158
+  ],
+  "member_scripts": [
+    "pb_task_00000158_pb_banked_quarter_pipe_redirect_0159_blender.py"
+  ],
+  "description": "A ball rolls toward a curved banked wall (a quarter-pipe). Instead of stopping, it is smoothly redirected through ninety degrees and rolls away along a new perpendicular lane, conserving most of its speed. It is deflected, not stopped or passed through.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_banked_quarter_pipe_redirect"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "R",
+          "scope": "build_banked_quarter_pipe_redirect"
+        }
+      }
+    }
+  }
+}

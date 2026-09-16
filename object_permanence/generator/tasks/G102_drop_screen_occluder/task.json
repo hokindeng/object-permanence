@@ -1,0 +1,44 @@
+{
+  "id": "G102",
+  "title": "Drop Screen Occluder",
+  "name": "drop_screen_occluder",
+  "members": [
+    148
+  ],
+  "member_scripts": [
+    "pb_task_00000148_pb_drop_screen_occluder_0149_blender.py"
+  ],
+  "description": "A ball rolls at a constant speed along a straight rail from left to right. A solid opaque screen, held in vertical guides in front of the rail, drops straight down from above to fully block the view of the ball's mid-path and holds there while the ball passes hidden behind it; the screen then lifts back up and the ball is revealed on the far side, unchanged and still moving at the same steady speed. The ball never stops, reappearing at a position consistent with continuous constant-velocity motion.",
+  "video_split": {
+    "method": "before_event",
+    "event": "screen begins its reveal lift",
+    "first_target_frame": 77
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "rail_radius",
+          "scope": "build_drop_screen_occluder_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "rail_y",
+          "scope": "build_drop_screen_occluder_scene"
+        }
+      }
+    }
+  }
+}

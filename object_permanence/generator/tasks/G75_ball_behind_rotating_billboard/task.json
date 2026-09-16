@@ -1,0 +1,39 @@
+{
+  "id": "G75",
+  "title": "Ball Behind Rotating Billboard",
+  "name": "ball_behind_rotating_billboard",
+  "members": [
+    121
+  ],
+  "member_scripts": [
+    "pb_task_00000121_pb_ball_behind_rotating_billboard_0122_blender.py"
+  ],
+  "description": "A ball rolls from left to right at a steady speed while remaining in contact with the top of a straight raised rail. A large opaque billboard mounted at its center on a vertical post in front of the rail rotates clockwise as viewed from above, turning from edge-on to broadside and then edge-on again. The broadside panel fully hides the passing ball for a moment before the same ball reappears and continues at the same speed.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_ball_behind_rotating_billboard"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "track_center_z",
+          "scope": "build_ball_behind_rotating_billboard"
+        }
+      }
+    }
+  }
+}

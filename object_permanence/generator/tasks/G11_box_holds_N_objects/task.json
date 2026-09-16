@@ -1,0 +1,46 @@
+{
+  "id": "G11",
+  "title": "Box Holds N Objects",
+  "name": "box_holds_N_objects",
+  "members": [
+    47,
+    48,
+    49
+  ],
+  "member_scripts": [
+    "pb_task_00000047_pb_rotating_box_hidden_ball_0048_blender.py",
+    "pb_task_00000048_pb_rotating_box_hidden_ball_cube_0049_blender.py",
+    "pb_task_00000049_pb_rotating_box_hidden_ball_cube_pyramid_0050_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "lid closed, box mid-rotation; lid reopen at 98 stays in target",
+    "first_target_frame": 61
+  },
+  "description": "A lidded box hides one to three objects through a rotation.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_INNER_X"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_INNER_Y"
+        }
+      }
+    }
+  }
+}

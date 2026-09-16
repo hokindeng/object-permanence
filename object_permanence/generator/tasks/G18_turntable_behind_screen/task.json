@@ -1,0 +1,39 @@
+{
+  "id": "G18",
+  "title": "Turntable Behind Screen",
+  "name": "turntable_behind_screen",
+  "members": [
+    76,
+    77,
+    78,
+    79
+  ],
+  "member_scripts": [
+    "pb_task_00000076_pb_turntable_single_cube_behind_screen_0077_blender.py",
+    "pb_task_00000077_pb_turntable_single_ball_behind_screen_0078_blender.py",
+    "pb_task_00000078_pb_turntable_single_pyramid_behind_screen_0079_blender.py",
+    "pb_task_00000079_pb_front_view_turntable_ball_with_tall_panel_0080_blender.py"
+  ],
+  "description": "An object on a rotating turntable is partially occluded by a fixed screen and must persist through the turn.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "turntable_radius_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "turntable_radius",
+          "scope_by_script": {
+            "pb_task_00000076_pb_turntable_single_cube_behind_screen_0077_blender.py": "build_turntable_variant",
+            "pb_task_00000077_pb_turntable_single_ball_behind_screen_0078_blender.py": "build_turntable_variant",
+            "pb_task_00000078_pb_turntable_single_pyramid_behind_screen_0079_blender.py": "build_turntable_variant",
+            "pb_task_00000079_pb_front_view_turntable_ball_with_tall_panel_0080_blender.py": "build_front_view_turntable_ball_tall_panel_360"
+          }
+        }
+      }
+    }
+  }
+}

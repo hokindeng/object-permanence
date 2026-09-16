@@ -1,0 +1,58 @@
+# PWM-WROP: the fine-tune recipe of the paper (Section 4.1) as a partial override of `config.py` defaults.
+# Geometry 320x192 px, 117 frames at 24 fps = 57 conditioning + 60 predicted (latent_t 30 = 15 clean + 15 noisy
+# latent frames; Wan VAE 4n+1), one epoch over the 1,500,000-sample WROP training corpus at batch 16
+# (93,750 steps), each sample's prompt as text conditioning. Base: nvidia/Cosmos3-Nano, architecture unchanged.
+#
+# Geometry: 320x192 px -> latent 20x12 -> 2x2 patches -> 10x6 = 60 tokens/frame; latent_t 30 -> 1,800 vision
+# tokens + 128 text = 1,928 packed tokens (one NEFF shape).
+#
+# Clips: `python -m pwm.data.from_object_permanence <renders> > rows.jsonl` then
+# `python -m pwm.cli encode --manifest rows.jsonl --out /out/data/clips_320x192_t30 --ckpt /weights/Cosmos3-Nano --height 192 --width 320`.
+# Inference with the released weights: `--weights <Hokin/PWM-WROP download>` (checkpoint_dir still supplies vae/ and
+# text_tokenizer/); the released answers were sampled with the inference block below.
+
+checkpoint_dir: /weights/Cosmos3-Nano   # diffusers layout: transformer/, vae/, text_tokenizer/
+device: neuron
+
+data:
+  clips_dir: /out/data/clips_320x192_t30
+  latent_t: 30
+  height: 192
+  width: 320
+  cond_latent_frames: 15                # 57 clean px frames = 4*14+1 -> latent frames 0..14; loss on 15..29 (60 px frames)
+  text_len: 128
+  fps: 24.0
+
+diffusion:
+  sigma_kind: waver
+  train_shift: 3.0                      # upstream rule by height: <=256p -> 3
+
+parallel:
+  tp: 4
+  fsdp: 16
+  compile: true
+  reshard_after_forward: false
+  reshard_after_forward_blocks: 24
+  fsdp_mixed_precision: true
+  tp_sync_replicated_grads: true
+  fsdp_forward_prefetch: 2
+  fsdp_backward_prefetch: 2
+
+training:
+  optimizer_mode: foreach
+  lr: 1.0e-4                            # peak; linear warm-up then cosine to zero over max_steps
+  betas: [0.9, 0.95]
+  weight_decay: 0.0
+  warmup_steps: 50
+  max_steps: 93750                      # 1,500,000 samples / batch 16 = one epoch
+  grad_accum: 1
+  max_grad_norm: 1.0
+  save_every: 500
+  ckpt_dir: /out/wrop_320x192_t30
+  seed: 1234
+
+inference:
+  steps: 35                             # UniPC
+  guidance: 6.0
+  shift: 10.0
+  seed: 1234

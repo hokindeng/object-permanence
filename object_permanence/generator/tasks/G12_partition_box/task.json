@@ -1,0 +1,41 @@
+{
+  "id": "G12",
+  "title": "Partition Box",
+  "name": "partition_box",
+  "members": [
+    50,
+    51,
+    52
+  ],
+  "member_scripts": [
+    "pb_task_00000050_pb_partition_box_ball_cube__pyramid_0051_blender.py",
+    "pb_task_00000051_pb_partition_box_ball_pyramid__cube_0052_blender.py",
+    "pb_task_00000052_pb_partition_box_cube_pyramid__ball_0053_blender.py"
+  ],
+  "description": "A partitioned box hides several objects in a fixed order.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_INNER_X"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_INNER_Y"
+        }
+      }
+    }
+  }
+}

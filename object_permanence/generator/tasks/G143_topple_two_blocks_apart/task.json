@@ -1,0 +1,37 @@
+{
+  "id": "G143",
+  "title": "Topple Two Blocks Apart",
+  "name": "topple_two_blocks_apart",
+  "members": [
+    189
+  ],
+  "member_scripts": [
+    "pb_task_00000189_pb_topple_two_blocks_apart_0190_blender.py"
+  ],
+  "description": "Two tall blocks stand upright side by side on the table with a small gap between them. A ball rolls straight into the gap and knocks the blocks apart: each block topples over in the opposite outward direction, the left block falling to the left and the right block falling to the right, so they never touch each other. Each comes to rest lying flat on the floor. The ball rolls on through and slows to a stop past the blocks. Nothing appears or vanishes.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_STOP_X"
+        }
+      }
+    }
+  }
+}

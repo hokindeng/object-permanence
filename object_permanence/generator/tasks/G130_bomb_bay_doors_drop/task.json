@@ -1,0 +1,44 @@
+{
+  "id": "G130",
+  "title": "Bomb Bay Doors Drop",
+  "name": "bomb_bay_doors_drop",
+  "members": [
+    176
+  ],
+  "member_scripts": [
+    "pb_task_00000176_pb_bomb_bay_doors_drop_0177_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "bay doors part and ball begins free fall",
+    "first_target_frame": 26
+  },
+  "description": "A ball rests centered on two small doors that meet in the middle, set flush into a raised platform with a hole beneath. The two doors swing downward and apart on their outer hinges (like bomb-bay doors), opening a gap; the ball loses its support and falls straight down through the gap to the floor, where it bounces a few decaying times before coming to rest. Nothing remains suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_bomb_bay_doors_drop_scene"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "GRAVITY",
+          "scope": "build_bomb_bay_doors_drop_scene"
+        }
+      }
+    }
+  }
+}

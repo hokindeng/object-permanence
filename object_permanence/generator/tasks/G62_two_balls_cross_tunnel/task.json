@@ -1,0 +1,39 @@
+{
+  "id": "G62",
+  "title": "Two Balls Cross In One Tunnel",
+  "name": "two_balls_cross_tunnel",
+  "members": [
+    108
+  ],
+  "member_scripts": [
+    "pb_task_00000108_pb_two_balls_cross_tunnel_0109_blender.py"
+  ],
+  "description": "A red ball on the left and a blue ball on the right roll toward each other and both enter the same opaque horizontal tunnel from opposite ends. Hidden inside, they pass each other on parallel lanes, then each emerges from the far end and continues — the red ball exits on the right, the blue ball exits on the left. Neither ball changes colour, and both remain present the whole time.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "rail_radius",
+          "scope": "build_two_balls_cross_tunnel"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "wall_t",
+          "scope": "build_two_balls_cross_tunnel"
+        }
+      }
+    }
+  }
+}

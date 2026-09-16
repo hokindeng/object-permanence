@@ -1,0 +1,38 @@
+{
+  "id": "G105",
+  "title": "Descending Dome Cover",
+  "name": "descending_dome_cover",
+  "members": [
+    151
+  ],
+  "member_scripts": [
+    "pb_task_00000151_pb_descending_dome_cover_0152_blender.py"
+  ],
+  "description": "Two objects rest on a table. A dome-shaped cover lowers straight down from above to fully enclose and hide them, holds, then lifts back up -- the two objects are revealed unchanged in number and position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "sph_r",
+          "scope": "build_descending_dome_cover"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "DOME_RADIUS"
+        }
+      }
+    }
+  }
+}

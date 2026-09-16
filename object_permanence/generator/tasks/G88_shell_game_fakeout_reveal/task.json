@@ -1,0 +1,28 @@
+{
+  "id": "G88",
+  "title": "Shell Game Fakeout Reveal",
+  "name": "shell_game_fakeout_reveal",
+  "members": [
+    134
+  ],
+  "member_scripts": [
+    "pb_task_00000134_pb_shell_game_fakeout_reveal_0135_blender.py"
+  ],
+  "description": "Three identical opaque cups stand on a table; a ball is shown under one cup before it lowers. The cups slide through two position swaps. First one cup (not covering the ball) lifts to show it is EMPTY; then the cup actually covering the ball lifts to reveal the ball inside - it stayed with its cup through the swaps.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.13, "max": 0.18, "precision": 3},
+      "ball_start_side": {"type": "choice", "values": ["left", "right"]},
+      "cup_radius": {"type": "uniform", "min": 0.40, "max": 0.46, "precision": 3},
+      "shuffle_lane_offset": {"type": "uniform", "min": 0.50, "max": 0.62, "precision": 3},
+      "shuffle_lane_sign": {"type": "choice", "values": [-1, 1]},
+      "slot_spacing": {"type": "uniform", "min": 1.50, "max": 1.85, "precision": 3}
+    }
+  },
+  "video_split": {
+    "method": "before_event",
+    "event": "shells down, fakeout underway; reveal at 91 stays in target",
+    "first_target_frame": 61
+  }
+}

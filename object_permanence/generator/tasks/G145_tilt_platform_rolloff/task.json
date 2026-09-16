@@ -1,0 +1,39 @@
+{
+  "id": "G145",
+  "title": "Tilt Platform Rolloff",
+  "name": "tilt_platform_rolloff",
+  "members": [
+    191
+  ],
+  "member_scripts": [
+    "pb_task_00000191_pb_tilt_platform_rolloff_0192_blender.py"
+  ],
+  "description": "A ball rests on a flat platform held level on a pivot. The platform tilts down on one side; the ball rolls to the low edge, rolls off, and falls to the floor, bouncing before it settles. Nothing remains suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_tilt_platform_rolloff_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "PLAT_LEN_X",
+          "scope": "build_tilt_platform_rolloff_scene"
+        }
+      }
+    }
+  }
+}

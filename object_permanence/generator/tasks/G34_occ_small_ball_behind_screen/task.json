@@ -1,0 +1,37 @@
+{
+  "id": "G34",
+  "title": "Occ Small Ball Behind Screen",
+  "name": "occ_small_ball_behind_screen",
+  "members": [
+    22
+  ],
+  "member_scripts": [
+    "pb_task_00000022_pb_occ_ball_behind_screen_0023_blender.py"
+  ],
+  "description": "A small ball passes behind a foreground screen.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_CLEARANCE"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      }
+    }
+  }
+}

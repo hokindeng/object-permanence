@@ -1,0 +1,38 @@
+{
+  "id": "G106",
+  "title": "Rotating Drum Occluder",
+  "name": "rotating_drum_occluder",
+  "members": [
+    152
+  ],
+  "member_scripts": [
+    "pb_task_00000152_pb_rotating_drum_occluder_0153_blender.py"
+  ],
+  "description": "Two distinct objects — a red cube and a blue sphere — rest on a small round base and never move. A tall hollow drum with an open window cut into its side stands around them: at first the window faces the camera and both objects are clearly visible inside. The drum then rotates about its vertical axis until its solid wall faces the camera, fully hiding both objects; it holds, then rotates back so the window faces the camera again, revealing the same two objects unchanged in number, color, and position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "sph_r",
+          "scope": "build_rotating_drum_occluder"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "DRUM_HEIGHT"
+        }
+      }
+    }
+  }
+}

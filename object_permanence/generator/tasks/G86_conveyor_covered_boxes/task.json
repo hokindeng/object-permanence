@@ -1,0 +1,42 @@
+{
+  "id": "G86",
+  "title": "Conveyor Covered Boxes",
+  "name": "conveyor_covered_boxes",
+  "members": [
+    132
+  ],
+  "member_scripts": [
+    "pb_task_00000132_pb_conveyor_covered_boxes_0133_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "boxes covered on conveyor; reveal at 100 stays in target",
+    "first_target_frame": 61
+  },
+  "description": "Four identical opaque covers sit in a row on a conveyor belt; a ball is shown under one cover before it lowers. The conveyor advances, carrying all four covers along the belt to new positions. When it stops, the cover over the ball lifts to reveal the ball rode along with its cover - it did not stay at its original spot.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "COVER_HEIGHT"
+        }
+      }
+    }
+  }
+}

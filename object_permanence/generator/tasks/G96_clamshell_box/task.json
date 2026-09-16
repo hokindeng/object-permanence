@@ -1,0 +1,39 @@
+{
+  "id": "G96",
+  "title": "Clamshell Box",
+  "name": "clamshell_box",
+  "members": [
+    142
+  ],
+  "member_scripts": [
+    "pb_task_00000142_pb_clamshell_box_0143_blender.py"
+  ],
+  "description": "A closed clamshell container sits on a table. Its top half and bottom-front half swing open about a rear hinge — the top lifting up and back, the front dropping down — like a clamshell opening, revealing an object resting inside. The container does not move; only the shells open.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_clamshell_box"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "wall_t",
+          "scope": "build_clamshell_box"
+        }
+      }
+    }
+  }
+}

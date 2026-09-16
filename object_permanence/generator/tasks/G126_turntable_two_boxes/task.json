@@ -1,0 +1,42 @@
+{
+  "id": "G126",
+  "title": "Turntable Two Boxes",
+  "name": "turntable_two_boxes",
+  "members": [
+    172
+  ],
+  "member_scripts": [
+    "pb_task_00000172_pb_turntable_two_boxes_0173_blender.py"
+  ],
+  "description": "Two identical opaque boxes stand on opposite sides of a round turntable, one at the front and one at the back. The front box's cover lifts to show a ball under it, then lowers to hide it. The turntable rotates until the two boxes exchange their front and back positions. The same box that began at the front is now at the back; uncovering it reveals that the ball moved with its box rather than remaining at the original front position.",
+  "video_split": {
+    "method": "before_event",
+    "event": "boxes covered, turntable turning; reveal at 101 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_D"
+        }
+      }
+    }
+  }
+}

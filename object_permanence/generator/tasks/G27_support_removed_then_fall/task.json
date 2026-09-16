@@ -1,0 +1,37 @@
+{
+  "id": "G27",
+  "title": "Support Removed Then Fall",
+  "name": "support_removed_then_fall",
+  "members": [
+    6
+  ],
+  "member_scripts": [
+    "pb_task_00000006_pb_support_removed_fall_0007_blender.py"
+  ],
+  "description": "A support is removed and the object falls.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SUPPORT_TOP_Z"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "_GRAVITY"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G76",
+  "title": "Pendulum Behind Post",
+  "name": "pendulum_behind_post",
+  "members": [
+    122
+  ],
+  "member_scripts": [
+    "pb_task_00000122_pb_pendulum_behind_post_0123_blender.py"
+  ],
+  "description": "A pendulum bob swings back and forth on a rod. An opaque post stands in front of the lowest point of its arc; each time the bob swings past the bottom it disappears behind the post for a moment and re-emerges on the other side — the same bob, same size — continuing its swing.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "post_depth",
+          "scope": "build_pendulum_behind_post"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "stand_y",
+          "scope": "build_pendulum_behind_post"
+        }
+      }
+    }
+  }
+}

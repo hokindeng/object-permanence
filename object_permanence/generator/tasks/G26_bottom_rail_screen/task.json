@@ -1,0 +1,47 @@
+{
+  "id": "G26",
+  "title": "Bottom Rail Screen",
+  "name": "bottom_rail_screen",
+  "members": [
+    98,
+    99
+  ],
+  "member_scripts": [
+    "pb_task_00000098_pb_replacement_bottom_rail_single_screen_hides_ball_cube_0099_blender.py",
+    "pb_task_00000099_pb_no_intersect_bottom_rail_single_screen_three_shapes_0100_blender.py"
+  ],
+  "description": "A bottom-rail-mounted screen slides across to hide objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "left_post_x",
+          "scope_by_script": {
+            "pb_task_00000098_pb_replacement_bottom_rail_single_screen_hides_ball_cube_0099_blender.py": "build_bottom_rail_single_screen",
+            "pb_task_00000099_pb_no_intersect_bottom_rail_single_screen_three_shapes_0100_blender.py": "build_bottom_rail_screen"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "right_post_x",
+          "scope_by_script": {
+            "pb_task_00000098_pb_replacement_bottom_rail_single_screen_hides_ball_cube_0099_blender.py": "build_bottom_rail_single_screen",
+            "pb_task_00000099_pb_no_intersect_bottom_rail_single_screen_three_shapes_0100_blender.py": "build_bottom_rail_screen"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G10",
+  "title": "Size Gate",
+  "name": "size_gate",
+  "members": [
+    45,
+    46
+  ],
+  "member_scripts": [
+    "pb_task_00000045_pb_u_track_small_hole_then_large_hole_0046_blender.py",
+    "pb_task_00000046_pb_u_track_large_hole_then_small_hole_0047_blender.py"
+  ],
+  "description": "A small object passes through an aperture; a larger one is blocked, rebounds slightly, and gradually slows to rest in front of the barrier.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "FLAT_SPEED"
+        }
+      }
+    }
+  }
+}

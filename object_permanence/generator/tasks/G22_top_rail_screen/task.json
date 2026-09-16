@@ -1,0 +1,47 @@
+{
+  "id": "G22",
+  "title": "Top Rail Screen",
+  "name": "top_rail_screen",
+  "members": [
+    87,
+    95
+  ],
+  "member_scripts": [
+    "pb_task_00000087_pb_safe_top_rail_single_screen_hides_three_objects_0088_blender.py",
+    "pb_task_00000095_pb_no_intersect_top_rail_single_screen_three_shapes_0096_blender.py"
+  ],
+  "description": "A top-rail-mounted screen slides across to hide objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "left_post_x",
+          "scope_by_script": {
+            "pb_task_00000087_pb_safe_top_rail_single_screen_hides_three_objects_0088_blender.py": "build_top_rail_screen",
+            "pb_task_00000095_pb_no_intersect_top_rail_single_screen_three_shapes_0096_blender.py": "build_top_rail_single_screen"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "right_post_x",
+          "scope_by_script": {
+            "pb_task_00000087_pb_safe_top_rail_single_screen_hides_three_objects_0088_blender.py": "build_top_rail_screen",
+            "pb_task_00000095_pb_no_intersect_top_rail_single_screen_three_shapes_0096_blender.py": "build_top_rail_single_screen"
+          }
+        }
+      }
+    }
+  }
+}

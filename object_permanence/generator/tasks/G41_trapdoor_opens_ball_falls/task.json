@@ -1,0 +1,39 @@
+{
+  "id": "G41",
+  "title": "Trapdoor Opens Ball Falls",
+  "name": "trapdoor_opens_ball_falls",
+  "members": [
+    34
+  ],
+  "member_scripts": [
+    "pb_task_00000034_pb_trapdoor_opens_ball_falls_0035_blender.py"
+  ],
+  "description": "A trapdoor opens, the ball falls through to the floor, and it makes progressively smaller rebounds before settling.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "deck_t",
+          "scope": "build_trapdoor_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "deck_w",
+          "scope": "build_trapdoor_scene"
+        }
+      }
+    }
+  }
+}

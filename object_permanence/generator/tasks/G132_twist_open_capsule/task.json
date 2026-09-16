@@ -1,0 +1,39 @@
+{
+  "id": "G132",
+  "title": "Twist Open Capsule",
+  "name": "twist_open_capsule",
+  "members": [
+    178
+  ],
+  "member_scripts": [
+    "pb_task_00000178_pb_twist_open_capsule_0179_blender.py"
+  ],
+  "description": "A two-half egg-shaped capsule sits on a small stand and contains a single colored ball. The top half lifts straight up and off with a slight twist to reveal the ball resting inside the bottom half; it holds open, lowers back down and twists closed over the ball, then lifts off again to reveal the same ball. The bottom half and the stand never move and the ball stays put inside.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_twist_open_capsule"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "R",
+          "scope": "build_twist_open_capsule"
+        }
+      }
+    }
+  }
+}

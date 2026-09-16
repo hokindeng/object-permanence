@@ -1,0 +1,32 @@
+{
+  "id": "G124",
+  "title": "Rising Sleeve Cover",
+  "name": "rising_sleeve_cover",
+  "members": [
+    170
+  ],
+  "member_scripts": [
+    "pb_task_00000170_pb_rising_sleeve_cover_0171_blender.py"
+  ],
+  "description": "A single object rests on a raised round pedestal. An open cylindrical sleeve, visibly wider than the pedestal, starts low around it with the object visible above its rim, then rises straight up to fully engulf and hide the object, holds, then lowers back down to reveal the object unchanged in position and appearance.",
+  "video_split": {
+    "method": "before_event",
+    "event": "sleeve begins its reveal descent",
+    "first_target_frame": 81
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "sleeve_radius_scale": {
+        "type": "uniform",
+        "min": 1.0,
+        "max": 1.7,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SLEEVE_R"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G91",
+  "title": "Turnstile Timed Gate",
+  "name": "turnstile_timed_gate",
+  "members": [
+    137
+  ],
+  "member_scripts": [
+    "pb_task_00000137_pb_turnstile_timed_gate_0138_blender.py"
+  ],
+  "description": "A turnstile with four arms rotates steadily in the middle of a track. A ball rolls toward it and arrives when a gap between two arms is aligned with the track, so it passes straight through. A second ball arrives when an arm blocks the way, so it is stopped by the arm. Neither ball is suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_turnstile_timed_gate"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "flap_h",
+          "scope": "build_turnstile_timed_gate"
+        }
+      }
+    }
+  }
+}

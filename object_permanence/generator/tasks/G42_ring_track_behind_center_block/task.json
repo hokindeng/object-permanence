@@ -1,0 +1,39 @@
+{
+  "id": "G42",
+  "title": "Ring Track Behind Center Block",
+  "name": "ring_track_behind_center_block",
+  "members": [
+    35
+  ],
+  "member_scripts": [
+    "pb_task_00000035_pb_ring_track_ball_behind_center_block_0036_blender.py"
+  ],
+  "description": "A ball on a ring track passes behind a center block.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "radius",
+          "scope": "build_ring_track_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "z",
+          "scope": "build_ring_track_scene"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "G07",
+  "title": "Guillotine Gate Stops",
+  "name": "guillotine_gate_stops",
+  "members": [
+    33,
+    40
+  ],
+  "member_scripts": [
+    "pb_task_00000033_pb_guillotine_gate_car_stops_0034_blender.py",
+    "pb_task_00000040_pb_first_ball_passes_second_blocked_by_gate_0041_blender.py"
+  ],
+  "description": "A vehicle or ball is stopped by a descending guillotine gate.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000033_pb_guillotine_gate_car_stops_0034_blender.py": "gate_x",
+            "pb_task_00000040_pb_first_ball_passes_second_blocked_by_gate_0041_blender.py": "TRACK_RIGHT_X"
+          },
+          "scope_by_script": {
+            "pb_task_00000033_pb_guillotine_gate_car_stops_0034_blender.py": "build_guillotine_gate_car_stops_wheel_axle_fixed"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000033_pb_guillotine_gate_car_stops_0034_blender.py": "CAR_REBOUND_BACK",
+            "pb_task_00000040_pb_first_ball_passes_second_blocked_by_gate_0041_blender.py": "FIRST_SPEED_X"
+          }
+        }
+      }
+    }
+  }
+}

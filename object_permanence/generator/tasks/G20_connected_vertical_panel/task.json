@@ -1,0 +1,41 @@
+{
+  "id": "G20",
+  "title": "Connected Vertical Panel",
+  "name": "connected_vertical_panel",
+  "members": [
+    83,
+    84
+  ],
+  "member_scripts": [
+    "pb_task_00000083_pb_connected_vertical_guide_panel_hides_ball_cube_0084_blender.py",
+    "pb_task_00000084_pb_connected_vertical_guide_panel_hides_three_shapes_0085_blender.py"
+  ],
+  "description": "A connected vertical guide panel hides objects behind it.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "y",
+          "scope": "build_connected_vertical_panel"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "z_open",
+          "scope": "build_connected_vertical_panel"
+        }
+      }
+    }
+  }
+}

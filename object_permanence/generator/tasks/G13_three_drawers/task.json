@@ -1,0 +1,52 @@
+{
+  "id": "G13",
+  "title": "Three Drawers",
+  "name": "three_drawers",
+  "members": [
+    56,
+    57,
+    58,
+    59,
+    60
+  ],
+  "member_scripts": [
+    "pb_task_00000056_pb_three_drawers_objects_order_ball_cube_pyramid_0057_blender.py",
+    "pb_task_00000057_pb_three_drawers_objects_order_ball_pyramid_cube_0058_blender.py",
+    "pb_task_00000058_pb_three_drawers_objects_order_cube_ball_pyramid_0059_blender.py",
+    "pb_task_00000059_pb_three_drawers_objects_order_cube_pyramid_ball_0060_blender.py",
+    "pb_task_00000060_pb_three_drawers_objects_order_pyramid_ball_cube_0061_blender.py"
+  ],
+  "description": "Three drawers hide objects in a fixed order.",
+  "video_split": {
+    "method": "before_event",
+    "event": "drawers closed after loading; reopen at 94 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "drawer_depth",
+          "scope": "build_three_drawers"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "drawer_width",
+          "scope": "build_three_drawers"
+        }
+      }
+    }
+  }
+}

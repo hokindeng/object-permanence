@@ -1,0 +1,32 @@
+{
+  "id": "G19",
+  "title": "Row Screen Hides Objects",
+  "name": "row_screen_hides_objects",
+  "members": [
+    80,
+    81,
+    82
+  ],
+  "member_scripts": [
+    "pb_task_00000080_pb_foreground_screen_hides_three_shapes_row_0081_blender.py",
+    "pb_task_00000081_pb_foreground_screen_hides_four_balls_row_0082_blender.py",
+    "pb_task_00000082_pb_foreground_screen_hides_three_cubes_row_0083_blender.py"
+  ],
+  "description": "A sliding foreground screen hides a row of objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "y",
+          "scope": "build_row_screen"
+        }
+      }
+    }
+  }
+}

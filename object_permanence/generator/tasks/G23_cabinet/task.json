@@ -1,0 +1,52 @@
+{
+  "id": "G23",
+  "title": "Cabinet",
+  "name": "cabinet",
+  "members": [
+    89,
+    90
+  ],
+  "member_scripts": [
+    "pb_task_00000089_pb_safe_display_cabinet_single_front_cover_ball_cube_0090_blender.py",
+    "pb_task_00000090_pb_safe_cabinet_tight_sliding_doors_three_balls_0091_blender.py"
+  ],
+  "description": "A display cabinet's cover or doors hide the objects inside.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000089_pb_safe_display_cabinet_single_front_cover_ball_cube_0090_blender.py": "x_open",
+            "pb_task_00000090_pb_safe_cabinet_tight_sliding_doors_three_balls_0091_blender.py": "left_closed_x"
+          },
+          "scope_by_script": {
+            "pb_task_00000089_pb_safe_display_cabinet_single_front_cover_ball_cube_0090_blender.py": "build_cabinet_single_cover",
+            "pb_task_00000090_pb_safe_cabinet_tight_sliding_doors_three_balls_0091_blender.py": "build_cabinet_tight_doors"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000089_pb_safe_display_cabinet_single_front_cover_ball_cube_0090_blender.py": "OCC_Y",
+            "pb_task_00000090_pb_safe_cabinet_tight_sliding_doors_three_balls_0091_blender.py": "left_open_x"
+          },
+          "scope_by_script": {
+            "pb_task_00000090_pb_safe_cabinet_tight_sliding_doors_three_balls_0091_blender.py": "build_cabinet_tight_doors"
+          }
+        }
+      }
+    }
+  }
+}

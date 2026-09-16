@@ -1,0 +1,44 @@
+{
+  "id": "G131",
+  "title": "Stacked Drawers Reveal",
+  "name": "stacked_drawers_reveal",
+  "members": [
+    177
+  ],
+  "member_scripts": [
+    "pb_task_00000177_pb_stacked_drawers_reveal_0178_blender.py"
+  ],
+  "description": "A small chest with two stacked drawers sits on a table. A single colored ball rests inside the lower drawer. The lower drawer slides out toward the viewer, carrying the ball, until it is plainly visible; it holds open, slides back in to hide the ball, then slides out again to reveal the same ball. The upper drawer stays shut throughout, the chest never moves, and the ball rides on the drawer floor without clipping the chest.",
+  "video_split": {
+    "method": "before_event",
+    "event": "drawers closed after loading; reveal at 107 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_stacked_drawers_reveal"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "side_h",
+          "scope": "build_stacked_drawers_reveal"
+        }
+      }
+    }
+  }
+}

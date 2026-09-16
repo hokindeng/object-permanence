@@ -1,0 +1,39 @@
+{
+  "id": "G146",
+  "title": "Hanging Ball Release Drop",
+  "name": "hanging_ball_release_drop",
+  "members": [
+    192
+  ],
+  "member_scripts": [
+    "pb_task_00000192_pb_hanging_ball_release_drop_0193_blender.py"
+  ],
+  "description": "A ball hangs at rest in the air on a thin string beneath an overhead beam, held by a small hook. The hook releases and the string goes slack, so the ball drops straight down to the floor, bounces once, and settles. Its horizontal position never changes and nothing remains suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_hanging_ball_release_drop_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BEAM_THICK",
+          "scope": "build_hanging_ball_release_drop_scene"
+        }
+      }
+    }
+  }
+}

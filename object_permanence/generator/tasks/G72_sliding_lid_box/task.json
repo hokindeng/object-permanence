@@ -1,0 +1,39 @@
+{
+  "id": "G72",
+  "title": "Sliding Lid Box",
+  "name": "sliding_lid_box",
+  "members": [
+    118
+  ],
+  "member_scripts": [
+    "pb_task_00000118_pb_sliding_lid_box_0119_blender.py"
+  ],
+  "description": "A closed box sits on a table. Its flat top lid slides off horizontally to one side, sliding clear of the box to reveal a ball resting inside. The box body stays in place; only the lid translates.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_sliding_lid_box"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "lid_thick",
+          "scope": "build_sliding_lid_box"
+        }
+      }
+    }
+  }
+}

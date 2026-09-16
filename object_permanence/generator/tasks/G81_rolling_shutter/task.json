@@ -1,0 +1,39 @@
+{
+  "id": "G81",
+  "title": "Rolling Shutter",
+  "name": "rolling_shutter",
+  "members": [
+    127
+  ],
+  "member_scripts": [
+    "pb_task_00000127_pb_rolling_shutter_0128_blender.py"
+  ],
+  "description": "Two objects sit on a table. A segmented rolling shutter descends from above in front of them, its horizontal slats coming down one region at a time until the objects are fully covered; it holds, then rolls back up, revealing the same two objects unchanged.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "cyl_h",
+          "scope": "build_rolling_shutter"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "cyl_r",
+          "scope": "build_rolling_shutter"
+        }
+      }
+    }
+  }
+}

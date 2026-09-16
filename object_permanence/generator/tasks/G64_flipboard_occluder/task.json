@@ -1,0 +1,39 @@
+{
+  "id": "G64",
+  "title": "Flip Board Occluder",
+  "name": "flipboard_occluder",
+  "members": [
+    110
+  ],
+  "member_scripts": [
+    "pb_task_00000110_pb_flipboard_occluder_0111_blender.py"
+  ],
+  "description": "Two objects sit on a table. A flat board, hinged along its bottom edge in front of them, flips up toward the camera until it stands vertical and fully hides the two objects; it holds briefly, then flips back down flat, revealing the same two objects, unchanged in number and position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "board_height",
+          "scope": "build_flipboard_occluder"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "board_thick",
+          "scope": "build_flipboard_occluder"
+        }
+      }
+    }
+  }
+}

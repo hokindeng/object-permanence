@@ -1,0 +1,39 @@
+{
+  "id": "G89",
+  "title": "Limbo Height Bar",
+  "name": "limbo_height_bar",
+  "members": [
+    135
+  ],
+  "member_scripts": [
+    "pb_task_00000135_pb_limbo_height_bar_0136_blender.py"
+  ],
+  "description": "A horizontal bar is held up on two posts at a set height above a flat track, leaving a gap underneath. A short object rolls along the track and passes cleanly UNDER the bar to the far side; a tall object, taller than the gap, is stopped by the bar and comes to rest against it. Neither object is ever suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "GATE_Y",
+          "scope": "build_limbo_height_bar_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "GAP_HEIGHT",
+          "scope": "build_limbo_height_bar_scene"
+        }
+      }
+    }
+  }
+}

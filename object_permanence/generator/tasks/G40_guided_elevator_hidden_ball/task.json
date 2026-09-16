@@ -1,0 +1,39 @@
+{
+  "id": "G40",
+  "title": "Guided Elevator Hidden Ball",
+  "name": "guided_elevator_hidden_ball",
+  "members": [
+    32
+  ],
+  "member_scripts": [
+    "pb_task_00000032_pb_elevator_guided_box_hidden_ball_moves_up_0033_blender.py"
+  ],
+  "description": "A guided elevator carries a hidden ball upward.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "box_d",
+          "scope": "build_guided_elevator_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "box_h",
+          "scope": "build_guided_elevator_scene"
+        }
+      }
+    }
+  }
+}

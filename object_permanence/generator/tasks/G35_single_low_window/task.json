@@ -1,0 +1,37 @@
+{
+  "id": "G35",
+  "title": "Single Low Window",
+  "name": "single_low_window",
+  "members": [
+    23
+  ],
+  "member_scripts": [
+    "pb_task_00000023_pb_low_car_hidden_by_high_window_0024_blender.py"
+  ],
+  "description": "An object passes behind a low window.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CAR_LENGTH"
+        }
+      }
+    }
+  }
+}

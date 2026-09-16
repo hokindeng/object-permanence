@@ -1,0 +1,42 @@
+{
+  "id": "G52",
+  "title": "Ramp Open Right Gated Box",
+  "name": "ramp_open_right_gated_box",
+  "members": [
+    88
+  ],
+  "member_scripts": [
+    "pb_task_00000088_pb_ramp_open_right_gated_box_ball_rolls_to_catch_box_0089_blender.py"
+  ],
+  "description": "A ball rolls down a right-opening ramp into a gated catch-box.",
+  "video_split": {
+    "method": "before_event",
+    "event": "doors closed, ball inside; reveal reopen at 109 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BOX_RIGHT_OPEN_X"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RAMP_END_X"
+        }
+      }
+    }
+  }
+}

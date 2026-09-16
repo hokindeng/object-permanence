@@ -1,0 +1,23 @@
+{
+  "id": "G45",
+  "title": "Opaque Lid Front Panel Drops",
+  "name": "opaque_lid_front_panel_drops",
+  "members": [
+    41
+  ],
+  "member_scripts": [
+    "pb_task_00000041_pb_opaque_lid_front_panel_drops_0042_blender.py"
+  ],
+  "description": "An opaque lid or front panel drops over a center ball.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G61",
+  "title": "Spiral Ramp Behind Column",
+  "name": "spiral_ramp_behind_column",
+  "members": [
+    107
+  ],
+  "member_scripts": [
+    "pb_task_00000107_pb_spiral_ramp_behind_column_0108_blender.py"
+  ],
+  "description": "A ball rolls down a helical ramp that spirals around an opaque vertical column. As it descends it passes behind the column on each half-turn, disappearing from view, then re-emerges on the near side - the same ball - continuing down to the floor. It never changes identity or size while hidden.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "WALL_H",
+          "scope": "build_spiral_ramp_behind_column"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "WALL_T",
+          "scope": "build_spiral_ramp_behind_column"
+        }
+      }
+    }
+  }
+}

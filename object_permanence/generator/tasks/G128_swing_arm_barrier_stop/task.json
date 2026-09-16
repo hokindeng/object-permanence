@@ -1,0 +1,42 @@
+{
+  "id": "G128",
+  "title": "Swing Arm Barrier Stop",
+  "name": "swing_arm_barrier_stop",
+  "members": [
+    174
+  ],
+  "member_scripts": [
+    "pb_task_00000174_pb_swing_arm_barrier_stop_0175_blender.py"
+  ],
+  "description": "A horizontal parking-gate barrier arm, hinged at one end on a post, is down across a flat track. A ball rolls up to the closed arm and is stopped -- it decelerates to rest against the arm, unable to pass. The arm stays down the whole time (the blocked case).",
+  "video_split": {
+    "method": "before_event",
+    "event": "ball first contacts the closed barrier",
+    "first_target_frame": 56
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ARM_FREE_Y"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "RESTITUTION"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G43",
+  "title": "Three Balls Parallel Tunnels",
+  "name": "three_balls_parallel_tunnels",
+  "members": [
+    38
+  ],
+  "member_scripts": [
+    "pb_task_00000038_pb_three_balls_parallel_tunnels_identity_0039_blender.py"
+  ],
+  "description": "Three balls travel parallel tunnels; identity is preserved.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_lane"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "track_z",
+          "scope": "build_lane"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G97",
+  "title": "Rolltop Tambour",
+  "name": "rolltop_tambour",
+  "members": [
+    143
+  ],
+  "member_scripts": [
+    "pb_task_00000143_pb_rolltop_tambour_0144_blender.py"
+  ],
+  "description": "A box with a curved roll-top (tambour) cover sits on a table. The curved cover slides back along its curved track, retracting over the top and down the back, to reveal an object resting inside. The box body stays in place; only the cover retracts.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_rolltop_tambour"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "slat_gap",
+          "scope": "build_rolltop_tambour"
+        }
+      }
+    }
+  }
+}

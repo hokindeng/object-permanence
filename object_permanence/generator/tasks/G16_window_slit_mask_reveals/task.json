@@ -1,0 +1,53 @@
+{
+  "id": "G16",
+  "title": "Window Slit Mask Reveals",
+  "name": "window_slit_mask_reveals",
+  "members": [
+    68,
+    73
+  ],
+  "member_scripts": [
+    "pb_task_00000068_pb_supported_window_mask_reveals_three_objects_0069_blender.py",
+    "pb_task_00000073_pb_narrow_slit_mask_scans_three_balls_0074_blender.py"
+  ],
+  "description": "A window or slit mask scans across the scene, revealing objects piece by piece.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000068_pb_supported_window_mask_reveals_three_objects_0069_blender.py": "left_object_x",
+            "pb_task_00000073_pb_narrow_slit_mask_scans_three_balls_0074_blender.py": "panel_w"
+          },
+          "scope_by_script": {
+            "pb_task_00000068_pb_supported_window_mask_reveals_three_objects_0069_blender.py": "build_supported_window_mask_three_objects",
+            "pb_task_00000073_pb_narrow_slit_mask_scans_three_balls_0074_blender.py": "build_slit_mask_three_balls_far"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000068_pb_supported_window_mask_reveals_three_objects_0069_blender.py": "panel_height",
+            "pb_task_00000073_pb_narrow_slit_mask_scans_three_balls_0074_blender.py": "x0"
+          },
+          "scope_by_script": {
+            "pb_task_00000068_pb_supported_window_mask_reveals_three_objects_0069_blender.py": "build_supported_window_mask_three_objects",
+            "pb_task_00000073_pb_narrow_slit_mask_scans_three_balls_0074_blender.py": "build_slit_mask_three_balls_far"
+          }
+        }
+      }
+    }
+  }
+}

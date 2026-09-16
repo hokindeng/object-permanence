@@ -1,0 +1,42 @@
+{
+  "id": "G74",
+  "title": "Glancing Oblique Collision",
+  "name": "glancing_oblique_collision",
+  "members": [
+    120
+  ],
+  "member_scripts": [
+    "pb_task_00000120_pb_glancing_oblique_collision_0121_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "ball_contact",
+    "first_target_frame": 40
+  },
+  "description": "A moving ball rolls across a flat surface and strikes a stationary ball off-centre (a glancing hit). After the collision the two balls separate along different diagonal directions - the struck ball moves off to one side and the incoming ball is deflected to the other - consistent with an oblique momentum transfer. Both balls remain, and neither is suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "INCOMING_SPEED"
+        }
+      }
+    }
+  }
+}

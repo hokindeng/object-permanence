@@ -1,0 +1,43 @@
+{
+  "id": "G139",
+  "title": "Ball Shoves Block Slide",
+  "name": "ball_shoves_block_slide",
+  "members": [
+    185
+  ],
+  "member_scripts": [
+    "pb_task_00000185_pb_ball_shoves_block_slide_0186_blender.py"
+  ],
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_block_contact",
+    "event_frame": 40,
+    "first_target_frame": 40
+  },
+  "description": "A ball rolls across a flat surface toward a block resting upright on the table. The ball reaches the blocks near face and, on contact, the block slides forward across the table, staying upright, and decelerates to rest a short distance ahead. The ball slows and stops near the blocks starting position after the strike. Nothing appears or vanishes.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BLOCK_H"
+        }
+      }
+    }
+  }
+}

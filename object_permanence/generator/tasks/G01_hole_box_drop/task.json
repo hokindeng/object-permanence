@@ -1,0 +1,39 @@
+{
+  "id": "G01",
+  "title": "Hole Box Drop",
+  "name": "hole_box_drop",
+  "members": [
+    0,
+    1
+  ],
+  "member_scripts": [
+    "pb_task_00000000_pb_drop_covered_hole_box_0003_blender.py",
+    "pb_task_00000001_pb_drop_hole_box_0002_blender.py"
+  ],
+  "description": "An object drops onto a box with a covered or open center hole — it rests on the cap or enters the hole, rebounds from the box floor, and settles without vanishing.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "HOLE_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      }
+    }
+  }
+}

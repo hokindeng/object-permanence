@@ -1,0 +1,39 @@
+{
+  "id": "G78",
+  "title": "Rolling Disc Tunnel",
+  "name": "rolling_disc_tunnel",
+  "members": [
+    124
+  ],
+  "member_scripts": [
+    "pb_task_00000124_pb_rolling_disc_tunnel_0125_blender.py"
+  ],
+  "description": "An upright disc (a coin standing on its edge) rolls along a straight flat track and passes through an opaque tunnel. It is hidden inside the tunnel, then re-emerges from the far end — the same disc, still rolling — unchanged in size and shape.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "rail_radius",
+          "scope": "build_rolling_disc_tunnel"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "track_width",
+          "scope": "build_rolling_disc_tunnel"
+        }
+      }
+    }
+  }
+}

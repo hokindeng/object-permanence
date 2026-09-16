@@ -1,0 +1,43 @@
+{
+  "id": "G134",
+  "title": "Knock Ball Off Tee",
+  "name": "knock_ball_off_tee",
+  "members": [
+    180
+  ],
+  "member_scripts": [
+    "pb_task_00000180_pb_knock_ball_off_tee_0181_blender.py"
+  ],
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_contact",
+    "event_frame": 36,
+    "first_target_frame": 36
+  },
+  "description": "A ball rests on top of a short stand on the table. A second ball rolls across the flat surface and strikes the resting ball. On impact the resting ball is knocked off the stand, launching into a short forward arc, then falls, lands on the floor and rolls to a stop. The rolling ball halts at the stand after the strike. Both balls are conserved; nothing appears or vanishes.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.72,
+        "max": 1.08,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TEE_H"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.75,
+        "max": 1.18,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "TEE_R"
+        }
+      }
+    }
+  }
+}

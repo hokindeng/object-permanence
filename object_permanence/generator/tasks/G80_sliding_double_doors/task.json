@@ -1,0 +1,39 @@
+{
+  "id": "G80",
+  "title": "Sliding Double Doors",
+  "name": "sliding_double_doors",
+  "members": [
+    126
+  ],
+  "member_scripts": [
+    "pb_task_00000126_pb_sliding_double_doors_0127_blender.py"
+  ],
+  "description": "Two objects sit on a table in front of a flat backboard. Two opaque doors slide in from the left and right until they meet and fully cover the two objects, hold, then slide back apart -- revealing the same two objects, unchanged in number and position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "door_y",
+          "scope": "build_sliding_double_doors"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "sph_r",
+          "scope": "build_sliding_double_doors"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "G99",
+  "title": "Head On Velocity Exchange",
+  "name": "headon_velocity_exchange",
+  "members": [
+    145
+  ],
+  "member_scripts": [
+    "pb_task_00000145_pb_headon_velocity_exchange_0146_blender.py"
+  ],
+  "preview_event_frame": 46,
+  "video_split": {
+    "method": "before_event",
+    "event": "approach_into_ball_contact",
+    "first_target_frame": 46
+  },
+  "description": "A ball rolls straight along a line into a second, identical stationary ball. On impact the incoming ball stops dead and the struck ball rolls away with the same speed - the classic equal-mass elastic velocity exchange. Both balls remain; neither passes through the other.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "INCOMING_SPEED"
+        }
+      }
+    }
+  }
+}

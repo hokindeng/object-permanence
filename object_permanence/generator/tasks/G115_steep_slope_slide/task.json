@@ -1,0 +1,33 @@
+{
+  "id": "G115",
+  "title": "Steep Slope Slide",
+  "name": "steep_slope_slide",
+  "members": [
+    161
+  ],
+  "member_scripts": [
+    "pb_task_00000161_pb_steep_slope_slide_0162_blender.py"
+  ],
+  "description": "A ball starts at the top of a steep ramp with a modest rightward push. It slides and rolls down the slope, accelerating under gravity, reaches the bottom, and continues rolling along the floor while gradually slowing to a stop. It is never suspended in the air.",
+  "video_split": {
+    "method": "before_event",
+    "event": "ball is still rolling on the lower part of the slope",
+    "first_target_frame": 49
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_steep_slope_slide_scene"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "G05",
+  "title": "Car Vs Barrier",
+  "name": "car_vs_barrier",
+  "members": [
+    16,
+    17,
+    18,
+    24,
+    26,
+    27,
+    28
+  ],
+  "member_scripts": [
+    "pb_task_00000016_pb_car_hits_wall_no_penetration_0017_blender.py",
+    "pb_task_00000017_pb_car_passes_wall_hole_0018_blender.py",
+    "pb_task_00000018_pb_car_blocked_by_small_wall_hole_0019_blender.py",
+    "pb_task_00000024_pb_double_door_opens_car_passes_0025_blender.py",
+    "pb_task_00000026_pb_car_passes_open_gate_0027_blender.py",
+    "pb_task_00000027_pb_car_blocked_closed_gate_0028_blender.py",
+    "pb_task_00000028_pb_rear_car_stops_behind_front_car_0029_blender.py"
+  ],
+  "description": "A vehicle meets a wall, hole, gate, or door — passing through an opening or being blocked.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000016_pb_car_hits_wall_no_penetration_0017_blender.py": "CAR_BODY_HEIGHT",
+            "pb_task_00000017_pb_car_passes_wall_hole_0018_blender.py": "CAR_BODY_HEIGHT",
+            "pb_task_00000018_pb_car_blocked_by_small_wall_hole_0019_blender.py": "CAR_BODY_HEIGHT",
+            "pb_task_00000024_pb_double_door_opens_car_passes_0025_blender.py": "CAR_BODY_HEIGHT",
+            "pb_task_00000026_pb_car_passes_open_gate_0027_blender.py": "BALL_RADIUS",
+            "pb_task_00000027_pb_car_blocked_closed_gate_0028_blender.py": "BALL_RADIUS",
+            "pb_task_00000028_pb_rear_car_stops_behind_front_car_0029_blender.py": "BALL_RADIUS"
+          }
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "by_script": {
+            "pb_task_00000016_pb_car_hits_wall_no_penetration_0017_blender.py": "CAR_LENGTH",
+            "pb_task_00000017_pb_car_passes_wall_hole_0018_blender.py": "CAR_LENGTH",
+            "pb_task_00000018_pb_car_blocked_by_small_wall_hole_0019_blender.py": "CAR_LENGTH",
+            "pb_task_00000024_pb_double_door_opens_car_passes_0025_blender.py": "SPEED_X",
+            "pb_task_00000026_pb_car_passes_open_gate_0027_blender.py": "CAR_LENGTH",
+            "pb_task_00000027_pb_car_blocked_closed_gate_0028_blender.py": "CAR_LENGTH",
+            "pb_task_00000028_pb_rear_car_stops_behind_front_car_0029_blender.py": "CAR_LENGTH"
+          }
+        }
+      }
+    }
+  }
+}

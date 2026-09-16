@@ -1,0 +1,41 @@
+{
+  "id": "G06",
+  "title": "Car On Bridge",
+  "name": "car_on_bridge",
+  "members": [
+    19,
+    20,
+    21
+  ],
+  "member_scripts": [
+    "pb_task_00000019_pb_parallel_bridges_hole_car_falls_0020_blender.py",
+    "pb_task_00000020_pb_parallel_bridges_solid_car_passes_0021_blender.py",
+    "pb_task_00000021_pb_parallel_bridges_two_cars_pass_and_fall_0022_blender.py"
+  ],
+  "description": "A vehicle crosses a bridge that has a hole or a solid span; it falls through or passes.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BRIDGE_LENGTH"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "FALL_GRAVITY"
+        }
+      }
+    }
+  }
+}

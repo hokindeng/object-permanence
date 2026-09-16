@@ -1,0 +1,39 @@
+{
+  "id": "G03",
+  "title": "Ramp Ball Blocked By Wall",
+  "name": "ramp_ball_blocked_by_wall",
+  "members": [
+    5,
+    7
+  ],
+  "member_scripts": [
+    "pb_task_00000005_pb_imp_solid_wall_ramp_0006_blender.py",
+    "pb_task_00000007_pb_transparent_wall_ramp_0008_blender.py"
+  ],
+  "description": "An object rolls down a ramp into a solid or transparent wall and is blocked without penetrating it.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_X_START"
+        }
+      }
+    }
+  }
+}

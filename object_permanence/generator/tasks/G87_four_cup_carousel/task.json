@@ -1,0 +1,37 @@
+{
+  "id": "G87",
+  "title": "Four Cup Carousel",
+  "name": "four_cup_carousel",
+  "members": [
+    133
+  ],
+  "member_scripts": [
+    "pb_task_00000133_pb_four_cup_carousel_0134_blender.py"
+  ],
+  "description": "Four identical opaque cups stand on a round turntable at 90-degree spacing; a ball is shown under the front cup before it lowers. The turntable rotates 180 degrees, carrying all four cups around. When it stops, the cup that began at the front is now at the back; it lifts to reveal the ball moved with its cup rotationally, rather than staying at the original front position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CUP_ORBIT_RADIUS"
+        }
+      }
+    }
+  }
+}

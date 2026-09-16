@@ -1,0 +1,23 @@
+{
+  "id": "G46",
+  "title": "Marked Boxes Swap",
+  "name": "marked_boxes_swap",
+  "members": [
+    53
+  ],
+  "member_scripts": [
+    "pb_task_00000053_pb_marked_boxes_swap_hidden_objects_0054_blender.py"
+  ],
+  "description": "Marked boxes swap positions while hiding their objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "cover_footprint_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4
+      }
+    }
+  }
+}

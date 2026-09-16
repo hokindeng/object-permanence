@@ -1,0 +1,37 @@
+{
+  "id": "G84",
+  "title": "Two Balls Three Cups",
+  "name": "two_balls_three_cups",
+  "members": [
+    130
+  ],
+  "member_scripts": [
+    "pb_task_00000130_pb_two_balls_three_cups_0131_blender.py"
+  ],
+  "description": "Three identical opaque cups stand upside-down on a table; a red ball is shown under the left cup and a green ball under the right cup before they lower. The cups slide through two position swaps. When they stop, the two cups covering the balls lift to reveal each ball stayed inside its own cup - both balls moved with their containers, not back to their original positions.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CUP_PASS_Y"
+        }
+      }
+    }
+  }
+}

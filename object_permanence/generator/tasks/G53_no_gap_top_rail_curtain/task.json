@@ -1,0 +1,27 @@
+{
+  "id": "G53",
+  "title": "No Gap Top Rail Curtain",
+  "name": "no_gap_top_rail_curtain",
+  "members": [
+    97
+  ],
+  "member_scripts": [
+    "pb_task_00000097_pb_no_gap_top_rail_single_curtain_hides_three_balls_0098_blender.py"
+  ],
+  "description": "A no-gap top-rail curtain hides three balls.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "curtain_motion_speed_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CURTAIN_MOVE_FRAMES"
+        }
+      }
+    }
+  }
+}

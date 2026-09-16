@@ -1,0 +1,39 @@
+{
+  "id": "G57",
+  "title": "Ramp Ball Deflected Angled Wall",
+  "name": "ramp_ball_deflected_angled_wall",
+  "members": [
+    103
+  ],
+  "member_scripts": [
+    "pb_task_00000103_pb_ramp_ball_deflected_angled_wall_0104_blender.py"
+  ],
+  "description": "A ball rolls down a ramp toward a fixed gray wall angled at 45 degrees and deflects elastically through 90 degrees, rolling off along the new direction with a small speed loss; it is deflected, not stopped and not passed through.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_ramp_ball_deflected_angled_wall"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "wall_height",
+          "scope": "build_ramp_ball_deflected_angled_wall"
+        }
+      }
+    }
+  }
+}

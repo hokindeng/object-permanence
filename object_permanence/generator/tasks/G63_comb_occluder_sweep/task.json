@@ -1,0 +1,39 @@
+{
+  "id": "G63",
+  "title": "Comb Occluder Sweep",
+  "name": "comb_occluder_sweep",
+  "members": [
+    109
+  ],
+  "member_scripts": [
+    "pb_task_00000109_pb_comb_occluder_sweep_0110_blender.py"
+  ],
+  "description": "Three coloured blocks sit in a row on a table. A rigid comb frame hangs from sliding carriages on an overhead guide rail and moves horizontally in front of them; as it passes, each block is alternately hidden behind a bar and revealed in the gaps. After the supported comb slides fully past, all three blocks remain in place, unchanged in number and arrangement.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "bar_depth",
+          "scope": "build_comb_occluder_sweep"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "bar_gap",
+          "scope": "build_comb_occluder_sweep"
+        }
+      }
+    }
+  }
+}

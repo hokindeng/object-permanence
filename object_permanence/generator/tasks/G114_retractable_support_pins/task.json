@@ -1,0 +1,44 @@
+{
+  "id": "G114",
+  "title": "Retractable Support Pins",
+  "name": "retractable_support_pins",
+  "members": [
+    160
+  ],
+  "member_scripts": [
+    "pb_task_00000160_pb_retractable_support_pins_0161_blender.py"
+  ],
+  "description": "An object rests across two horizontal pins that jut out from a wall. The two pins retract sideways into the wall, removing all support, and the object falls straight down to the floor. Nothing stays suspended.",
+  "video_split": {
+    "method": "before_event",
+    "event": "pins retract past ball contact; support lost",
+    "first_target_frame": 36
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_retractable_support_pins_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "WALL_H",
+          "scope": "build_retractable_support_pins_scene"
+        }
+      }
+    }
+  }
+}

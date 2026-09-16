@@ -1,0 +1,25 @@
+{
+  "id": "G08",
+  "title": "Drawer Moves Hidden Object",
+  "name": "drawer_moves_hidden_object",
+  "members": [
+    36,
+    37
+  ],
+  "member_scripts": [
+    "pb_task_00000036_pb_drawer_closes_moves_hidden_ball_0037_blender.py",
+    "pb_task_00000037_pb_drawer_closes_moves_hidden_cube_and_ball_0038_blender.py"
+  ],
+  "description": "A closing drawer carries a hidden object as it slides.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "drawer_travel_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4
+      }
+    }
+  }
+}

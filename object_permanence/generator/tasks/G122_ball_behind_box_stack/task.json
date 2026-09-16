@@ -1,0 +1,25 @@
+{
+  "id": "G122",
+  "title": "Ball Behind Box Stack",
+  "name": "ball_behind_box_stack",
+  "members": [
+    168
+  ],
+  "member_scripts": [
+    "pb_task_00000168_pb_ball_behind_box_stack_0169_blender.py"
+  ],
+  "description": "A ball rolls horizontally across the table at a steady speed and passes behind a tall opaque stack of two boxes standing between it and the camera. The ball is hidden for a stretch of frames, then emerges from the far side of the stack, still rolling -- the same ball, same size, continuing straight on."
+  ,"diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.18, "max": 0.42, "precision": 3},
+      "ball_y": {"type": "uniform", "min": 0.50, "max": 1.20, "precision": 3},
+      "lower_box_height": {"type": "uniform", "min": 0.90, "max": 1.50, "precision": 3},
+      "lower_box_width": {"type": "uniform", "min": 1.25, "max": 2.75, "precision": 3},
+      "path_half_length": {"type": "uniform", "min": 2.8, "max": 4.4, "precision": 3},
+      "stack_x": {"type": "uniform", "min": -0.80, "max": 0.80, "precision": 3},
+      "travel_direction": {"type": "choice", "values": ["left_to_right", "right_to_left"]},
+      "upper_box_width": {"type": "uniform", "min": 0.90, "max": 2.30, "precision": 3}
+    }
+  }
+}

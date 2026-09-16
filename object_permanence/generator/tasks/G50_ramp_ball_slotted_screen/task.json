@@ -1,0 +1,39 @@
+{
+  "id": "G50",
+  "title": "Ramp Ball Slotted Screen",
+  "name": "ramp_ball_slotted_screen",
+  "members": [
+    70
+  ],
+  "member_scripts": [
+    "pb_task_00000070_pb_ramp_ball_passes_slotted_screen_0071_blender.py"
+  ],
+  "description": "A ramp ball passes a slotted screen.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_radius",
+          "scope": "build_ramp_ball_slotted_screen"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "screen_x",
+          "scope": "build_ramp_ball_slotted_screen"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "G149",
+  "title": "Snap Pillar Topple",
+  "name": "snap_pillar_topple",
+  "members": [
+    195
+  ],
+  "member_scripts": [
+    "pb_task_00000195_pb_snap_pillar_topple_0196_blender.py"
+  ],
+  "description": "A ball rests on top of a single slender pillar. The pillar topples over sideways, rotating about its base away from under the ball. Losing its support, the ball drops nearly straight down to the floor and bounces to rest. It is never suspended in mid-air.",
+  "video_split": {
+    "method": "before_event",
+    "event": "hold ends; pillar snap and ball free fall begin together",
+    "first_target_frame": 19
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "R_BALL",
+          "scope": "build_snap_pillar_topple_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "PIL_H",
+          "scope": "build_snap_pillar_topple_scene"
+        }
+      }
+    }
+  }
+}

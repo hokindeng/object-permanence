@@ -1,0 +1,37 @@
+{
+  "id": "G55",
+  "title": "Rising Floor Screen",
+  "name": "rising_floor_screen",
+  "members": [
+    101
+  ],
+  "member_scripts": [
+    "pb_task_00000101_pb_rising_floor_screen_0102_blender.py"
+  ],
+  "description": "Two colored blocks rest side by side on a table. A gray opaque panel rises vertically out of a slot in the table, covering the blocks from the bottom up until they are fully hidden, holds briefly, then descends back into the slot to reveal the two blocks unchanged in number and position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BLOCK_Y"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "SLOT_HALF_W"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G95",
+  "title": "Conveyor Edge Fall",
+  "name": "conveyor_edge_fall",
+  "members": [
+    141
+  ],
+  "member_scripts": [
+    "pb_task_00000141_pb_conveyor_edge_fall_0142_blender.py"
+  ],
+  "description": "A ball rides along a conveyor belt toward the end of the belt. When it reaches the edge, it rolls off and falls into a bin (a lower catch floor) below. It accelerates as it falls and is never suspended in the air.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_conveyor_edge_fall_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "wall_h",
+          "scope": "build_conveyor_edge_fall_scene"
+        }
+      }
+    }
+  }
+}

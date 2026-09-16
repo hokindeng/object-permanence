@@ -1,0 +1,42 @@
+{
+  "id": "G148",
+  "title": "Latch Release Flap Drop",
+  "name": "latch_release_flap_drop",
+  "members": [
+    194
+  ],
+  "member_scripts": [
+    "pb_task_00000194_pb_latch_release_flap_drop_0195_blender.py"
+  ],
+  "description": "A ball rests on a small horizontal flap, a hinged panel on a bracket stand, held level by a latch pin under its free end. The pin is pulled out sideways; released, the flap flips down about its hinge and the ball loses its support and falls straight down to the floor, bouncing before it settles. The pin is pulled before the flap drops. Nothing remains suspended.",
+  "video_split": {
+    "method": "before_event",
+    "event": "latch pin has just finished moving clear of the flap",
+    "first_target_frame": 29
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "FLAP_LEN_X"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "GRAVITY"
+        }
+      }
+    }
+  }
+}

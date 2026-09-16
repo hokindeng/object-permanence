@@ -1,0 +1,42 @@
+{
+  "id": "G138",
+  "title": "Bank Shot Carom",
+  "name": "bank_shot_carom",
+  "members": [
+    184
+  ],
+  "member_scripts": [
+    "pb_task_00000184_pb_bank_shot_carom_0185_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "striker_cushion_contact",
+    "first_target_frame": 34
+  },
+  "description": "A ball rolls across a flat surface, banks off a straight cushion at an angle (a clean rebound where the outgoing angle mirrors the incoming one), then travels on and strikes a resting target ball, sending it rolling away while the striker slows. Both balls remain and neither passes through the cushion or through the other ball.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CAROM_LEG"
+        }
+      }
+    }
+  }
+}

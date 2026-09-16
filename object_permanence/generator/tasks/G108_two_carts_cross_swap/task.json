@@ -1,0 +1,42 @@
+{
+  "id": "G108",
+  "title": "Two Carts Cross Swap",
+  "name": "two_carts_cross_swap",
+  "members": [
+    154
+  ],
+  "member_scripts": [
+    "pb_task_00000154_pb_two_carts_cross_swap_0155_blender.py"
+  ],
+  "description": "Two identical covered carts sit at opposite ends of a table; an object is shown under the left cart's cover. The two carts roll toward each other, cross past one another in the middle, and continue to the opposite ends. The cart that started on the left is uncovered to show the object moved with it.",
+  "video_split": {
+    "method": "before_event",
+    "event": "covers closed, carts crossing; reveal at 103 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CART_D"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "G60",
+  "title": "Newtons Cradle",
+  "name": "newtons_cradle",
+  "members": [
+    106
+  ],
+  "member_scripts": [
+    "pb_task_00000106_pb_newtons_cradle_0107_blender.py"
+  ],
+  "description": "Five identical metal balls hang in a row as a Newton's cradle, just touching. The leftmost ball is raised and released; it strikes the row and the rightmost ball swings out by an equal amount while the middle balls stay still. Momentum transfers through the stationary balls and the ball count is conserved.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "string_y",
+          "scope": "build_newtons_cradle_scene"
+        }
+      },
+      "secondary_dynamics_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "MID_WOBBLE_OMEGA"
+        }
+      }
+    }
+  }
+}

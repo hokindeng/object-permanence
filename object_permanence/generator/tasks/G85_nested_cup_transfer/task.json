@@ -1,0 +1,37 @@
+{
+  "id": "G85",
+  "title": "Nested Cup Transfer",
+  "name": "nested_cup_transfer",
+  "members": [
+    131
+  ],
+  "member_scripts": [
+    "pb_task_00000131_pb_nested_cup_transfer_0132_blender.py"
+  ],
+  "description": "A ball is shown, then a small opaque cup lowers over it. A larger opaque cup is then placed over the small cup (nesting them). The nested cups slide together to a new spot on the table and stop. The outer cup lifts, then the inner cup lifts, revealing the ball still inside - it travelled with the nested containers, not back to its original position.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "INNER_WALL_HEIGHT"
+        }
+      }
+    }
+  }
+}

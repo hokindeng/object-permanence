@@ -1,0 +1,25 @@
+{
+  "id": "G129",
+  "title": "Sliding Hatch Drop",
+  "name": "sliding_hatch_drop",
+  "members": [
+    175
+  ],
+  "member_scripts": [
+    "pb_task_00000175_pb_sliding_hatch_drop_0176_blender.py"
+  ],
+  "description": "A ball rests centered on a square hatch panel set flush into a raised platform, filling a hole. The hatch slides sideways fully clear of the hole, removing the support, so the ball free-falls straight down through the opening to the floor below, where it bounces and settles, with nothing left suspended.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "ball_radius": {"type": "uniform", "min": 0.22, "max": 0.30, "precision": 3},
+      "gravity": {"type": "uniform", "min": 0.005, "max": 0.008, "precision": 4},
+      "restitution": {"type": "uniform", "min": 0.35, "max": 0.55, "precision": 3}
+    }
+  },
+  "video_split": {
+    "method": "before_event",
+    "event": "panel left edge clears the hole; ball released into free fall",
+    "first_target_frame": 37
+  }
+}

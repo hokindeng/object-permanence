@@ -1,0 +1,37 @@
+{
+  "id": "G111",
+  "title": "Portcullis Drop Gate",
+  "name": "portcullis_drop_gate",
+  "members": [
+    157
+  ],
+  "member_scripts": [
+    "pb_task_00000157_pb_portcullis_drop_gate_0158_blender.py"
+  ],
+  "description": "A grille gate is raised above a track. One ball rolls under it while it is up and passes through. The grille then drops down to block the track, and a second ball arriving after it has dropped is stopped, resting against the bars.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "GATE_DOWN_Z"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "GATE_HALF_X"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G04",
+  "title": "High Low Cover",
+  "name": "high_low_cover",
+  "members": [
+    13,
+    14
+  ],
+  "member_scripts": [
+    "pb_task_00000013_pb_multi_object_identity_crossing_cover_0014_blender.py",
+    "pb_task_00000014_pb_multi_object_identity_straight_high_low_cover_0015_blender.py"
+  ],
+  "description": "Objects pass behind high/low covers on crossing or straight paths; identity is preserved.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "COVER_T"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "COVER_X_MAX"
+        }
+      }
+    }
+  }
+}

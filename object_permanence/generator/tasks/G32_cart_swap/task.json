@@ -1,0 +1,42 @@
+{
+  "id": "G32",
+  "title": "Cart Swap",
+  "name": "cart_swap",
+  "members": [
+    12
+  ],
+  "member_scripts": [
+    "pb_task_00000012_pb_multi_object_identity_cart_swap_0013_blender.py"
+  ],
+  "video_split": {
+    "method": "before_event",
+    "event": "doors closed, carts mid-swap; doors reopen at 92 stays in target",
+    "first_target_frame": 61
+  },
+  "description": "Two carts swap positions while carrying hidden objects.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CART_A_FINAL_X"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CART_A_START_X"
+        }
+      }
+    }
+  }
+}

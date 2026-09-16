@@ -1,0 +1,39 @@
+{
+  "id": "G119",
+  "title": "Offcenter Break Vsplit",
+  "name": "offcenter_break_vsplit",
+  "members": [
+    165
+  ],
+  "member_scripts": [
+    "pb_task_00000165_pb_offcenter_break_vsplit_0166_blender.py"
+  ],
+  "description": "A ball rolls into the seam of two touching balls at rest, striking them off-center. The two struck balls scatter apart symmetrically to the left and right while the incoming ball slows; momentum is shared and the ball count is conserved.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "R",
+          "scope": "build_offcenter_break_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "y_rest",
+          "scope": "build_offcenter_break_scene"
+        }
+      }
+    }
+  }
+}

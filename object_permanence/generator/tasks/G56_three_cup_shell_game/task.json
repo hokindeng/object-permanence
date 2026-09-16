@@ -1,0 +1,42 @@
+{
+  "id": "G56",
+  "title": "Three Cup Shell Game",
+  "name": "three_cup_shell_game",
+  "members": [
+    102
+  ],
+  "member_scripts": [
+    "pb_task_00000102_pb_three_cup_shell_game_0103_blender.py"
+  ],
+  "description": "Three identical opaque cups upside-down on a table; a ball is shown under the left cup before it lowers, the cups perform two sequential position swaps, and the cup currently over the ball lifts to reveal the ball stayed inside its cup, having moved with its container rather than back to its original world position.",
+  "video_split": {
+    "method": "before_event",
+    "event": "cups down, shuffle underway; lift at 97 stays in target",
+    "first_target_frame": 61
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_RADIUS"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CUP_RADIUS"
+        }
+      }
+    }
+  }
+}

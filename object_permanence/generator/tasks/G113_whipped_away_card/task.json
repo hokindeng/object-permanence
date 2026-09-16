@@ -1,0 +1,44 @@
+{
+  "id": "G113",
+  "title": "Whipped Away Card",
+  "name": "whipped_away_card",
+  "members": [
+    159
+  ],
+  "member_scripts": [
+    "pb_task_00000159_pb_whipped_away_card_0160_blender.py"
+  ],
+  "description": "A ball rests on a thin flat card that bridges the mouth of a cup. The card is flicked out sideways fast; the ball, left unsupported, drops straight down into the cup below. Nothing remains suspended.",
+  "video_split": {
+    "method": "before_event",
+    "event": "card has just visibly begun whipping clear of the cup",
+    "first_target_frame": 31
+  },
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "CARD_T",
+          "scope": "build_whipped_away_card_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "BALL_R",
+          "scope": "build_whipped_away_card_scene"
+        }
+      }
+    }
+  }
+}

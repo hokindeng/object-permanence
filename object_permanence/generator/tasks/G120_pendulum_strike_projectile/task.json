@@ -1,0 +1,46 @@
+{
+  "id": "G120",
+  "title": "Pendulum Strike Projectile",
+  "name": "pendulum_strike_projectile",
+  "members": [
+    166
+  ],
+  "member_scripts": [
+    "pb_task_00000166_pb_pendulum_strike_projectile_0167_blender.py"
+  ],
+  "preview_event_frame": 40,
+  "video_split": {
+    "method": "overlap_event",
+    "event": "ball_contact",
+    "event_frame": 40,
+    "first_target_frame": 40
+  },
+  "description": "A heavy metal ball hangs as a pendulum, is raised and released, and swings down to strike a second ball resting on the edge of a ledge. The struck ball is knocked off the ledge and rolls away along the floor, while the heavy pendulum ball follows through slightly, slows, and settles into small damped swings. Momentum transfers; nothing is left suspended unnaturally.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "string_y",
+          "scope": "build_pendulum_strike_scene"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ledge_len_x",
+          "scope": "build_pendulum_strike_scene"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "G117",
+  "title": "Blooming Petal Box",
+  "name": "blooming_petal_box",
+  "members": [
+    163
+  ],
+  "member_scripts": [
+    "pb_task_00000163_pb_blooming_petal_box_0164_blender.py"
+  ],
+  "description": "Four triangular flaps are folded up and inward to form a closed pyramid over an object. The four flaps fold outward and down (blooming open like a flower) to reveal the object resting on the base, unchanged.",
+  "diversity": {
+    "schema_version": 1,
+    "parameters": {
+      "primary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.64,
+        "max": 1.36,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "ball_r",
+          "scope": "build_blooming_petal_box"
+        }
+      },
+      "secondary_geometry_scale": {
+        "type": "uniform",
+        "min": 0.68,
+        "max": 1.32,
+        "precision": 4,
+        "binding": {
+          "operation": "multiply",
+          "constant": "thick",
+          "scope": "build_blooming_petal_box"
+        }
+      }
+    }
+  }
+}
