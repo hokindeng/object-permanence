@@ -9,7 +9,7 @@ description = "Object-permanence video reasoning data factory: Blender-rendered 
 readme = "README.md"
 requires-python = ">=3.9"
 license = "CC-BY-NC-4.0"
-license-files = ["LICENSE", "LICENSE-OpenMDW-1.1"]
+license-files = ["LICENSE"]
 authors = [
     {name = "Hokin Deng"},
 ]

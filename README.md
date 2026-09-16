@@ -18,8 +18,7 @@ object-permanence/
 ├── object_permanence/   data factory: 150 Blender task generators + CLI      (Part 1)
 ├── pwm/                 training stack: Cosmos3-Nano on AWS Trainium2, native PyTorch (Part 2)
 ├── pyproject.toml       pip package `object-permanence`
-├── LICENSE              CC BY-NC 4.0
-└── LICENSE-OpenMDW-1.1  NVIDIA Cosmos base-model terms
+└── LICENSE              CC BY-NC 4.0 + NVIDIA Cosmos OpenMDW-1.1 terms
 ```
 
 ## Part 1 — Data factory (`object_permanence/`)
@@ -230,7 +229,7 @@ Non-commercial research use with attribution; contact the author for commercial 
 PWM-WROP is built on NVIDIA Cosmos. The base model, nvidia/Cosmos3-Nano
 (Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES), and the Cosmos framework from
 which `pwm/inference/unipc.py` is adapted are distributed by NVIDIA under the
-OpenMDW License Agreement 1.1; a copy is included as [LICENSE-OpenMDW-1.1](LICENSE-OpenMDW-1.1)
+OpenMDW License Agreement 1.1; its text is Part B of [LICENSE](LICENSE)
 and its terms apply to those portions.
 
 ## Citation
