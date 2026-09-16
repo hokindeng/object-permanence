@@ -9,10 +9,11 @@ Both rows are contiguous KV ranges, so the NKI path is one nkilib ``attention_ct
 per-query ``bound_min/bound_max`` and no ``(N, N)`` mask. The explicit path (backend name ``sdpa``,
 kept for config compatibility) is two mask-free fp32 attentions (causal ``Lt×Lt``, full ``Nv×N``):
 an additive/boolean mask is never built because masked-SDPA backward is imprecise on Neuron.
-Inference padding: a prompt shorter than the trained ``text_len`` is padded to it and ``key_bias`` (``[N]``
-fp32, ``-inf`` on the pad keys) hides those keys from the vision rows — forward only, so the mask has no
-backward to be imprecise; real text rows never reach the pads (causal). The NKI path takes contiguous bounds
-and cannot express it: it raises. Layout: token-major ``[N, H, D]`` per sample; backends transpose to
+Padding: a caption or prompt shorter than ``text_len`` is padded to it and ``key_mask`` (``[N]`` bool, True on
+the pad keys) hides those keys from the vision rows, written as ``torch.where(mask, -inf, scores)`` on the fp32
+scores exactly like the causal text mask — an additive ``-inf`` bias on the scores gave NaN loss on the very
+first training step on Neuron (2026-09-16, trn2.48xlarge), the ``where`` form trains. Real text rows never
+reach the pads (causal). The NKI path takes contiguous bounds and cannot express it: it raises. Layout: token-major ``[N, H, D]`` per sample; backends transpose to
 ``(1, H, N, D)`` internally.
 NKI constraints: K seqlen padded to a multiple of 512, Q tiled in groups of 128, backward capped at
 seqlen 8,192 on the current nkilib.
@@ -35,7 +36,7 @@ __all__ = [
     "sdpa_two_way",
     "nki_two_way",
     "two_way_attention",
-    "pad_key_bias",
+    "pad_key_mask",
 ]
 
 
@@ -74,10 +75,10 @@ def _from_bhtd(x: torch.Tensor) -> torch.Tensor:  # (1,H,N,D) -> [N,H,D]
 
 # ----------------------------------------------------------------------------------- explicit
 def full_attention_explicit(
-    qv: torch.Tensor, ka: torch.Tensor, va: torch.Tensor, key_bias: torch.Tensor | None = None
+    qv: torch.Tensor, ka: torch.Tensor, va: torch.Tensor, key_mask: torch.Tensor | None = None
 ) -> torch.Tensor:
-    """Mask-free attention of ``qv`` ``[Nv, H, D]`` over all keys ``ka/va`` ``[N, H, D]``, fp32 scores/softmax.
-    ``key_bias`` ``[N]`` fp32 (0 / -inf) is added to every row's scores — inference-only padding, see module doc.
+    """Attention of ``qv`` ``[Nv, H, D]`` over all keys ``ka/va`` ``[N, H, D]``, fp32 scores/softmax.
+    ``key_mask`` ``[N]`` bool marks padded text keys, hidden from every row (``where``, see module doc).
 
     Explicit scores/softmax rather than ``F.scaled_dot_product_attention``: the compiled SDPA backward on
     Neuron loses precision on the small q_norm/k_norm gain gradients. O(Nv·N) fp32 memory per head,
@@ -90,8 +91,8 @@ def full_attention_explicit(
     k = ka.transpose(0, 1).to(torch.float32)  # [H,N,D]
     v = va.transpose(0, 1).to(torch.float32)
     scores = torch.matmul(q, k.transpose(-1, -2)) * (1.0 / math.sqrt(d))
-    if key_bias is not None:
-        scores = scores + key_bias.to(torch.float32)[None, None, :]
+    if key_mask is not None:
+        scores = torch.where(key_mask[None, None, :], torch.full_like(scores, float("-inf")), scores)
     probs = torch.softmax(scores, dim=-1)
     return torch.matmul(probs, v).transpose(0, 1).to(dt)
 
@@ -117,12 +118,12 @@ def causal_text_attention(qt: torch.Tensor, kt: torch.Tensor, vt: torch.Tensor) 
 
 
 def sdpa_two_way(
-    q: torch.Tensor, k: torch.Tensor, v: torch.Tensor, text_len: int, key_bias: torch.Tensor | None = None
+    q: torch.Tensor, k: torch.Tensor, v: torch.Tensor, text_len: int, key_mask: torch.Tensor | None = None
 ) -> torch.Tensor:
     """Text rows: explicit fp32 causal attention. Vision rows: explicit fp32 attention over all keys (minus the
-    ``key_bias`` pads). ``q, k, v`` ``[N, H, D]`` (k/v already GQA-expanded). Returns ``[N, H, D]``."""
+    ``key_mask`` pads). ``q, k, v`` ``[N, H, D]`` (k/v already GQA-expanded). Returns ``[N, H, D]``."""
     out_text = causal_text_attention(q[:text_len], k[:text_len], v[:text_len])
-    out_vis = full_attention_explicit(q[text_len:], k, v, key_bias)
+    out_vis = full_attention_explicit(q[text_len:], k, v, key_mask)
     return torch.cat([out_text, out_vis], dim=0)
 
 
@@ -312,24 +313,24 @@ def two_way_attention(
     k: torch.Tensor,
     v: torch.Tensor,
     text_len: int,
-    key_bias: torch.Tensor | None = None,
+    key_mask: torch.Tensor | None = None,
 ) -> torch.Tensor:
     kind = AttentionKind(kind)
     if kind is AttentionKind.SDPA:
-        return sdpa_two_way(q, k, v, text_len, key_bias)
-    if key_bias is not None:
+        return sdpa_two_way(q, k, v, text_len, key_mask)
+    if key_mask is not None:
         raise ValueError("nki_flash attention takes contiguous bounds and cannot hide padded text keys; "
                          "infer with a padded prompt needs model.attention_backend: sdpa")
     return nki_two_way(q, k, v, text_len)
 
 
-def pad_key_bias(text_len: int, text_valid: int, total_len: int, device=None) -> torch.Tensor:
-    """``[N]`` fp32: ``-inf`` on text keys ``[text_valid, text_len)`` (padding), 0 elsewhere."""
+def pad_key_mask(text_len: int, text_valid: int, total_len: int, device=None) -> torch.Tensor:
+    """``[N]`` bool: True on text keys ``[text_valid, text_len)`` (padding), False elsewhere."""
     if not 0 < text_valid <= text_len:
         raise ValueError(f"text_valid={text_valid} must be in (0, text_len={text_len}]")
-    bias = torch.zeros(total_len, dtype=torch.float32, device=device)
-    bias[text_valid:text_len] = float("-inf")
-    return bias
+    mask = torch.zeros(total_len, dtype=torch.bool, device=device)
+    mask[text_valid:text_len] = True
+    return mask
 
 
 if __name__ == "__main__":
@@ -369,10 +370,10 @@ if __name__ == "__main__":
     v2[Lt:] += 1.0
     a2 = sdpa_two_way(q, k2, v2, Lt)
     assert torch.allclose(a[:Lt], a2[:Lt]) and not torch.allclose(a[Lt:], a2[Lt:])
-    # Padded text: with key_bias the vision rows equal attention over [real text | vision] keys only, and
-    # perturbing the pad K/V changes nothing; without the bias it does.
+    # Padded text: with key_mask the vision rows equal attention over [real text | vision] keys only, and
+    # perturbing the pad K/V changes nothing; without the mask it does.
     n_valid = 3
-    bias = pad_key_bias(Lt, n_valid, N)
+    bias = pad_key_mask(Lt, n_valid, N)
     keep = torch.cat([torch.arange(n_valid), torch.arange(Lt, N)])
     ref = full_attention_explicit(q[Lt:], k[keep], v[keep])
     got = sdpa_two_way(q, k, v, Lt, bias)[Lt:]
@@ -382,10 +383,10 @@ if __name__ == "__main__":
     v3[n_valid:Lt] += 5.0
     assert torch.equal(sdpa_two_way(q, k3, v3, Lt, bias)[Lt:], got)
     assert not torch.allclose(sdpa_two_way(q, k3, v3, Lt)[Lt:], sdpa_two_way(q, k, v, Lt)[Lt:])
-    assert torch.equal(sdpa_two_way(q, k, v, Lt, torch.zeros(N)), sdpa_two_way(q, k, v, Lt))  # zero bias = no-op
+    assert torch.equal(sdpa_two_way(q, k, v, Lt, torch.zeros(N, dtype=torch.bool)), sdpa_two_way(q, k, v, Lt))  # empty mask = no-op
     try:
         two_way_attention("nki_flash", q, k, v, Lt, bias)
-        raise AssertionError("nki_flash + key_bias must raise")
+        raise AssertionError("nki_flash + key_mask must raise")
     except ValueError:
         pass
     print("attention smoke OK")

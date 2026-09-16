@@ -24,7 +24,7 @@ from torch.utils.checkpoint import checkpoint
 
 from pwm.configs.config import ModelConfig
 from pwm.model.block import MoTBlock, RMSNorm
-from pwm.model.attention import pad_key_bias
+from pwm.model.attention import pad_key_mask
 from pwm.model.diffusion import TIME_FREQ_DIM
 from pwm.model.patchify import LATENT_CHANNELS, PATCH_DIM
 
@@ -72,13 +72,14 @@ class NanoMoT(nn.Module):
         sin: torch.Tensor,
         text_valid: int | None = None,
     ) -> torch.Tensor:
-        """``text_valid`` (inference): only the first ``text_valid`` text ids are real, the rest is padding to the
-        trained ``text_len``; the pads keep their positions but no vision row attends to them."""
+        """``text_valid``: only the first ``text_valid`` text ids are real, the rest is padding to ``text_len``
+        (a short caption at training, a short prompt at inference); the pads keep their positions but no vision
+        row attends to them."""
         text_len = text_ids.shape[0]
         dt = self.activation_dtype
-        key_bias = None
+        key_mask = None
         if text_valid is not None and text_valid < text_len:
-            key_bias = pad_key_bias(text_len, text_valid, text_len + patches.shape[0], device=text_ids.device)
+            key_mask = pad_key_mask(text_len, text_valid, text_len + patches.shape[0], device=text_ids.device)
         ht = self.embed(text_ids)  # [Lt,D]
         hv = self.vae2llm(patches.to(dt))  # [Nv,D]
         t_emb = self.time_embedder(t_freq.to(torch.float32)).to(dt)  # [1,D] fp32 island
@@ -88,9 +89,9 @@ class NanoMoT(nn.Module):
             cos, sin = cos.to(dt), sin.to(dt)
         for blk in self.blocks:
             if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
-                h = checkpoint(blk, h, text_len, cos, sin, key_bias, use_reentrant=False)
+                h = checkpoint(blk, h, text_len, cos, sin, key_mask, use_reentrant=False)
             else:
-                h = blk(h, text_len, cos, sin, key_bias)
+                h = blk(h, text_len, cos, sin, key_mask)
         return self.llm2vae(self.norm_gen(h[text_len:]))  # [Nv,192]
 
 
