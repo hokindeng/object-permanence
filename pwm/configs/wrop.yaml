@@ -6,7 +6,7 @@
 # Geometry: 320x192 px -> latent 20x12 -> 2x2 patches -> 10x6 = 60 tokens/frame; latent_t 30 -> 1,800 vision
 # tokens + 128 text = 1,928 packed tokens (one NEFF shape).
 #
-# Clips: `python -m pwm.data.from_object_permanence <renders> > rows.jsonl` then
+# Clips: `python -m pwm.data.from_object_permanence /out/renders > /out/rows.jsonl` (inside the container) then
 # `python -m pwm.cli encode --manifest rows.jsonl --out /out/data/clips_320x192_t30 --ckpt /weights/Cosmos3-Nano --height 192 --width 320`.
 # Inference with the released weights: `--weights <Hokin/PWM-WROP download>` (checkpoint_dir still supplies vae/ and
 # text_tokenizer/); the released answers were sampled with the inference block below.
@@ -47,7 +47,7 @@ training:
   max_steps: 93750                      # 1,500,000 samples / batch 16 = one epoch
   grad_accum: 1
   max_grad_norm: 1.0
-  save_every: 500
+  save_every: 5000                      # 19 saves x ~162 GiB (per-rank shards, never deleted): size ckpt_dir accordingly
   ckpt_dir: /out/wrop_320x192_t30
   seed: 1234
 

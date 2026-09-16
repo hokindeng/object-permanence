@@ -1,13 +1,14 @@
 """Rendered ``object_permanence`` samples → the JSONL manifest ``pwm.cli encode`` reads.
 
-Every sample directory ``<root>/<task>_task/<task>_NNNN/`` holds ``input_video.mp4`` (60 frames, 24 fps),
-``target_video.mp4`` (the 60 frames that follow) and ``prompt.txt``. One row per sample:
+Every sample directory ``<root>/<task>_task/<task>_NNNN/`` holds ``input_video.mp4`` (60 frames at 24 fps;
+a few tasks 90), ``target_video.mp4`` (the frames that follow) and ``prompt.txt``. One row per sample:
 
     {"id": "<task>_NNNN", "videos": [input, target], "caption": <prompt.txt>, "fps": 24.0,
-     "skip_frames": 3, "cond_latent_frames": 15}
+     "skip_frames": <input frames - 57>, "cond_latent_frames": 15}
 
-``skip_frames`` 3 + ``latent_t`` 30 (117 px frames) = the last 57 input frames as the clean prefix and all 60
-target frames as the prediction span (paper Section 4.1; ``configs/wrop.yaml``). Rows go to stdout.
+``skip_frames`` drops the head of the input so that the **last 57 input frames** are the clean prefix and the
+first 60 target frames are the prediction span (117 px frames = ``latent_t`` 30; paper Section 4.1;
+``configs/wrop.yaml``). The input's frame count is read from the container with ``ffprobe``. Rows go to stdout.
 
     python -m pwm.data.from_object_permanence /data/renders > rows.jsonl
 """
@@ -16,10 +17,23 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
-__all__ = ["rows"]
+__all__ = ["rows", "frame_count"]
+
+COND_FRAMES = 57
+
+
+def frame_count(video: Path) -> int:
+    """Number of frames in ``video`` (ffprobe, container header only)."""
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v:0", "-count_packets",
+         "-show_entries", "stream=nb_read_packets", "-of", "csv=p=0", str(video)],
+        capture_output=True, text=True, check=True,
+    ).stdout.strip()
+    return int(out)
 
 
 def rows(root: str | Path):
@@ -29,12 +43,16 @@ def rows(root: str | Path):
         if not (inp.exists() and tgt.exists() and prompt.exists()):
             print(f"skip {sdir}: incomplete sample", file=sys.stderr)
             continue
+        n_in = frame_count(inp)
+        if n_in < COND_FRAMES:
+            print(f"skip {sdir}: input has {n_in} frames < {COND_FRAMES}", file=sys.stderr)
+            continue
         yield {
             "id": sdir.name,
-            "videos": [str(inp), str(tgt)],
+            "videos": [str(inp.resolve()), str(tgt.resolve())],
             "caption": prompt.read_text(encoding="utf-8").strip(),
             "fps": 24.0,
-            "skip_frames": 3,
+            "skip_frames": n_in - COND_FRAMES,
             "cond_latent_frames": 15,
         }
 

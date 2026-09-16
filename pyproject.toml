@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,16 +8,21 @@ dynamic = ["version"]
 description = "Object-permanence video reasoning data factory: Blender-rendered video-to-video samples"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {text = "CC-BY-NC-4.0"}
+license = "CC-BY-NC-4.0"
+license-files = ["LICENSE", "LICENSE-OpenMDW-1.1"]
 authors = [
     {name = "Hokin Deng"},
-]
-classifiers = [
-    "License :: Free for non-commercial use",
 ]
 dependencies = [
     "numpy>=1.20",
 ]
+
+[project.urls]
+Homepage = "https://object-permanence.world"
+Repository = "https://github.com/hokindeng/object-permanence"
+Dataset = "https://huggingface.co/datasets/Hokin/object-permanence"
+Benchmark = "https://huggingface.co/datasets/Hokin/object-permanence-benchmark"
+Model = "https://huggingface.co/Hokin/PWM-WROP"
 
 [project.scripts]
 object-permanence = "object_permanence.cli:main"

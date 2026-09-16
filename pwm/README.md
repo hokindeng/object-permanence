@@ -36,10 +36,11 @@ Encode (video, caption) rows into fixed-shape clips, once, on CPU. The manifest 
 manifest with one command:
 
 ```bash
-python -m pwm.data.from_object_permanence /out/renders > /out/rows.jsonl
+# renders under ~/out/renders on the host = /out/renders in the container; paths in the manifest are container paths
+bash pwm/launch.sh pwm -- sh -c 'python -m pwm.data.from_object_permanence /out/renders > /out/rows.jsonl'
 # rows.jsonl: {"id": ..., "videos": [input_video.mp4, target_video.mp4], "caption": <prompt.txt>, "fps": 24.0,
-#              "skip_frames": 3, "cond_latent_frames": 15}
-#   -> the last 57 input frames are the clean prefix, the 60 target frames are predicted (117 frames = latent_t 30)
+#              "skip_frames": <input frames - 57>, "cond_latent_frames": 15}
+#   -> the last 57 input frames are the clean prefix, the first 60 target frames are predicted (117 frames = latent_t 30)
 # Any (video, caption) rows work: {"id": ..., "video": "/out/videos/clip.mp4", "caption": "..."} (t2v),
 #   optional "fps", "native_fps" (resample), "skip_frames", "cond_latent_frames".
 bash pwm/launch.sh pwm -- python -m pwm.cli encode --manifest /out/rows.jsonl \
@@ -279,7 +280,7 @@ sequenceDiagram
   else already under torchrun or world == 1
     M->>M: cmd_*(cfg, args)
   end
-  Note over M: encode / consolidate do not relaunch; TORCH_DEVICE_BACKEND_AUTOLOAD=0
+  Note over M: encode / consolidate do not relaunch — TORCH_DEVICE_BACKEND_AUTOLOAD=0
 ```
 
 ### 4. `build_model`: from a meta model to a runnable sharded model
@@ -503,7 +504,7 @@ sequenceDiagram
   participant N as NanoMoT (device)
   participant D as decode
   I->>P: text_ids_for(prompt), text_ids_for(neg) → pad to text_len
-  P-->>I: Prompt(ids, valid); too long → ValueError
+  P-->>I: Prompt(ids, valid) — too long → ValueError
   I->>S: initial_latent(shape, seed), optional v2v prefix
   S->>Q: FlowUniPC(steps, shift).sample(velocity_fn, x)
   loop every timestep (int64-truncated σ·1000)

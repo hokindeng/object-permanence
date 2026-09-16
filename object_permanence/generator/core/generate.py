@@ -411,7 +411,7 @@ def compute_split(ssg, mode, n_seq, rendered_frames=None, task_split=None,
         info.update(fixed_length_info(half))
         return half, info
     try:
-        names, roles, is_target, xpos, xquat = ssg_to_arrays(ssg)
+        names, roles, shapes, colors, is_target, xpos, xquat = ssg_to_arrays(ssg)
         T = xpos.shape[0]
         tgt = np.where(is_target)[0]
         app = np.where(~is_target)[0]
@@ -435,7 +435,7 @@ def compute_split(ssg, mode, n_seq, rendered_frames=None, task_split=None,
                      "min_target_apparatus_dist": round(float(d.min()), 4)})
         info.update(fixed_length_info(split))
         return split, info
-    except Exception as e:
+    except ValueError as e:  # no usable target/apparatus geometry in the state graph
         info.update({"split_index": half, "method": "midpoint_fallback", "fallback_reason": str(e)})
         info.update(fixed_length_info(half))
         return half, info

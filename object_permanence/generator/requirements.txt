@@ -3,6 +3,6 @@
 # source of truth; `pip install -e .` pulls it in. This file is informational.
 #
 # Host tools required (not pip-installable here):
-#   - Blender >= 4.2 (EEVEE_NEXT) — runs core/render.py
+#   - Blender 4.4.x (EEVEE_NEXT; the renderer refuses other versions, see README) — runs core/render.py
 #   - ffmpeg                       — frames -> mp4
 numpy

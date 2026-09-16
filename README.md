@@ -199,8 +199,8 @@ export PWM_IMAGE=<neuron native-pytorch container image@digest>
 bash pwm/launch.sh pip pwm            # container "pwm" + deps
 bash pwm/launch.sh preflight          # read-only checks: driver, devices, image, cache, weights, box idle
 
-# Part 1 renders -> encode manifest -> fixed-shape clips (once, on CPU)
-python -m pwm.data.from_object_permanence /out/renders > /out/rows.jsonl
+# Part 1 renders (under ~/out/renders = /out/renders in the container) -> encode manifest -> fixed-shape clips (once, on CPU)
+bash pwm/launch.sh pwm -- sh -c 'python -m pwm.data.from_object_permanence /out/renders > /out/rows.jsonl'
 bash pwm/launch.sh pwm -- python -m pwm.cli encode --manifest /out/rows.jsonl \
     --out /out/data/clips_320x192_t30 --ckpt /weights/Cosmos3-Nano --latent-t 30 --height 192 --width 320 --text-len 128
 
@@ -236,9 +236,9 @@ and its terms apply to those portions.
 ## Citation
 
 ```bibtex
-@article{deng2026wrop,
+@article{zhang2026training,
   title   = {Training Object Permanence in World Models},
-  author  = {Deng, Hokin and others},
+  author  = {Zhang, Haotian and others},
   year    = {2026},
   url     = {https://object-permanence.world}
 }
