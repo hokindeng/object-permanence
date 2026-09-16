@@ -195,11 +195,12 @@ chmod +x "$CC"; echo "compile throttle installed"'
 }
 
 # ----------------------------------------------------------------------------- pip
-# pwm runtime deps from public PyPI. `--index-url` must come AFTER `install` (the DLC's default index
-# 401s). A constraints file written live pins torch/numpy to the versions the container has, so
-# the resolver may install transitive deps (Pillow, huggingface-hub, regex, ...) but can never swap
-# the Neuron torch; torchvision is not a dependency of anything here and must never be added. The
-# guard afterwards fails loudly if torch changed, torch_neuronx vanished, or torchvision appeared.
+# pwm runtime deps from public PyPI. `--isolated` drops the DLC's pip.conf (its extra-index-url is a private
+# Neuron repository that 401s on every package); `--index-url` must come AFTER `install`. A constraints file
+# written live pins torch/numpy to the versions the container has, so the resolver may install transitive
+# deps (Pillow, huggingface-hub, regex, ...) but can never swap the Neuron torch; torchvision is not a
+# dependency of anything here and must never be added. The guard afterwards fails loudly if torch changed,
+# torch_neuronx vanished, or torchvision appeared.
 # TORCH_DEVICE_BACKEND_AUTOLOAD=0 on every CPU-only python here: a bare `import torch` in this container
 # auto-loads torch_neuronx, which initialises the runtime and dies without a device.
 pip_deps() {
@@ -218,7 +219,7 @@ for d in ("torch", "numpy"):
     print(f"{d}=={m.version(d)}")
 PY
   echo "live constraints:"; cat $C
-  $V/pip install -q --index-url https://pypi.org/simple -c $C \
+  $V/pip --isolated install -q --index-url https://pypi.org/simple -c $C \
     pyyaml safetensors numpy imageio imageio-ffmpeg "diffusers>=0.39.0" \
     "transformers>=4.57.1,<5" accelerate
 fi
