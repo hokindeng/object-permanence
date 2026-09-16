@@ -8,7 +8,8 @@ a few tasks 90), ``target_video.mp4`` (the frames that follow) and ``prompt.txt`
 
 ``skip_frames`` drops the head of the input so that the **last 57 input frames** are the clean prefix and the
 first 60 target frames are the prediction span (117 px frames = ``latent_t`` 30; paper Section 4.1;
-``configs/wrop.yaml``). The input's frame count is read from the container with ``ffprobe``. Rows go to stdout.
+``configs/wrop.yaml``). The input's frame count comes from the same imageio/FFMPEG reader ``pwm.data.encode``
+decodes with (the container ships no ffmpeg binary of its own). Rows go to stdout.
 
     python -m pwm.data.from_object_permanence /data/renders > rows.jsonl
 """
@@ -17,7 +18,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -27,13 +27,11 @@ COND_FRAMES = 57
 
 
 def frame_count(video: Path) -> int:
-    """Number of frames in ``video`` (ffprobe, container header only)."""
-    out = subprocess.run(
-        ["ffprobe", "-v", "error", "-select_streams", "v:0", "-count_packets",
-         "-show_entries", "stream=nb_read_packets", "-of", "csv=p=0", str(video)],
-        capture_output=True, text=True, check=True,
-    ).stdout.strip()
-    return int(out)
+    """Number of frames in ``video`` (imageio/FFMPEG, the reader ``encode.read_frames`` uses)."""
+    import imageio.v2 as imageio  # noqa: PLC0415
+
+    with imageio.get_reader(str(video), format="FFMPEG") as r:
+        return int(r.count_frames())
 
 
 def rows(root: str | Path):
