@@ -8,8 +8,8 @@ fine-tuned PWM-WROP, a 16B video world model, on that data.
 | | |
 |---|---|
 | Website / Leaderboard | https://object-permanence.world |
-| Training corpus (1.5M samples) + 300-question exam | https://huggingface.co/datasets/Hokin/object-permanence |
-| Benchmark answers (14 models × 300 questions) | https://huggingface.co/datasets/Hokin/object-permanence-benchmark |
+| Training corpus (1.5M samples) | https://huggingface.co/datasets/Hokin/object-permanence |
+| Benchmark: 300-question exam + 14 models' answers | https://huggingface.co/datasets/Hokin/object-permanence-benchmark |
 | Model weights (PWM-WROP) | https://huggingface.co/Hokin/PWM-WROP |
 | Paper | https://object-permanence.world/paper |
 
