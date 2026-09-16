@@ -48,7 +48,9 @@ bash pwm/launch.sh pwm -- python -m pwm.cli encode --manifest /out/rows.jsonl \
 ```
 
 `data.clips_dir` in the YAML is this output directory (`wrop.yaml` defaults to `/out/data/clips_320x192_t30`).
-Before a large run, scan the clip files themselves (zip structure, CRC, `torch.load`):
+`encode` is one CPU process, about 10 s per 320×192×117 clip on a trn2.48xlarge (the VAE encode dominates); a clip
+that already exists is skipped, so a large manifest is split into slices and one `encode` per slice runs into the
+same `--out` (`split -n l/32 /out/rows.jsonl /out/rows.part.`). Before a large run, scan the clip files themselves (zip structure, CRC, `torch.load`):
 `python -m pwm.data.preflight_scan /out/data/clips_320x192_t30 [--procs 32]` exits 1 on any bad file and writes
 the list to `<clips_dir>/.preflight_bad.txt` (one corrupt row in a million-row corpus only surfaces when the
 sampler draws it). A source shorter than the geometry needs (`--latent-t 30` reads 117 frames, plus
@@ -121,6 +123,17 @@ bash pwm/launch.sh pwm -- python -m pwm.cli consolidate /repo/pwm/configs/wrop.y
 
 The shards carry the training config; `consolidate` refuses a YAML whose `tp`/`fsdp`/`layers` differ, and
 every assembled tensor must match the base checkpoint's shape.
+
+## Verified end to end
+
+2026-09-16, trn2.48xlarge, native DLC `concourse-release-0461d3b@sha256:9d37a77…` (torch 2.11.0, torch_neuronx
+2.11.3.0.1278), driver 2.28.0.0, this repository at `d3066d8`: every command in sections 1–5 above, in order, on
+253 WROP training samples. `preflight` → `pip` → bridge (253 rows) → `encode` → `preflight_scan` → `bench
+example.yaml --warmup 3 --steps 10` (median 6.10 s/step with the encode running alongside) → `train wrop.yaml`
+cut to 20 steps with saves at 10 and 20 (loss 0.020 → 0.010, `gnorm_spread` 0, no skips, 4.5–5.1 s/step) → the
+same command again (`resumed from step 20`, nothing re-run) → `infer --weights <PWM-WROP> --v2v <clip>` (35 UniPC
+steps in 28 s, the continuation shows the hidden objects reappearing in place) → `consolidate --step 20`. The
+four defects that run found are fixed in the commits after `1bc9889`.
 
 ## Performance notes
 
