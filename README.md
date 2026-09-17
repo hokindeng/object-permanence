@@ -29,7 +29,7 @@
     </a>
 </p>
 
-<img src="assets/150-task-wall.gif" alt="One sample from each of the 150 WROP task generators" width="960" />
+<img src="assets/promo.gif" alt="Training Object Permanence in World Models — the 150 WROP task generators" width="960" />
 
 </div>
 
