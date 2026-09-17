@@ -1,38 +1,5 @@
 # object-permanence
 
-<div align="center">
-
-<p align="center">
-    <a href="https://object-permanence.world" target="_blank">
-        <img alt="Project Page" src="https://img.shields.io/badge/Project%20-%20Homepage-4285F4" height="20" />
-    </a>
-    <a href="https://object-permanence.world/paper" target="_blank">
-        <img alt="Paper" src="https://img.shields.io/badge/Paper-Training_Object_Permanence-red?logo=readthedocs&logoColor=white" height="20" />
-    </a>
-    <a href="https://object-permanence.world/leaderboard" target="_blank">
-        <img alt="Leaderboard" src="https://img.shields.io/badge/Leaderboard-14_video_models-4285F4" height="20" />
-    </a>
-    <a href="https://huggingface.co/datasets/Hokin/object-permanence" target="_blank">
-        <img alt="Training corpus" src="https://img.shields.io/badge/%F0%9F%A4%97%20_Dataset-Training_corpus_1.5M-ffc107?color=ffc107&logoColor=white" height="20" />
-    </a>
-    <a href="https://huggingface.co/datasets/Hokin/object-permanence-benchmark" target="_blank">
-        <img alt="Benchmark" src="https://img.shields.io/badge/%F0%9F%A4%97%20_Dataset-Benchmark_300_questions-ffc107?color=ffc107&logoColor=white" height="20" />
-    </a>
-    <a href="https://huggingface.co/Hokin/PWM-WROP" target="_blank">
-        <img alt="Model" src="https://img.shields.io/badge/%F0%9F%A4%97%20_Model-PWM--WROP_16B-ffc107?color=ffc107&logoColor=white" height="20" />
-    </a>
-    <a href="LICENSE">
-        <img alt="License" src="https://img.shields.io/badge/License-CC_BY--NC_4.0-blue.svg" height="20" />
-    </a>
-    <a href="LICENSE">
-        <img alt="Base model license" src="https://img.shields.io/badge/Cosmos-OpenMDW_1.1-blue.svg" height="20" />
-    </a>
-</p>
-
-<img src="assets/promo.gif" alt="Training Object Permanence in World Models — the 150 WROP task generators" width="960" />
-
-</div>
-
 Code for the paper **_Training Object Permanence in World Models_**. Everything behind it in one repository:
 
 ```
