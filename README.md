@@ -49,15 +49,6 @@ Blender-rendered scenes where objects persist while occluded, packaged as
 video-to-video samples. 150 self-contained task generators in six cognitively
 grounded families:
 
-| Concept | Families |
-|---|---|
-| Object permanence | Baillargeonian occlusion · static occlusion · container permanence |
-| Object solidity | Baillargeonian obstruction · object drop · object collision |
-
-The task → family map lives in one place, `object_permanence/taxonomy.py`.
-Trajectories are hand-authored keyframes; the one exception is
-`G73_break_scatter_cluster`, which bakes a Blender rigid-body simulation to keyframes.
-
 ### 1.1 Install
 
 ```bash
