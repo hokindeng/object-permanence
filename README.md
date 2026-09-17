@@ -1,5 +1,7 @@
 # object-permanence
 
+<p align="center"><img src="assets/promo.gif" alt="Training Object Permanence in World Models" width="960" /></p>
+
 Code for the paper **_Training Object Permanence in World Models_**. Everything behind it in one repository:
 
 ```
