@@ -31,13 +31,7 @@
 
 </div>
 
-Code for the paper **_Training Object Permanence in World Models_**. Everything
-behind it in one repository:
-
-| | Part | What it is |
-|---|---|---|
-| 1 | [`object_permanence/`](#1-data-factory) | Data factory — 150 Blender task generators that render the WROP corpus (object permanence + object solidity) as video-to-video samples, plus the `object-permanence` CLI |
-| 2 | [`pwm/`](#2-training-stack) | Training stack — native-PyTorch Cosmos3-Nano on AWS Trainium2, the recipe that fine-tuned PWM-WROP (16B) on 1.5M samples |
+Code for the paper **_Training Object Permanence in World Models_**. Everything behind it in one repository:
 
 ```
 object-permanence/
