@@ -45,9 +45,7 @@ object-permanence/
 
 ## 1. Data factory
 
-Blender-rendered scenes where objects persist while occluded, packaged as
-video-to-video samples. 150 self-contained task generators in six cognitively
-grounded families:
+Blender-rendered scenes where objects persist while occluded, packaged as video-to-video samples. 150 self-contained task generators in six cognitively grounded families:
 
 ### 1.1 Install
 
@@ -129,14 +127,7 @@ bash pwm/launch.sh pwm -- python -m pwm.cli bench /repo/pwm/configs/example.yaml
 
 ## License
 
-CC BY-NC 4.0 — Copyright (c) 2026 Hokin Deng <hokinxqdeng@gmail.com>.
-Non-commercial research use with attribution; contact the author for commercial licensing.
-
-PWM-WROP is built on NVIDIA Cosmos. The base model, nvidia/Cosmos3-Nano
-(Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES), and the Cosmos framework from
-which `pwm/inference/unipc.py` is adapted are distributed by NVIDIA under the
-OpenMDW License Agreement 1.1; its text is Part B of [LICENSE](LICENSE)
-and its terms apply to those portions.
+CC BY-NC 4.0 — Copyright (c) 2026 Hokin Deng <hokinxqdeng@gmail.com>. Non-commercial research use with attribution; contact the author for commercial licensing.
 
 ## Citation
 
