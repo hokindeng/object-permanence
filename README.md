@@ -29,6 +29,8 @@
     </a>
 </p>
 
+<img src="assets/150-task-wall.gif" alt="One sample from each of the 150 WROP task generators" width="960" />
+
 </div>
 
 Code for the paper **_Training Object Permanence in World Models_**. Everything behind it in one repository:
