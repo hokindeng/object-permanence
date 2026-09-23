@@ -2,7 +2,7 @@
 
 <p align="center"><img src="assets/promo.gif" alt="Training Object Permanence in World Models" width="960" /></p>
 
-Codebase for the paper **_Training Object Permanence in World Models_** ([project page](https://www.object-permanence.world/)).
+Codebase for the paper [**_Training Object Permanence in World Models_**](https://www.object-permanence.world/).
 
 ```
 object-permanence/
