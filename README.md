@@ -2,7 +2,9 @@
 
 <p align="center"><img src="assets/promo.gif" alt="Training Object Permanence in World Models" width="960" /></p>
 
-Codebase for the paper [**_Training Object Permanence in World Models_**](https://www.object-permanence.world/).
+Codebase for the paper [**_Training Object Permanence in World Models_**](https://arxiv.org/abs/2609.28654) (arXiv:2609.28654).
+
+[Project page](https://www.object-permanence.world/) · [Paper](https://arxiv.org/abs/2609.28654) · [Training data (1.5M)](https://huggingface.co/datasets/Hokin/object-permanence) · [Benchmark: exam + answers](https://huggingface.co/datasets/Hokin/object-permanence-benchmark) · [Model: PWM-WROP](https://huggingface.co/Hokin/PWM-WROP) · [Leaderboard](https://www.object-permanence.world/leaderboard)
 
 ```
 object-permanence/
@@ -103,10 +105,13 @@ CC BY-NC 4.0 — Copyright (c) 2026 Hokin Deng <hokinxqdeng@gmail.com>. Non-comm
 ## Citation
 
 ```bibtex
-@article{zhang2026training,
-  title   = {Training Object Permanence in World Models},
-  author  = {Zhang, Haotian and others},
-  year    = {2026},
-  url     = {https://object-permanence.world}
+@misc{zhang2026trainingobjectpermanenceworld,
+  title         = {Training Object Permanence in World Models},
+  author        = {Haotian Zhang and Fengyuan Yu and Dezhi Luo and Haoran Sun and Zehong Zhao and Qingying Gao and Yihan Li and Siyuan An and Huayi Qin and Yilan Zhang and Zhengze Jiang and Pinyuan Feng and Renrui Zhang and Ziyu Guo and Letian Wang and Mengyue Yang and Kangfu Mei and Maijunxian Wang and Ran Ji and Vikash Kumar and Freda Shi and Chandra Sripada and Vincent C. Muller and Philip Torr and Alan Yuille and Nikolaus Kriegeskorte and Felix Juefei-Xu and Lvmin Zhang and Jieneng Chen and Yilun Du and Hokin Deng},
+  year          = {2026},
+  eprint        = {2609.28654},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  url           = {https://arxiv.org/abs/2609.28654}
 }
 ```
