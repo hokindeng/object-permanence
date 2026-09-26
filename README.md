@@ -4,7 +4,7 @@
 
 Codebase for the paper [**_Training Object Permanence in World Models_**](https://arxiv.org/abs/2609.28654) (arXiv:2609.28654).
 
-[Project page](https://www.object-permanence.world/) · [Paper](https://arxiv.org/abs/2609.28654) · [Training data (1.5M)](https://huggingface.co/datasets/Hokin/object-permanence) · [Benchmark: exam + answers](https://huggingface.co/datasets/Hokin/object-permanence-benchmark) · [Model: PWM-WROP](https://huggingface.co/Hokin/PWM-WROP) · [Leaderboard](https://www.object-permanence.world/leaderboard)
+[Project page](https://www.object-permanence.world/) · [Paper](https://arxiv.org/abs/2609.28654) · [Training data (1.5M)](https://huggingface.co/datasets/Hokin/object-permanence) · [Benchmark](https://huggingface.co/datasets/Hokin/object-permanence-benchmark) · [Model](https://huggingface.co/Hokin/PWM-WROP) · [Leaderboard](https://www.object-permanence.world/leaderboard)
 
 ```
 object-permanence/
