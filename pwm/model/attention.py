@@ -13,7 +13,9 @@ Padding: a caption or prompt shorter than ``text_len`` is padded to it and ``key
 the pad keys) hides those keys from the vision rows, written as ``torch.where(mask, -inf, scores)`` on the fp32
 scores exactly like the causal text mask — an additive ``-inf`` bias on the scores gave NaN loss on the very
 first training step on Neuron (2026-09-16, trn2.48xlarge), the ``where`` form trains. Real text rows never
-reach the pads (causal). The NKI path takes contiguous bounds and cannot express it: it raises. Layout: token-major ``[N, H, D]`` per sample; backends transpose to
+reach the pads (causal). The NKI path takes one contiguous bound pair per row, so for a padded caption it reorders
+the K/V slots to ``[pad | real text | vision]`` (``padded_two_way_bounds``), which makes every row one interval.
+Layout: token-major ``[N, H, D]`` per sample; backends transpose to
 ``(1, H, N, D)`` internally.
 NKI constraints: K seqlen padded to a multiple of 512, Q tiled in groups of 128, backward capped at
 seqlen 8,192 on the current nkilib.
@@ -57,12 +59,44 @@ def expand_kv(x: torch.Tensor, groups: int) -> torch.Tensor:
     return x[:, :, None, :].expand(n, hkv, groups, d).reshape(n, hkv * groups, d)
 
 
-def two_way_bounds(text_len: int, total_len: int, device=None) -> tuple[torch.Tensor, torch.Tensor]:
-    """Per-query contiguous KV range: text row i → ``[0, i+1)``; vision row → ``[0, N)``. Shapes ``[N]`` long."""
-    bmin = torch.zeros(total_len, dtype=torch.long, device=device)
-    bmax = torch.full((total_len,), total_len, dtype=torch.long, device=device)
-    bmax[:text_len] = torch.arange(1, text_len + 1, device=device)
-    return bmin, bmax
+def two_way_bounds(
+    text_len: int, total_len: int, device=None, dtype: torch.dtype = torch.long
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Per-query contiguous KV range: text row i → ``[0, i+1)``; vision row → ``[0, N)``. Shapes ``[N]``.
+
+    Callers on the NKI path must build bounds ONCE, eagerly, outside the compiled blocks, and pass them in
+    (see ``NanoMoT.forward``): built inside a ``torch.compile(backend="neuron")`` region they lowered to
+    ``2**43`` on every vision row, which made ``attention_cte`` behave causally."""
+    # Built on CPU, then moved. Two separate Beta 6 issues make on-device construction unsafe:
+    #   * inside a compiled region, full()+slice-assign lowers to 2**43 on the vision rows;
+    #   * eagerly, a comparison producing a bool tensor (idx < text_len) falls back to host
+    #     (aten::_to_copy), which trips pwm's own fallback-op guard at the first step.
+    bmax = torch.full((total_len,), total_len, dtype=dtype)
+    bmax[:text_len] = torch.arange(1, text_len + 1, dtype=dtype)
+    bmin = torch.zeros(total_len, dtype=dtype)
+    return bmin.to(device), bmax.to(device)
+
+
+def padded_two_way_bounds(
+    text_len: int, text_valid: int, total_len: int, device=None
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """NKI path for a padded caption: ``(kv_perm, bmin, bmax)``.
+
+    ``kv_perm`` ``[N]`` long reorders K/V slots to ``[pad | real text | vision]`` so the padding is a prefix and
+    every query row is ONE contiguous key interval (``attention_cte`` takes a single bound pair per row):
+    real text row ``i`` -> ``[Lt-tv, Lt-tv+i+1)``, vision -> ``[Lt-tv, N)``, pad rows -> ``[Lt-tv, Lt)``.
+    Pad-row outputs differ from the sdpa path but never reach the loss (no real row attends to a pad key).
+    Built on CPU then moved -- see ``two_way_bounds`` for why."""
+    lt, tv, n = text_len, text_valid, total_len
+    if not 0 < tv <= lt:
+        raise ValueError(f"text_valid={tv} must be in (0, text_len={lt}]")
+    npad = lt - tv
+    kv_perm = torch.cat([torch.arange(tv, lt), torch.arange(0, tv), torch.arange(lt, n)])
+    bmin = torch.full((n,), npad, dtype=torch.long)
+    bmax = torch.full((n,), n, dtype=torch.long)
+    bmax[:tv] = torch.arange(npad + 1, npad + tv + 1)
+    bmax[tv:lt] = lt
+    return kv_perm.to(device), bmin.to(device), bmax.to(device)
 
 
 def _to_bhtd(x: torch.Tensor) -> torch.Tensor:  # [N,H,D] -> (1,H,N,D)
@@ -148,6 +182,20 @@ def _load_nki_bwd_kernel():
 
         _nki_bwd_kernel = attention_bwd
     return _nki_bwd_kernel
+
+
+def _preload_nki_kernels() -> None:
+    """Resolve the nkilib kernels at import, not on first call. The lazy loaders assign module globals;
+    reached inside a compiled block (via the autograd.Function) that is an unsafe side effect, so dynamo
+    graph-breaks around the attention in every block and then recompiles on the changed global."""
+    try:
+        _load_nki_kernel()
+        _load_nki_bwd_kernel()
+    except ImportError:  # CPU-only environments without nkilib: the sdpa path never needs them
+        pass
+
+
+_preload_nki_kernels()
 
 
 _NKI_Q_GRP_SZ = 128  # kernel tiles Q in groups of this size
@@ -248,7 +296,9 @@ class _NkiFlashAttnFn(torch.autograd.Function):
             out, neg_max, recip = ret
         out = out.reshape(b, h, tp, dh)
         out = out[:, :, :t, :] if need else out
-        ctx.save_for_backward(q, k, v, out, neg_max, recip, bmin, bmax)
+        # Save the PRE-SCALED q (what the forward kernel actually consumed, in q.dtype) so the
+        # backward recomputes exactly the scores whose softmax stats it is handed.
+        ctx.save_for_backward(q * scale, k, v, out, neg_max, recip, bmin, bmax)
         ctx.scale = scale
         ctx.dims = (b, h, t, dh, tp, need)
         return out.to(v.dtype)
@@ -282,7 +332,8 @@ class _NkiFlashAttnFn(torch.autograd.Function):
             dyb,
             lse,
             use_causal_mask=False,
-            softmax_scale=ctx.scale,
+            mixed_precision=True,
+            softmax_scale=1.0,  # q is pre-scaled (see forward)
             bound_min=bmin_p.to(torch.float32).contiguous(),
             bound_max=bmax_p.to(torch.float32).contiguous(),
         )
@@ -295,13 +346,28 @@ class _NkiFlashAttnFn(torch.autograd.Function):
             g = g.reshape(b, h, dh, tp).transpose(-1, -2)
             return (g[:, :, :t, :] if need else g).contiguous().to(q.dtype)
 
-        return unpad(dQ), unpad(dK), unpad(dV), None, None
+        return unpad(dQ) * ctx.scale, unpad(dK), unpad(dV), None, None  # d/dq = s * d/d(q*s)
 
 
-def nki_two_way(q: torch.Tensor, k: torch.Tensor, v: torch.Tensor, text_len: int) -> torch.Tensor:
-    """One ``attention_cte`` call with two-way bounds. ``q, k, v`` ``[N, H, D]`` (k/v GQA-expanded)."""
+def nki_two_way(
+    q: torch.Tensor,
+    k: torch.Tensor,
+    v: torch.Tensor,
+    text_len: int,
+    bounds: tuple[torch.Tensor, torch.Tensor] | None = None,
+) -> torch.Tensor:
+    """One ``attention_cte`` call with two-way bounds. ``q, k, v`` ``[N, H, D]`` (k/v GQA-expanded).
+
+    ``bounds`` ``(bmin, bmax)`` ``[N]``: pass precomputed, eagerly-built bounds (the compiled path must) --
+    see ``two_way_bounds``. ``None`` computes them here (eager callers / tests only)."""
     n = q.shape[0]
-    bmin, bmax = two_way_bounds(text_len, n, device=q.device)
+    kv_perm = None
+    if bounds is not None and len(bounds) == 3:  # padded caption: (kv_perm, bmin, bmax)
+        kv_perm, bmin, bmax = bounds
+    else:
+        bmin, bmax = bounds if bounds is not None else two_way_bounds(text_len, n, device=q.device)
+    if kv_perm is not None:
+        k, v = k.index_select(0, kv_perm), v.index_select(0, kv_perm)
     out = nki_flash_attention(_to_bhtd(q), _to_bhtd(k), _to_bhtd(v), (bmin[None], bmax[None]))
     return _from_bhtd(out)
 
@@ -314,14 +380,15 @@ def two_way_attention(
     v: torch.Tensor,
     text_len: int,
     key_mask: torch.Tensor | None = None,
+    bounds: tuple[torch.Tensor, torch.Tensor] | None = None,
 ) -> torch.Tensor:
     kind = AttentionKind(kind)
     if kind is AttentionKind.SDPA:
         return sdpa_two_way(q, k, v, text_len, key_mask)
-    if key_mask is not None:
-        raise ValueError("nki_flash attention takes contiguous bounds and cannot hide padded text keys; "
-                         "infer with a padded prompt needs model.attention_backend: sdpa")
-    return nki_two_way(q, k, v, text_len)
+    if key_mask is not None and (bounds is None or len(bounds) != 3):
+        raise ValueError("nki_flash with a padded caption needs the (kv_perm, bmin, bmax) bounds built by "
+                         "NanoMoT.forward (padded_two_way_bounds); a bare key_mask cannot be expressed")
+    return nki_two_way(q, k, v, text_len, bounds)
 
 
 def pad_key_mask(text_len: int, text_valid: int, total_len: int, device=None) -> torch.Tensor:
@@ -385,8 +452,20 @@ if __name__ == "__main__":
     assert not torch.allclose(sdpa_two_way(q, k3, v3, Lt)[Lt:], sdpa_two_way(q, k, v, Lt)[Lt:])
     assert torch.equal(sdpa_two_way(q, k, v, Lt, torch.zeros(N, dtype=torch.bool)), sdpa_two_way(q, k, v, Lt))  # empty mask = no-op
     try:
-        two_way_attention("nki_flash", q, k, v, Lt, bias)
-        raise AssertionError("nki_flash + key_mask must raise")
+        two_way_attention("nki_flash", q, k, v, Lt, bias)  # a bare key_mask, without the permuted bounds
+        raise AssertionError("nki_flash + bare key_mask must raise")
     except ValueError:
         pass
+    # The permuted-bounds construction the NKI path uses for padding, checked on CPU with an explicit
+    # bounds-masked attention: every real row (text < n_valid, all vision) must equal sdpa_two_way.
+    perm, bmn, bmx = padded_two_way_bounds(Lt, n_valid, N)
+    kp, vp = k.index_select(0, perm), v.index_select(0, perm)
+    scores = torch.einsum("nhd,mhd->hnm", q.float(), kp.float()) / math.sqrt(q.shape[-1])
+    idx = torch.arange(N)
+    live = (idx[None, :] >= bmn[:, None]) & (idx[None, :] < bmx[:, None])
+    scores = torch.where(live[None], scores, torch.full_like(scores, float("-inf")))
+    bounded = torch.einsum("hnm,mhd->nhd", torch.softmax(scores, -1), vp.float()).to(q.dtype)
+    want = sdpa_two_way(q, k, v, Lt, bias)
+    real = torch.cat([torch.arange(n_valid), torch.arange(Lt, N)])
+    assert torch.allclose(bounded[real], want[real], atol=1e-5), (bounded[real] - want[real]).abs().max()
     print("attention smoke OK")

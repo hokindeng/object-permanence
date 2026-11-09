@@ -24,7 +24,7 @@ from torch.utils.checkpoint import checkpoint
 
 from pwm.configs.config import ModelConfig
 from pwm.model.block import MoTBlock, RMSNorm
-from pwm.model.attention import pad_key_mask
+from pwm.model.attention import AttentionKind, pad_key_mask, padded_two_way_bounds, two_way_bounds
 from pwm.model.diffusion import TIME_FREQ_DIM
 from pwm.model.patchify import LATENT_CHANNELS, PATCH_DIM
 
@@ -87,11 +87,21 @@ class NanoMoT(nn.Module):
         h = torch.cat([ht, hv], dim=0)  # [N,D]
         if not self.rope_fp32:
             cos, sin = cos.to(dt), sin.to(dt)
+        # NKI bounds are built HERE, once, eagerly -- this forward is not compiled, only the blocks are.
+        # Building them inside a compiled block mis-lowered bmax (2**43 on vision rows); as graph inputs
+        # they are just data. Same pattern as key_mask above.
+        bmin = bmax = kv_perm = None
+        if self.blocks and getattr(self.blocks[0], "backend", None) == AttentionKind.NKI_FLASH.value and key_mask is not None:
+            kv_perm, bmin, bmax = padded_two_way_bounds(text_len, text_valid, h.shape[0], device=h.device)
+        elif self.blocks and getattr(self.blocks[0], "backend", None) == AttentionKind.NKI_FLASH.value:
+            # int64, as before: the backward casts bounds to fp32, and an int32->fp32 _to_copy
+            # falls back to host on Beta 6 (trips the fallback-op guard); int64->fp32 does not.
+            bmin, bmax = two_way_bounds(text_len, h.shape[0], device=h.device)
         for blk in self.blocks:
             if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
-                h = checkpoint(blk, h, text_len, cos, sin, key_mask, use_reentrant=False)
+                h = checkpoint(blk, h, text_len, cos, sin, key_mask, bmin, bmax, kv_perm, use_reentrant=False)
             else:
-                h = blk(h, text_len, cos, sin, key_mask)
+                h = blk(h, text_len, cos, sin, key_mask, bmin, bmax, kv_perm)
         return self.llm2vae(self.norm_gen(h[text_len:]))  # [Nv,192]
 
 

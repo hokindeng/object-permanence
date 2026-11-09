@@ -111,8 +111,8 @@ bash pwm/launch.sh pwm -- python -m pwm.cli infer /repo/pwm/configs/wrop.yaml --
 
 The prompt is padded to the training `data.text_len` (padding keeps its positions but is hidden from the
 vision tokens), so every prompt compiles to the one training shape; a prompt longer than `text_len` is
-rejected. Padding needs `model.attention_backend: sdpa` (the NKI path's contiguous bounds cannot mask the
-middle of a sequence).
+rejected. Both attention backends support padding: `sdpa` hides the pads with `key_mask`; `nki_flash` reorders
+the K/V slots so the pads become a key prefix and every row is one contiguous bound interval.
 
 ## 5. Exporting a trained checkpoint to the diffusers layout
 
@@ -387,8 +387,8 @@ flowchart LR
 
 From `pwm/model/attention.py` (module docstring, `sdpa_two_way`, `pad_key_mask`) and
 `pwm/data/pack.py::build_positions`. Text rows attend to text only, causally; vision rows attend to all N keys;
-padding keys of a short caption or prompt are hidden from the vision rows by `key_mask` (`where(mask, -inf)`), which the NKI path cannot
-express and therefore rejects.
+padding keys of a short caption or prompt are hidden from the vision rows by `key_mask` (`where(mask, -inf)`); the NKI path
+expresses the same thing by reordering K/V to `[pad | text | vision]` so each row is one interval (`padded_two_way_bounds`).
 
 ```mermaid
 graph LR
@@ -400,7 +400,7 @@ graph LR
   V -->|"full_attention_explicit: sees text + vision"| T
   V --> V
   P -.->|"key_mask: invisible to vision rows"| V
-  V -.->|"nki_flash: contiguous bounds, cannot mask the middle → ValueError"| NK["nki_two_way"]
+  V -.->|"nki_flash: K/V reordered to [pad | text | vision], one bound interval per row"| NK["nki_two_way"]
 ```
 
 ### 8. Model structure `NanoMoT`
@@ -613,7 +613,7 @@ flowchart LR
   V7 --> RUN["first training step"]
   E["encode"] --> E1["too few frames / fps mismatch without native_fps / caption cannot fill text_len → ValueError"]
   C["consolidate"] --> C1["shards' tp/fsdp/layers or COMPLETE.world mismatch / assembled shape ≠ base → ValueError"]
-  F["infer"] --> F1["prompt > text_len → ValueError<br/>nki_flash + padding → ValueError"]
+  F["infer"] --> F1["prompt > text_len → ValueError"]
 ```
 
 After training starts there is one gate: `skip_step_abort_after` consecutive steps refused by the skip guard →

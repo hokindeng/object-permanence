@@ -107,9 +107,13 @@ class MoTBlock(nn.Module):
         cos: torch.Tensor,
         sin: torch.Tensor,
         key_mask: torch.Tensor | None = None,
+        bmin: torch.Tensor | None = None,
+        bmax: torch.Tensor | None = None,
+        kv_perm: torch.Tensor | None = None,
     ) -> torch.Tensor:
         """``h`` ``[N, D]`` = ``[text (Lt) | vision]``; ``cos/sin`` ``[N, hd]`` in ``h.dtype``; ``key_mask`` ``[N]`` bool hides
-        padded text keys (``attention.pad_key_mask``). Returns ``[N, D]``."""
+        padded text keys (``attention.pad_key_mask``); ``bmin/bmax`` ``[N]`` precomputed NKI bounds
+        (built once outside the compiled block -- see ``NanoMoT.forward``). Returns ``[N, D]``."""
         ht, hv = h[:text_len], h[text_len:]
         qt, kt, vt = self.und.qkv(self.und.norm1(ht), cos[:text_len], sin[:text_len])
         qv, kv, vv = self.gen.qkv(self.gen.norm1(hv), cos[text_len:], sin[text_len:])
@@ -117,7 +121,8 @@ class MoTBlock(nn.Module):
         q = torch.cat([qt, qv], dim=0)
         k = expand_kv(torch.cat([kt, kv], dim=0), groups)
         v = expand_kv(torch.cat([vt, vv], dim=0), groups)
-        a = two_way_attention(self.backend, q, k, v, text_len, key_mask)  # [N,H,hd]
+        bounds = None if bmin is None else ((kv_perm, bmin, bmax) if kv_perm is not None else (bmin, bmax))
+        a = two_way_attention(self.backend, q, k, v, text_len, key_mask, bounds)  # [N,H,hd]
         a = a.reshape(a.shape[0], -1)
         ht = ht + self.und.o(a[:text_len])
         hv = hv + self.gen.o(a[text_len:])
