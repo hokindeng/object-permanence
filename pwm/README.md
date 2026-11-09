@@ -143,6 +143,27 @@ same command again (`resumed from step 20`, nothing re-run) → `infer --weights
 steps in 28 s, the continuation shows the hidden objects reappearing in place) → `consolidate --step 20`. The
 four defects that run found are fixed in the commits after `1bc9889`.
 
+### Neuron SDK 2.33 DLAMI (venv mode)
+
+2026-10-20, trn2.3xlarge, *Deep Learning AMI Neuron (Ubuntu 24.04) SDK 2.33.0 20261020*, its
+`/opt/aws_neuronx_venv_torch_neuronx_2_14_0` venv (torch 2.14.0, torch-neuronx 2.14.3, neuronx-cc 2.28, nki
+0.7.0), driver 2.31.7.0, no container. The `launch.sh` venv mode, plus the VAE-decode thread fix (#3) and
+the nki_flash fixes (#4). Inference configs are the 4-core variants `example.yaml` / `wrop.yaml` with
+`parallel.fsdp: 1`; `bench` is 2 layers at `wrop.yaml` geometry, because 36 layers at `fsdp: 1` does not fit
+4 cores.
+
+| step | result |
+|---|---|
+| `pip pwm`, `preflight` | OK, no `PWM_IMAGE` |
+| bridge → `encode` → `preflight_scan` | 60 rows from the published benchmark → 60 clips (`320x192`, latent_t 30) → 60 clips OK |
+| `infer` t2v, base weights, 288×512 | 35 UniPC steps in **67.0 s** cold / **41.6 s** warm cache; whole command incl. decode and mp4 **8 min 9 s** |
+| `infer --weights PWM-WROP --v2v <clip>`, 320×192 | **35.3 s** cold / **15.2 s** warm; whole command **4 min 8 s**; clean prefix bit-identical to the source, prediction cos 0.995 vs the ground-truth continuation |
+| `bench`, `parallel.compile: true` vs `false` | **0.248** vs **0.369** s/step (median of 2 runs, 5 warmup + 8 timed): compile is **1.48x** faster |
+| `bench`, `attention_backend: sdpa` vs `nki_flash` | 0.248 vs **0.244** s/step (1.6% faster), matching the parity expected at this length |
+
+**Not yet measured on 2.33:** the 36-layer tp4 × fsdp16 recipe on a trn2.48xlarge (`train wrop.yaml`, the
+64-rank `bench` numbers below).
+
 ## Performance notes
 
 - **foreach AdamW + FSDP2 prefetch (36 layers tp4×fsdp16, 64-rank A/B, `bench --warmup 3 --steps 10`):
