@@ -5,6 +5,11 @@ diffusers ``AutoencoderKLWan`` decoder wants the raw latent, so ``z = z_norm * s
 (``latents_mean/std`` from ``vae/config.json``, identical to upstream ``WanVAE.scale``). Runs in a
 pure-CPU process (``TORCH_DEVICE_BACKEND_AUTOLOAD=0``). torchvision is never used (ABI-incompatible
 with the Neuron torch): frames go through imageio.
+
+``decode_threads`` matters: the decoder is 3-D convolutions on CPU and is the dominant cost of
+``infer`` (on a trn2.3xlarge, 288x512 latent_t 30: ~75 s to sample 35 UniPC steps on Neuron, then
+~33 min to decode). ``torch.distributed.run`` sets ``OMP_NUM_THREADS=1`` for every rank, and ``infer``
+re-execs itself under torchrun, so the decode inherits a single thread unless it is told otherwise.
 """
 
 from __future__ import annotations
@@ -14,7 +19,18 @@ import os
 import numpy as np
 import torch
 
-__all__ = ["load_vae", "latent_stats", "decode_latent", "to_uint8_frames", "write_mp4"]
+__all__ = ["load_vae", "latent_stats", "decode_latent", "decode_threads", "to_uint8_frames", "write_mp4"]
+
+
+def decode_threads(n: int = 0) -> int:
+    """Set the CPU thread count for the VAE decode and return it (``n=0`` -> every host core).
+
+    Under torchrun every rank inherits ``OMP_NUM_THREADS=1``, which leaves this single-threaded;
+    torch's own default is also only half the cores. Only rank 0 decodes, so it can have the box.
+    """
+    n = n or (os.cpu_count() or 1)
+    torch.set_num_threads(n)
+    return n
 
 
 def load_vae(vae_dir: str):
@@ -62,4 +78,7 @@ if __name__ == "__main__":
     fr = to_uint8_frames(px)
     assert fr.shape == (5, 2, 2, 3) and fr.dtype == np.uint8
     assert fr[:, 0, 0, 0].tolist() == [0, 0, 128, 255, 255], fr[:, 0, 0, 0]
-    print("decode smoke OK")
+    n = decode_threads()
+    assert n >= 1 and torch.get_num_threads() == n, (n, torch.get_num_threads())
+    assert decode_threads(2) == 2 and torch.get_num_threads() == 2
+    print(f"decode smoke OK (decode_threads default {n})")

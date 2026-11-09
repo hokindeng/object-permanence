@@ -326,6 +326,7 @@ def cmd_infer(cfg, args) -> None:
     from pwm.data.pack import load_tokenizer, pad_text_ids, text_ids_for  # noqa: PLC0415
     from pwm.inference.decode import (  # noqa: PLC0415
         decode_latent,
+        decode_threads,
         load_vae,
         to_uint8_frames,
         write_mp4,
@@ -385,6 +386,10 @@ def cmd_infer(cfg, args) -> None:
         out.with_suffix(".pt"),
     )
     if out.suffix == ".mp4":
+        # torchrun pins every rank to OMP_NUM_THREADS=1; the CPU VAE decode dominates infer,
+        # and only rank 0 gets here, so give it the whole host.
+        nt = decode_threads(args.decode_threads)
+        print(f"decoding on {nt} CPU threads", flush=True)
         vae = load_vae(str(Path(cfg.checkpoint_dir) / "vae"))
         frames = to_uint8_frames(decode_latent(latent, vae))
         write_mp4(frames, str(out), d.fps)
@@ -444,6 +449,12 @@ def _parser() -> argparse.ArgumentParser:
     p.add_argument("--guidance", type=float, default=None)
     p.add_argument("--shift", type=float, default=None)
     p.add_argument("--seed", type=int, default=None)
+    p.add_argument(
+        "--decode-threads",
+        type=int,
+        default=0,
+        help="CPU threads for the VAE decode (0 = every host core; torchrun otherwise leaves it at 1)",
+    )
     p = sub.add_parser("consolidate")  # CPU, single process: no device/compile/relaunch flags
     p.add_argument("config", help="the YAML the shards were trained with")
     p.add_argument("--ckpt", default=None, help="override checkpoint_dir (the base the shards were trained from)")
