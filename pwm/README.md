@@ -6,37 +6,45 @@ PWM-WROP fine-tune) and trains and samples on Neuron. `configs/wrop.yaml` is the
 
 ## 1. Machine
 
-One trn2 instance (trn2.3xlarge for inference and small experiments, trn2.48xlarge for 36-layer training) running
-a Neuron DLAMI with Docker. You need a Neuron Deep Learning Container whose PyTorch runs natively on Trainium
-(`torch_neuronx` ≥ 2.11.3 with `device="neuron"` and `torch.compile(backend="neuron")`). pwm was developed on a
-pre-release build of that runtime from the AWS Neuron team; ask them for the image or use the public release once
-it ships, pull it by digest, and export the pinned reference as `PWM_IMAGE`. Pin the host driver to the version
-the runtime expects, download the weights, then create the container and check the host:
+One trn2 instance (trn2.3xlarge for inference and small experiments, trn2.48xlarge for 36-layer training) on the
+**Neuron SDK 2.33 DLAMI** (*Deep Learning AMI Neuron (Ubuntu 24.04) SDK 2.33.0*, multi-framework). It ships the
+public release of the native-PyTorch runtime pwm needs (`device="neuron"`, `torch.compile(backend="neuron")`) as a
+ready venv, `/opt/aws_neuronx_venv_torch_neuronx_2_14_0`: torch 2.14.0, torch-neuronx 2.14.3, neuronx-cc 2.28,
+nki 0.7.0, host driver 2.31.7.0. pwm runs in that venv directly; no container is involved. Download the weights,
+install the pwm dependencies into the venv and check the host:
 
 ```bash
 git clone https://github.com/hokindeng/object-permanence && cd object-permanence
-export PWM_IMAGE=<registry>/<image>@sha256:<digest>
-sudo apt-get install -y --allow-downgrades --allow-change-held-packages aws-neuronx-dkms=2.28.0.0 && sudo apt-mark hold aws-neuronx-dkms   # reboot if the version changed
 huggingface-cli download nvidia/Cosmos3-Nano --local-dir ~/weights/Cosmos3-Nano   # transformer/ (7 shards), vae/, text_tokenizer/
 huggingface-cli download Hokin/PWM-WROP --local-dir ~/weights/PWM-WROP             # optional: the released fine-tune, for sampling
-bash pwm/launch.sh pip pwm          # create container "pwm" from $PWM_IMAGE and install the pwm dependencies
-bash pwm/launch.sh preflight        # read-only checks: driver, devices, image, cache, weights, box idle
+bash pwm/launch.sh pip pwm          # install the pwm dependencies into the DLAMI venv (once)
+bash pwm/launch.sh preflight        # read-only checks: driver, devices, venv, cache, weights, box idle
 ```
 
-`DKMS_REQUIRED` (default 2.28.0.0) is the driver version `preflight` insists on; override it to match your
-runtime. Host paths mounted into the container (overridable by environment variables): `$HOME/weights` →
-`/weights`, `$HOME/out` → `/out`, `$HOME/neff_cache` → `/neff_cache`, this repository → `/repo`.
-`bash pwm/launch.sh pwm -- <cmd>` runs `<cmd>` inside the container and tees the log to `~/out/pwm/<UTC>.log`;
-`DETACH=1` runs it in the background.
+`launch.sh` finds the venv on its own (`PWM_VENV` overrides the path). `pip` installs from PyPI with
+torch / torch-neuronx / neuronx-cc / nki / numpy pinned to the venv's own versions, and fails if any of them
+changed or torchvision appeared. The commands below use the same paths in every mode: on first use `launch.sh`
+links `/repo` → this repository, `/weights` → `$HOME/weights`, `/out` → `$HOME/out` and `/neff_cache` →
+`$HOME/neff_cache` (`sudo ln -s`, once; the host paths are overridable by environment variables).
+`bash pwm/launch.sh pwm -- <cmd>` runs `<cmd>` with the venv first on `PATH` and the runtime environment set,
+and tees the log to `~/out/pwm/<UTC>.log`; `DETACH=1` runs it in the background. `DKMS_REQUIRED` (default
+2.31.7.0, the 2.33 DLAMI's driver) is the driver version `preflight` insists on.
+
+**Container mode.** Setting `PWM_IMAGE=<registry>/<image>@sha256:<digest>` to a Neuron Deep Learning Container
+whose PyTorch runs natively on Trainium (`torch_neuronx` ≥ 2.11.3) runs everything inside a persistent container
+named `<name>` instead, with the same host directories mounted at the same paths; `bash pwm/launch.sh pip <name>`
+creates it. The host driver must match the image's runtime (`DKMS_REQUIRED`, default 2.30.2.0 in container
+mode): 2.28.0.0 for the pre-release torch 2.11 image pwm was first developed on, 2.30.2.0 for the torch
+2.12 / 2.13 builds on the SDK 2.32 DLAMI.
 
 ## 2. Data
 
 Encode (video, caption) rows into fixed-shape clips, once, on CPU. The manifest and the videos must live under
-`~/out` so the container can see them. Renders from the data factory (Part 1 of the root README) become a
+`~/out` (`/out`) so every mode sees them at the same path. Renders from the data factory (Part 1 of the root README) become a
 manifest with one command:
 
 ```bash
-# renders under ~/out/renders on the host = /out/renders in the container; paths in the manifest are container paths
+# renders under ~/out/renders = /out/renders; paths in the manifest are /out paths
 bash pwm/launch.sh pwm -- sh -c 'python -m pwm.data.from_object_permanence /out/renders > /out/rows.jsonl'
 # rows.jsonl: {"id": ..., "videos": [input_video.mp4, target_video.mp4], "caption": <prompt.txt>, "fps": 24.0,
 #              "skip_frames": <input frames - 57>, "cond_latent_frames": 15}
@@ -174,7 +182,7 @@ graph TD
   root --> op["object_permanence/  (data factory, Part 1)"]
   root --> pwm["pwm/"]
   pwm --> cli["cli.py<br/>train · bench · infer · encode · consolidate"]
-  pwm --> launch["launch.sh<br/>preflight · pip · &lt;container&gt; -- cmd"]
+  pwm --> launch["launch.sh<br/>preflight · pip · &lt;name&gt; -- cmd<br/>(DLAMI venv or container)"]
   pwm --> configs["configs/<br/>config.py · wrop.yaml · example.yaml"]
   pwm --> model["model/<br/>mot · block · attention · rope · diffusion · patchify · load · convert · consolidate"]
   pwm --> data["data/<br/>from_object_permanence · encode · dataset · pack · preflight_scan"]
